@@ -70,20 +70,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | The $query_builder variables lets you determine whether or not to load
 | the query builder class.
 */
+defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
+	
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	//'port' => 3307,
-	'username' => 'root',
-	'password' => '',
-	'database' => 'db_comunit',
+	'hostname' => 'gtxsoftware.com.br',
+     'port' => 3306,
+	'username' => 'gtxso802_marcio',
+	'password' => 'Dimarmore@123',
+	'database' => 'gtxso802_dimarmore',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
+        //'db_debug' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'Development'),
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',
@@ -95,3 +98,4 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
