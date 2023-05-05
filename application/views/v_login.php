@@ -7,7 +7,7 @@
                         <div class="col-lg-12">
                             <div class="px-3 py-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Comunidade <img src="<?= base_url('assets/img/x.png') ?>" alt="" width="65"></h1>
+                                    <h1 class="h4 text-gray-900 mb-4"> <img src="<?= base_url('assets/img/LogoPqn.jpg') ?>" alt="" width="205"></h1>
                                 </div>
                                 <hr>
 
@@ -26,7 +26,7 @@
                                         <label class="custom-control-label" for="customCheck">Relembrar senha</label>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-block p-4">Entrar</button>
+                                <button type="submit" class="btn btn-success btn-block p-4">Entrar</button>
                                 <?php form_close(); ?>
                                 <hr>
                                 <div class="text-center">
