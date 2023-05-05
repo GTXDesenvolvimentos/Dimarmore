@@ -29,7 +29,7 @@
                                     <input type="email" class="form-control  p-4" name="email" id="email" placeholder="Informe seu email...">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control p-4" name="password" id="senha" placeholder="Informe sua senha...">
+                                    <input type="password" class="form-control p-4" name="password" id="password" placeholder="Informe sua senha...">
                                 </div>
                                 <div class="form-group">
                                     <div class="custom-control custom-checkbox small">
@@ -37,7 +37,7 @@
                                         <label class="custom-control-label" for="customCheck">Relembrar senha</label>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-success btn-block p-4" onclick="logar()">Entrar</button>
+                                <button type="button" class="btn btn-success btn-block p-4" onclick="login()">Entrar</button>
                                 <hr>
                                 <div class="text-center">
                                     <a class="small" href="forgot-password.html">Esqueceu sua senha?</a>
@@ -54,13 +54,13 @@
     </div>
 </div>
 <script>
-    function logar() {
+    function login() {
         var dadosajax = {
             email: $('#email').val(),
-            senha: $('#senha').val()
+            password: $('#password').val()
         };
         $.ajax({
-            url: "http://localhost/dimarmore/login/logar",
+            url: "http://localhost/dimarmore/login/login",
             data: dadosajax,
             type: 'POST', //MÉTODO DE ENVIO TIPO POST//
             dataType: "json",

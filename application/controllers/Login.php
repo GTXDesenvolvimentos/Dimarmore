@@ -24,11 +24,11 @@ class Login extends CI_Controller
         /////////////////////////////////////////////////
     }
 
-    public function logar()
+    public function login()
     {
         $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('senha', 'Senha', 'required');
+        $this->form_validation->set_rules('password', 'Senha', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             $erros = array(
@@ -37,21 +37,21 @@ class Login extends CI_Controller
             );
             echo json_encode($erros);
         } else {
-            // $dados = array(
-            //     "email" => $this->input->post('email'),
-            //     "password" => $this->input->post('password')
-            // );
+            $dados = array(
+                "email" => $this->input->post('email'),
+                "password" => $this->input->post('password')
+            );
 
-            // $return = $this->m_retorno->login($dados);
+            $return = $this->m_retorno->login($dados);
 
-            // if ($return === FALSE) {
-            //     $return['msg'] = '<div class="col-12 mb-1 p-0"><div class="card bg-danger text-white shadow"><div class="card-body">Atenção...<hr class="m-1"><div class="text-white-100">Usuário ou senha inválido!<br>Tente novamente</div></div></div></div>';
-            //     $this->load->view('includes/header');
-            //     $this->load->view('v_login', $return);
-            //     $this->load->view('includes/footer');
-            // } else {
-            //     redirect('home');
-            // }
+            if ($return === FALSE) {
+                $return['msg'] = '<div class="col-12 mb-1 p-0"><div class="card bg-danger text-white shadow"><div class="card-body">Atenção...<hr class="m-1"><div class="text-white-100">Usuário ou senha inválido!<br>Tente novamente</div></div></div></div>';
+                $this->load->view('includes/header');
+                $this->load->view('v_login', $return);
+                $this->load->view('includes/footer');
+            } else {
+                redirect('home');
+            }
         }
 
 
