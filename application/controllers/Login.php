@@ -24,37 +24,72 @@ class Login extends CI_Controller
         /////////////////////////////////////////////////
     }
 
-    public function login()
+    public function logar()
     {
-
+        $this->load->library('form_validation');
         $this->form_validation->set_rules('email', 'Email', 'required');
-        $this->form_validation->set_rules('password', 'Senha', 'required');
+        $this->form_validation->set_rules('senha', 'Senha', 'required');
+
         if ($this->form_validation->run() == FALSE) {
-            /////////////////////////////////////////////////
-            //// TELA DE LOGIN
-            /////////////////////////////////////////////////
-            $return['msg'] = '<div class="col-12 mb-1 p-0"><div class="card bg-danger text-white shadow"><div class="card-body">Atenção...<hr class="m-1"><div class="text-white-100">' . validation_errors() . '</div></div></div></div>';
-            $this->load->view('includes/header');
-            $this->load->view('v_login', $return);
-            $this->load->view('includes/footer');
-            /////////////////////////////////////////////////
-        } else {
-            $dados = array(
-                "email" => $this->input->post('email'),
-                "password" => $this->input->post('password')
+            $erros = array(
+                'mensagens' => validation_errors(),
+                'cod' => 2
             );
+            echo json_encode($erros);
+        } else {
+            // $dados = array(
+            //     "email" => $this->input->post('email'),
+            //     "password" => $this->input->post('password')
+            // );
 
-            $return = $this->m_retorno->login($dados);
+            // $return = $this->m_retorno->login($dados);
 
-            if ($return === FALSE) {
-                $return['msg'] = '<div class="col-12 mb-1 p-0"><div class="card bg-danger text-white shadow"><div class="card-body">Atenção...<hr class="m-1"><div class="text-white-100">Usuário ou senha inválido!<br>Tente novamente</div></div></div></div>';
-                $this->load->view('includes/header');
-                $this->load->view('v_login', $return);
-                $this->load->view('includes/footer');
-            } else {
-                redirect('home');
-            }
+            // if ($return === FALSE) {
+            //     $return['msg'] = '<div class="col-12 mb-1 p-0"><div class="card bg-danger text-white shadow"><div class="card-body">Atenção...<hr class="m-1"><div class="text-white-100">Usuário ou senha inválido!<br>Tente novamente</div></div></div></div>';
+            //     $this->load->view('includes/header');
+            //     $this->load->view('v_login', $return);
+            //     $this->load->view('includes/footer');
+            // } else {
+            //     redirect('home');
+            // }
         }
+
+
+
+
+
+
+
+
+
+
+
+        // if ($this->form_validation->run() == FALSE) {
+        //     /////////////////////////////////////////////////
+        //     //// TELA DE LOGIN
+        //     /////////////////////////////////////////////////
+        //     $return['msg'] = '<div class="col-12 mb-1 p-0"><div class="card bg-danger text-white shadow"><div class="card-body">Atenção...<hr class="m-1"><div class="text-white-100">' . validation_errors() . '</div></div></div></div>';
+        //     $this->load->view('includes/header');
+        //     $this->load->view('v_login', $return);
+        //     $this->load->view('includes/footer');
+        //     /////////////////////////////////////////////////
+        // } else {
+        //     $dados = array(
+        //         "email" => $this->input->post('email'),
+        //         "password" => $this->input->post('password')
+        //     );
+
+        //     $return = $this->m_retorno->login($dados);
+
+        //     if ($return === FALSE) {
+        //         $return['msg'] = '<div class="col-12 mb-1 p-0"><div class="card bg-danger text-white shadow"><div class="card-body">Atenção...<hr class="m-1"><div class="text-white-100">Usuário ou senha inválido!<br>Tente novamente</div></div></div></div>';
+        //         $this->load->view('includes/header');
+        //         $this->load->view('v_login', $return);
+        //         $this->load->view('includes/footer');
+        //     } else {
+        //         redirect('home');
+        //     }
+        // }
     }
 
 
@@ -113,7 +148,7 @@ class Login extends CI_Controller
                     $ret = $this->m_insert->cadUsuario($dados);
                     if ($ret === 1) {
                         $return['patrocinador'] = $this->input->post('patrocinador');
-                        $return['msg'] = '<div class="col-12 mb-1 p-0 text-center"><div class="card bg-success text-white shadow"><div class="card-body">Parabéns!<hr class="m-1"><div class="text-white-100">Cadastro efetuado com sucesso!<a href="'.base_url().'" class="btn btn-primary">Faça o login</a></div></div></div></div>';
+                        $return['msg'] = '<div class="col-12 mb-1 p-0 text-center"><div class="card bg-success text-white shadow"><div class="card-body">Parabéns!<hr class="m-1"><div class="text-white-100">Cadastro efetuado com sucesso!<a href="' . base_url() . '" class="btn btn-primary">Faça o login</a></div></div></div></div>';
                         $this->load->view('includes/header');
                         $this->load->view('v_register', $return);
                         $this->load->view('includes/footer');
