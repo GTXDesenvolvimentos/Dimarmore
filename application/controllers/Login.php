@@ -32,8 +32,8 @@ class Login extends CI_Controller
 
         if ($this->form_validation->run() == FALSE) {
             $erros = array(
-                'mensagens' => validation_errors(),
-                'cod' => 2
+                'message' => validation_errors(),
+                'code' => 2
             );
             echo json_encode($erros);
         } else {

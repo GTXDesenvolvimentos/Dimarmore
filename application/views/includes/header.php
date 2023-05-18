@@ -15,3 +15,4 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+<script>var base_url = '<?php echo base_url();?>'</script>
