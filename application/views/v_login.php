@@ -12,10 +12,10 @@
                                 <hr>
                                 <form method="POST" action="" id="formLogin">
                                     <div class="form-group">
-                                        <input type="email" class="form-control  p-4" name="email" id="email" placeholder="Informe seu email...">
+                                        <input type="email" class="form-control  p-4" name="txtEmail" id="txtEmail" placeholder="Informe seu email...">
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control p-4" name="password" id="password" placeholder="Informe sua senha...">
+                                        <input type="password" class="form-control p-4" name="txtPassword" id="txtPassword" placeholder="Informe sua senha...">
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
@@ -23,7 +23,7 @@
                                             <label class="custom-control-label" for="customCheck">Relembrar senha</label>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-success btn-block p-4" id="login">Entrar</button>
+                                    <button type="button" class="btn btn-success btn-block p-4" id="btnLogin">Entrar</button>
                                     <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Esqueceu sua senha?</a>

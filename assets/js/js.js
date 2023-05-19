@@ -1,6 +1,6 @@
 //FUNÇÃO DE LOGIN
 $(document).ready(function() {
-    $('#login').click(function(e) {
+    $('#btnLogin').click(function(e) {
         e.preventDefault();
         var serializeDados = $('#formLogin').serialize();
         $.ajax({
@@ -17,25 +17,22 @@ $(document).ready(function() {
                     showConfirmButton: false
                 });
             },
-            // complete: function(data) {
-            //     swal.fire({
-            //         timer: 120,
-            //         title: "Aguarde!",
-            //         text: "Logando no sistema...",
-            //         imageUrl: base_url + "/assets/img/gifs/loader.gif",
-            //         showConfirmButton: false
-            //     });
+            //complete: function(data) {
+            // alert('123');
             // },
             success: function(data) {
-                console.log(data.code);
+                console.log(data);
                 if (data.code == 2) {
                     swal.fire({
                         title: "Atenção!",
-                        text: data.message,
-                        imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                        html: data.message,
+                        icon: 'info',
                         showConfirmButton: false
                     });
-
+                } else if (data.code == 0) {
+                    swal.fire("Atenção!", data.message, "warning");
+                } else {
+                    window.location.href = base_url;
                 }
             },
             error: function(xhr, er) {

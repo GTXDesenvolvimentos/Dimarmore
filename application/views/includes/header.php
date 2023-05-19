@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Desenvolvido por GTX Software">
-    <meta name="author" content="árcio">
+    <meta name="author" content="Márcio">
     <title>GTX Software</title>
     <link href="<?= base_url("assets/img/x.png") ?>" rel="icon" type="image/png">
     <!-- <link href="<?= base_url('/assets/css/all.min.css') ?>" rel="stylesheet" type="text/css"> -->

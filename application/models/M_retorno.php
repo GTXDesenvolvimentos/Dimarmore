@@ -13,17 +13,16 @@ class M_retorno extends CI_Model
     ////////////////////////////////////////
     public function login($dados)
     {
-        $this->db->where('email', $dados['email']);
-        $this->db->where('password', md5($dados['password']));
-        $this->db->where('A.status_users !=', 'D');
-        $this->db->join("tbl_indicados B", "A.id_indicado = B.id_indicado", "inner");
+        $this->db->where('usuario', $dados['email']);
+        $this->db->where('senha', md5($dados['password']));
+        $this->db->where('A.status !=', 'D');
         $retorno = $this->db->get('tbl_users A');
        
         if($retorno->num_rows() > 0){
             $this->session->set_userdata("id_users", $retorno->row()->id_users);
-            $this->session->set_userdata("name", $retorno->row()->name);
-            $this->session->set_userdata("codigo", $retorno->row()->codigo);
-            $this->session->set_userdata("status_users", $retorno->row()->status_users);
+            $this->session->set_userdata("nome", $retorno->row()->nome);
+            $this->session->set_userdata("nivel", $retorno->row()->nivel);
+            $this->session->set_userdata("status", $retorno->row()->status);
             $this->session->set_userdata("logado", 1);
             return true;
         }else{
