@@ -12,7 +12,6 @@ class Home extends MY_Controller {
     public function index() {
        //$retorno['into_top'] = $this->load->view('includes/into/into_top', '', TRUE);
        $this->load->view('includes/header');
-       $this->load->view('includes/menu_left');
        $this->load->view('includes/menu_sup');
        $this->load->view('v_home');
        $this->load->view('includes/footer');
