@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class depto extends MY_Controller
+class deptos extends MY_Controller
 {
 
     ////////////////////////////////////////
