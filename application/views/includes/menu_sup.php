@@ -1,11 +1,78 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><img class="" src="<?= base_url('/assets/img/logo.png') ?>" width="150"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-success" href="#">Dashboard</a></li>
+            <li class="nav-item active"><a class="nav-link" href="<?=base_url('deptos')?>">Departamentos</a></li>
+            <li class="nav-item active"><a class="nav-link" href="<?=base_url('projetos')?>">Projetos</a></li>
+            <li class="nav-item active"><a class="nav-link" href="<?=base_url('etapas')?>">Etapas</a></li>
+            <li class="nav-item active"><a class="nav-link" href="<?=base_url('atividades')?>">Atividades</a></li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="<?=base_url('configuracoes')?>">Configurações</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="<?=base_url('usuarios')?>">Pefil de usuário</a>
+                    </div>
+                </li>
+            </ul>
+            <button class="btn btn-outline-warning my-4 px-4 my-sm-0" type="submit">Sair</button>
+        </form>
+    </div>
+</nav>
+
+
+
+
+
+
+
+<!-- 
+
+
+
+
+
+
+
 <div id="content-wrapper" class="d-flex flex-column">
     <div id="content">
-        <nav class="navbar navbar-expand navbar-dark bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-dark bg-dark topbar mb-4 static-top shadow">
             <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                 <i class="fa fa-bars"></i>
             </button>
-            <div class="input-group">
-                Bem vindo!
+
+            
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#"><button class="btn btn-success">Dashboard</button></a></li>
+                    <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastro</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Departamentos</a>
+                            <a class="dropdown-item" href="#">Projetos</a>
+                            <a class="dropdown-item" href="#">Tarefas</a>
+                            <a class="dropdown-item" href="#">Atividades</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Usuários</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Relatórios</a>
+                    </li>
+                </ul>
             </div>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown no-arrow d-sm-none">
@@ -16,10 +83,8 @@
                         <span class="badge badge-danger badge-counter">3+</span>
                     </a>
                     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                        <h6 class="dropdown-header">
-                            Alerts Center
-                        </h6>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
+                        <h6 class="dropdown-header">Alertas</h6>
+                        <!-- <a class="dropdown-item d-flex align-items-center" href="#">
                             <div class="mr-3">
                                 <div class="icon-circle bg-primary">
                                     <i class="fas fa-file-alt text-white"></i>
@@ -52,11 +117,11 @@
                                 Spending Alert: We've noticed unusually high spending for your account.
                             </div>
                         </a>
-                        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                    </div>
-                </li>
+                        <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a> -->
+</div>
+</li>
 
-                <li class="nav-item dropdown no-arrow mx-1">
+<!-- <li class="nav-item dropdown no-arrow mx-1">
                     <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-envelope fa-fw"></i>
                         <span class="badge badge-danger badge-counter">7</span>
@@ -111,29 +176,19 @@
                         </a>
                         <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                     </div>
-                </li>
-
+                </li> 
                 <div class="topbar-divider d-none d-sm-block"></div>
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Olá <?=$this->session->userdata('name');?></span>
+                        <span class="mr-2 d-none d-lg-inline text-gray-600 small">Olá <?= $this->session->userdata('name'); ?></span>
                         <img class="img-profile rounded-circle" src="<?= base_url('assets/img/x.png') ?>">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Profile
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Settings
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Activity Log
-                        </a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>Perfil de Usuário</a>
+                        <a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>Configurações</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="<?=base_url('login/logout')?>"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Sair</a></div>
+                        <a class="dropdown-item" href="<?= base_url('login/logout') ?>"><i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Sair</a>
+                    </div>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
