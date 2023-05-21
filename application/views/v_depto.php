@@ -8,7 +8,7 @@
                 <a href="#!" class="btn btn-sm btn-success btn-lg toolbar" data-toggle="modal" data-target="#ModalDepto">ADICIONAR</a>
                 <div class="table-responsive">
                     <div class="table-responsive">
-                        <table class="table align-items-center table-flush" id="table_depto" data-toolbar=".toolbar" toobar data-toggle="table" data-flat="true" data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]" data-url="<?= base_url('deptos/retDepto') ?>">
+                        <table class="table align-items-center table-flush" id="tableDepto" data-toolbar=".toolbar" toobar data-toggle="table" data-flat="true" data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]" data-url="<?= base_url('deptos/retDepto') ?>">
                             <thead class="thead-light">
                                 <tr>
                                     <th data-field="id_departamento" data-align="center" data-sortable="true">ID</th>
@@ -19,7 +19,6 @@
                                 </tr>
                             </thead>
                         </table>
-
                     </div>
                 </div>
             </div>
