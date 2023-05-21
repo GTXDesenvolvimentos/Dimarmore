@@ -39,8 +39,13 @@ class deptos extends MY_Controller
     public function cadDepto()
     {
         $this->load->library('form_validation');
-        $this->form_validation->set_rules('txtCodDepto', 'Código do departamento', 'required|is_unique[tbl_departamentos.cod_departamento]');
-        $this->form_validation->set_rules('txtDescDepto', 'Departamento', 'required|is_unique[tbl_departamentos.descricao]');
+        if ($this->input->post('txtIdDepto') !== '') {
+            $this->form_validation->set_rules('txtCodDepto', 'Código do departamento', 'required');
+            $this->form_validation->set_rules('txtDescDepto', 'Departamento', 'required');
+        } else {
+            $this->form_validation->set_rules('txtCodDepto', 'Código do departamento', 'required|is_unique[tbl_departamentos.cod_departamento]');
+            $this->form_validation->set_rules('txtDescDepto', 'Departamento', 'required|is_unique[tbl_departamentos.descricao]');
+        }
 
         if ($this->form_validation->run() == FALSE) {
             $return = array(
@@ -51,7 +56,6 @@ class deptos extends MY_Controller
             $value = $this->input->post();
             $this->load->model('M_insert');
             $return = $this->M_insert->cadDepto($value);
-            
         }
         echo json_encode($return);
     }
@@ -66,7 +70,7 @@ class deptos extends MY_Controller
         $id_departamento = $this->input->post('id_departamento');
         $this->load->model('M_retorno');
         $retorno = $this->M_retorno->retUsuarios($id_departamento);
-       
+
         if ($retorno->num_rows() > 0) {
             $return[] = array(
                 'ret' => 3,

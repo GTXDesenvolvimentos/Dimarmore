@@ -14,27 +14,44 @@ class M_insert extends CI_Model
     ////////////////////////////////////////   
     public function cadDepto($dados)
     {
-        $dados = array(
+        $values = array(
             "cod_departamento" => $dados['txtCodDepto'],
             "descricao" => $dados['txtDescDepto'],
         );
 
         $this->db->trans_begin();
-        $this->db->insert('tbl_departamentos', $dados);
-        if ($this->db->trans_status() === FALSE) {
-            $this->db->trans_rollback();
-            $return = array(
-                'code' => 0,
-                'message' => "Erro ao gravar os dados!"
-            );
+        if ($dados['txtIdDepto'] == '') {
+            $this->db->insert('tbl_departamentos', $values);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao gravar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Deparatamento cadastrado com sucesso!"
+                );
+            }
         } else {
-            $this->db->trans_commit();
-            $return = array(
-                'code' => 1,
-                'message' => "Deparatamento cadastrado com sucesso!"
-            );
+            $this->db->where('id_departamento', $dados['txtIdDepto']);
+            $this->db->update('tbl_departamentos', $values);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao atualizar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Deparatamento atualizado com sucesso!"
+                );
+            }
         }
         return $return;
     }
-
 }
