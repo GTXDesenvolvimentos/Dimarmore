@@ -25,7 +25,7 @@
                     </div>
                 </li>
             </ul>
-            <button class="btn btn-outline-warning my-4 px-4 my-sm-0" type="submit">Sair</button>
+            <a href="<?=base_url('login/logout')?>" class="btn btn-outline-warning my-4 px-4 my-sm-0" type="submit">Sair</a>
         </form>
     </div>
 </nav>
