@@ -15,6 +15,7 @@ class deptos extends MY_Controller
         $this->load->view('includes/header');
         $this->load->view('includes/menu_sup');
         $this->load->view('v_depto');
+        $this->load->view('includes/modal');
         $this->load->view('includes/footer');
     }
 
@@ -35,34 +36,22 @@ class deptos extends MY_Controller
     // CRIADO POR MARCIO SILVA            
     // DATA: 09/02/2023                   
     ////////////////////////////////////////
-    public function cadastrarDepartamento()
+    public function cadDepto()
     {
-        $this->form_validation->set_rules('cod_departamento', 'Código do departamento', 'required|is_unique[tbl_departamentos.cod_departamento]');
-        $this->form_validation->set_rules('descricao', 'Departamento', 'required|is_unique[tbl_departamentos.descricao]');
+        $this->load->library('form_validation');
+        $this->form_validation->set_rules('txtCodDepto', 'Código do departamento', 'required|is_unique[tbl_departamentos.cod_departamento]');
+        $this->form_validation->set_rules('txtDescDepto', 'Departamento', 'required|is_unique[tbl_departamentos.descricao]');
 
         if ($this->form_validation->run() == FALSE) {
-            $return[] = array(
-                'ret' => 3,
-                'msg' => validation_errors()
+            $return = array(
+                'code' => 2,
+                'message' => validation_errors()
             );
         } else {
-
             $value = $this->input->post();
-
             $this->load->model('M_insert');
-            $returno = $this->M_insert->cadastrarDepartamento($value);
-
-            if ($returno == 1) {
-                $return[] = array(
-                    'ret' => 1,
-                    'msg' => 'Departamento cadastrado com sucesso!'
-                );
-            } else {
-                $return[] = array(
-                    'ret' => 0,
-                    'msg' => 'Não foi possível realizar a inserção do departamento!'
-                );
-            }
+            $return = $this->M_insert->cadDepto($value);
+            
         }
         echo json_encode($return);
     }

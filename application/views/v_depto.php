@@ -33,34 +33,4 @@
     </script>
 
 
-    <div class="modal fade" data-backdrop="static" id="ModalDepto" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg " role="document">
-            <div class="modal-content">
-                <div class="modal-header bg-success">
-                    <h5 class="modal-title" id="exampleModalLabel">Cadastro de Departamento</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true" onclick="limpaDireitosAcessos();">&times;</span>
-                    </button>
-                </div>
-                <form method="post" id="cadastrarDepartamento">
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label>Código do departamento:</label>
-                                <input type="number" class="form-control" name="cod_departamento" id="cod_departamento" placeholder="Código do departamento">
-                            </div>
-
-                            <div class="form-group col-md-12 col-sm-12">
-                                <label>Descrição:</label>
-                                <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Nome da descrição">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-success" style="background-color: #fff6ef;">
-                        <button type="button" class="btn btn-outline-danger" data-dismiss="modal" onclick="limpaDireitosAcessos();">Sair</button>
-                        <button type="submit" class="btn btn-outline-warning btn-mini">Salvar</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+    

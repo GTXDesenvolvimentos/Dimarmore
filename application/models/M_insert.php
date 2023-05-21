@@ -12,25 +12,29 @@ class M_insert extends CI_Model
     // CRIADO POR MARCIO SILVA            
     // DATA: 31/05/2019                   
     ////////////////////////////////////////   
-    public function cadUsuario($dados)
+    public function cadDepto($dados)
     {
+        $dados = array(
+            "cod_departamento" => $dados['txtCodDepto'],
+            "descricao" => $dados['txtDescDepto'],
+        );
+
         $this->db->trans_begin();
-        $this->db->insert('tbl_users', $dados);
+        $this->db->insert('tbl_departamentos', $dados);
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
-            $retorno = 0;
+            $return = array(
+                'code' => 0,
+                'message' => "Erro ao gravar os dados!"
+            );
         } else {
-            $dados = array("codigo" => date('mdhis'));
-            $this->db->insert('tbl_indicados', $dados);
-            if ($this->db->trans_status() === FALSE) {
-                $this->db->trans_rollback();
-                $retorno = 0;
-            } else {
-                $this->db->trans_commit();
-                $retorno = 1;
-            }
+            $this->db->trans_commit();
+            $return = array(
+                'code' => 1,
+                'message' => "Deparatamento cadastrado com sucesso!"
+            );
         }
-        return $retorno;
+        return $return;
     }
 
 
