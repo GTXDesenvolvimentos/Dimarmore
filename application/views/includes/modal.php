@@ -5,8 +5,9 @@
             <form method="post" id="formDepartamentos">
                 <div class="modal-header">
                     <h4 class="modal-title">Departamentos</h4>
-                    <button type="button" class="close" data-dismiss="modal" onclick="limpaForm();">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
+                <input type="number" name="txtIdDepto" id="txtIdDepto">
                 <div class="modal-body p-2">
                     <div class="form-group col-12">
                         <label class="m-0">Código do departamento:</label>
@@ -19,7 +20,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpaForm();">Sair</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
                     <button type="button" class="btn btn-success" id="btnDepartamentos">Salvar</button>
                 </div>
             </form>
