@@ -17,15 +17,15 @@ class M_retorno extends CI_Model
         $this->db->where('senha', md5($dados['password']));
         $this->db->where('A.status !=', 'D');
         $retorno = $this->db->get('tbl_users A');
-       
-        if($retorno->num_rows() > 0){
+
+        if ($retorno->num_rows() > 0) {
             $this->session->set_userdata("id_users", $retorno->row()->id_users);
             $this->session->set_userdata("nome", $retorno->row()->nome);
             $this->session->set_userdata("nivel", $retorno->row()->nivel);
             $this->session->set_userdata("status", $retorno->row()->status);
             $this->session->set_userdata("logado", 1);
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -44,14 +44,37 @@ class M_retorno extends CI_Model
         $retorno = $this->db->get('tbl_departamentos');
         return $retorno;
     }
-    
-   
 
 
+    ////////////////////////////////////////
+    // RETORNO DE ETAPAS                  //
+    // CRIADO POR MARCIO SILVA            //
+    // DATA: 22/05/2022                   //
+    ////////////////////////////////////////
+    public function retEtapas()
+    {
 
+        $this->db->select('*');
+        // $this->db->select("DATE_FORMAT(dtcria, '%d/%m/%Y') AS dtcria", FALSE);
+        $this->db->where('status !=', 'D');
+        $retorno = $this->db->get('tbl_etapas');
+        return $retorno;
+    }
 
+    ////////////////////////////////////////
+    // RETORNO DE ETAPAS                  //
+    // CRIADO POR MARCIO SILVA            //
+    // DATA: 22/05/2022                   //
+    ////////////////////////////////////////
+    public function retUsers()
+    {
 
+        $this->db->select('*');
+        $this->db->where('status !=', 'D');
+        $retorno = $this->db->get('tbl_users');
 
+        return $retorno;
+    }
 
 
 
