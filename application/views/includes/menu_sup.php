@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"><img class="" src="<?= base_url('/assets/img/logo.png') ?>" width="150"></a>
+    <a class="navbar-brand" href="#"><img class="" src="<?= explode('.',gethostbyaddr($_SERVER['REMOTE_ADDR']))[1] == 'ntcinpal' ? base_url('/assets/img/LogoPqn.jpg') : base_url('/assets/img/logo.png'); ?>" width="150"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
