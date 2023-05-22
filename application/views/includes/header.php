@@ -15,6 +15,9 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- links bootsrapTable -->
     <link href="https://unpkg.com/bootstrap-table@1.21.4/dist/bootstrap-table.min.css" rel="stylesheet">
+    <!-- SelectPicker-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.css" integrity="sha512-cH0Nl/sqUkz1lqxq3KbVfqJMrgZT2ZdCY0rf3AbeZc9yYY8pHbwgQlXCpmAWix73ivasnGJJetBX59gsx5N0Eg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css" integrity="sha512-8IKwXYhvXkrNGaU06NnGsiDqJign94kk5+AAdTu4wR3hkuU5x2Weo1evN3xYSpnRtIJNLwAT2/R4ITAAv0IhdA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>

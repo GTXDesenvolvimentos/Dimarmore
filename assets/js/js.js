@@ -121,3 +121,45 @@ $(document).ready(function () {
     });
 });
 //==================================================================
+
+function selectUsuarios() {
+
+    $.ajax({
+        url: base_url + "Etapas/retUsers",
+        type: 'POST',
+        dataType: "json",
+        cache: false,
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (result) {
+            console.log(result)
+
+            $('#SlResponsavel').prop('disabled', false);
+            $('#SlResponsavel').selectpicker('refresh');
+            $('#SlResponsavel').html('');
+            $('#SlResponsavel').append('<option value=""> Responsável </option>');
+
+            var jsonData1 = JSON.stringify(result);
+            $.each(JSON.parse(jsonData1), function (idx, obj) {
+                $('#SlResponsavel').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
+            });
+            swal.fire({
+                timer: 1,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        }
+    });
+
+}
