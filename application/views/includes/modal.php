@@ -7,7 +7,7 @@
                     <h4 class="modal-title">Departamentos</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-                <input type="number" name="txtIdDepto" id="txtIdDepto">
+                <input class="d-none" type="number" name="txtIdDepto" id="txtIdDepto">
                 <div class="modal-body p-2">
                     <div class="form-group col-12">
                         <label class="m-0">Código do departamento:</label>
