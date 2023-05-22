@@ -31,6 +31,21 @@ class M_retorno extends CI_Model
     }
 
     ////////////////////////////////////////
+    // RETORNO DE DEPARTAMENTOS           //
+    // CRIADO POR MARCIO SILVA            //
+    // DATA: 31/05/2019                   //
+    ////////////////////////////////////////
+    public function retDepto()
+    {
+
+        $this->db->select('*');
+        $this->db->select("DATE_FORMAT(dtcria, '%d/%m/%Y') AS dtcria", FALSE);
+        $this->db->where('status !=', 'D');
+        $retorno = $this->db->get('tbl_departamentos');
+        return $retorno;
+    }
+
+    ////////////////////////////////////////
     // RETORNO DE TODOS OS PROJETOS       //
     // CRIADO POR ELIEL FELIX             //
     // DATA: 22/05/2023                   //
