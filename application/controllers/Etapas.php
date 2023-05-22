@@ -32,7 +32,7 @@ class Etapas extends MY_Controller
         echo json_encode($retorno->result());
     }
 
-    public function retUsers()
+    public function retUsers()  
     {
         $this->load->model('M_retorno');
         $retorno = $this->M_retorno->retUsers();

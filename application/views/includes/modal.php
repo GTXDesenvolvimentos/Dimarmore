@@ -94,10 +94,8 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <!-- <label class="m-0">Responsável:</label> -->
                         <select id="SlResponsavel" name="SlResponsavel" class="selectpicker form-control">
                             <option value="">RESPONSÁVEL</option>
-                            <option value="<?= $linhas->id_users ?>" class="text-uppercase"><?= $linhas->nome ?></option>
                         </select>
                     </div>
                     <div class="form-group col-12">
