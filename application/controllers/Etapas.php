@@ -32,10 +32,39 @@ class Etapas extends MY_Controller
         echo json_encode($retorno->result());
     }
 
-    public function retUsers()  
+    public function retUsers()
     {
         $this->load->model('M_retorno');
         $retorno = $this->M_retorno->retUsers();
         echo json_encode($retorno->result());
+    }
+
+    public function cadEtapa()
+    {
+
+        $this->load->library('form_validation');
+        if ($this->input->post('txtIdDepto') !== '') {
+            $this->form_validation->set_rules('txtNomeEtapa', 'Nome da etapa', 'required');
+            $this->form_validation->set_rules('txtDescEtapa', 'Departamento', 'required');
+            $this->form_validation->set_rules('txtEtaDtLimit', 'Data limite do projeto', 'required');
+            $this->form_validation->set_rules('SlPrioridade', 'Prioridade', 'required');
+            $this->form_validation->set_rules('SlResponsavel', 'Responsável', 'required');
+        } else {
+            $this->form_validation->set_rules('txtNomeEtapa', 'Código do departamento', 'required|is_unique[tbl_departamentos.cod_departamento]');
+            $this->form_validation->set_rules('txtDescEtapa', 'Departamento', 'required|is_unique[tbl_departamentos.descricao]');
+        }
+        if ($this->form_validation->run() == FALSE) {
+            $return = array(
+                'code' => 2,
+                'message' => validation_errors()
+            );
+        } else {
+            $value = $this->input->post();
+            $teste = $_FILES;
+            
+            $this->load->model('M_insert');
+            $return = $this->M_insert->cadEtapa($value);
+        }
+        echo json_encode($return);
     }
 }

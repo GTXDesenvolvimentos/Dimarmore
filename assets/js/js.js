@@ -119,7 +119,39 @@ $(document).ready(function () {
             }
         });
     });
+
+    // document.getElementById('formEtapas')
 });
+
+$(document).ready(function () {
+    $('#formEtapas').submit(function (e) {
+        e.preventDefault()
+        var serializeDados = $('#formEtapas').serialize()
+        $.ajax({
+            url: base_url + 'Etapas/cadEtapa',
+            dataType: 'json',
+            type: 'POST',
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            beforeSend: function () {
+                Swal.fire({
+                    imageUrl: base_url + '/assets/alert/loader.gif',
+                    title: 'Validando formulário...',
+                    showConfirmButton: false
+                })
+            },
+            success: function (data) {
+                
+            },
+            error: function (xhr, er) {
+                
+            }
+        })
+    })
+})
+
+
 //==================================================================
 
 function selectUsuarios() {
