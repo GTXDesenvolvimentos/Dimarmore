@@ -1,5 +1,5 @@
 <!-- MODAL DEPARTAMENTO -->
-<div class="modal" id="ModalDepto">
+<div class="modal" id="ModalDepto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" id="formDepartamentos">
@@ -29,12 +29,12 @@
 </div>
 
 <!-- MODAL PROJETOS -->
-<div class="modal" id="ModalProjeto">
+<div class="modal" id="ModalProjeto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" id="formDepartamentos">
                 <div class="modal-header">
-                    <h4 class="modal-title">Departamentos</h4>
+                    <h4 class="modal-title">Departasdamentos</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
                 <input type="number" name="txtIdDepto" id="txtIdDepto">
@@ -42,7 +42,7 @@
                     <div class="form-group col-12">
                         <label class="m-0">Departamento:</label>
                         <select name="slDepto" id="slDepto" class="selectpicker form-control" onchange="" data-style="">
-                        <option value="">SELECIONE UMA OPÇÃO</option>
+                            <option value="">SELECIONE UMA OPÇÃO</option>
                     </div>
 
                     <div class="form-group col-12">
@@ -59,10 +59,8 @@
     </div>
 </div>
 
-
-
 <!-- MODAL ETAPAS -->
-<div class="modal" id="ModalEtapas">
+<div class="modal" id="ModalEtapas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" id="formEtapas">
@@ -96,11 +94,11 @@
                         <select id="SlResponsavel" name="SlResponsavel" class="selectpicker form-control">
                             <option value="">RESPONSÁVEL</option>
                             <?php
-                            foreach ($users->result() as $linhas) {
+                            // foreach ($users->result() as $linhas) {
                             ?>
                                 <option value="<?= $linhas->id_users ?>" class="text-uppercase"><?= $linhas->nome ?></option>
                             <?php
-                            }
+                            // }
                             ?>
                         </select>
                     </div>
