@@ -8,7 +8,7 @@ class M_insert extends CI_Model
 {
 
     ////////////////////////////////////////
-    // CADASTRO DE USUARIOS                
+    // CADASTRO DE DEPARTAMENTO               
     // CRIADO POR MARCIO SILVA            
     // DATA: 31/05/2019                   
     ////////////////////////////////////////   
@@ -54,6 +54,51 @@ class M_insert extends CI_Model
         }
         return $return;
     }
+
+    ////////////////////////////////////////
+    // CADASTRO DE PROJETO               
+    // CRIADO POR MARCIO SILVA            
+    // DATA: 31/05/2019                   
+    ////////////////////////////////////////   
+    public function cadProjeto($dados)
+    {
+
+        $this->db->trans_begin();
+        if ($dados['id_projeto'] == '') {
+            $this->db->insert('tbl_projetos', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao gravar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Projeto cadastrado com sucesso!"
+                );
+            }
+        } else {
+            $this->db->where('id_etapa', $dados['txtIdDepto']);
+            $this->db->update('tbl_projetos', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao atualizar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Deparatamento atualizado com sucesso!"
+                );
+            }
+        }
+        return $return;
+    }
+
 
 
     ////////////////////////////////////////

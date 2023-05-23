@@ -43,43 +43,73 @@ class Projetos extends CI_Controller
 
     public function cadProjeto()
     {
-        //ar_dump($this->input->post());
-        error_reporting(E_ERROR | E_PARSE);
+        $files = $_FILES['anexoProjeto'];
+        $anexo = '';
+        if ($_FILES['anexoProjeto']['tmp_name'] !== '') {
+            $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+            $configuracao = array(
+                "upload_path"   => "./assets/uploads/",
+                'allowed_types' => 'jpg|png|gif|pdf|zip|rar|doc|xls|csv',
+                'file_name'     => $anexo,
+                'max_size'      => '500'
+            );
+            $this->load->library('upload');
+            $this->upload->initialize($configuracao);
+            if ($this->upload->do_upload('anexoProjeto')) {
+            } else {
+                $return = array(
+                    'code' => 2,
+                    'message' =>  trim($this->upload->display_errors())
+                );
+                echo json_encode($return);
+                exit();
+            }
+        }
 
-        $files    = $_FILES['anexoProjeto'];
-        $configuracao = array(
-            "upload_path"   => "./assets/uploads/",
-            'allowed_types' => 'jpg|png|gif|pdf|zip|rar|doc|xls|csv',
-            'file_name'     => md5($files['name']).'.'.pathinfo($files['name'], PATHINFO_EXTENSION),
-            'max_size'      => '500'
-        );
-        $this->load->library('upload');
-        $this->upload->initialize($configuracao);
-        if ($this->upload->do_upload('anexoProjeto')) {
-            echo 'Arquivo salvo com sucesso.';
+        $this->load->library('form_validation');
+        if ($this->input->post('txtIdProjeto') !== '') {
+            $this->form_validation->set_rules('txtCodDepto', 'Código do departamento', 'required');
+            $this->form_validation->set_rules('txtDescDepto', 'Departamento', 'required');
         } else {
-           
+            $this->form_validation->set_rules('txtNomeProjeto', 'Nome do projeto', 'required|is_unique[tbl_departamentos.cod_departamento]');
+            $this->form_validation->set_rules('txtDescProjeto', 'Descrição', 'required');
+            $this->form_validation->set_rules('slRespProjeto', 'Responsável', 'required');
+            $this->form_validation->set_rules('slDepProjeto', 'Departamento', 'required');
+            $this->form_validation->set_rules('txtDataFimProjeto', 'Data', 'required');
+
+        }
+
+        if ($this->form_validation->run() == FALSE) {
             $return = array(
                 'code' => 2,
-                'message' =>  trim($this->upload->display_errors())
+                'message' => validation_errors()
             );
+        } else {
+
+            $dados = array(
+                "id_projeto" => $this->input->post("txtIdProjeto"),
+                "nome" => $this->input->post("txtNomeProjeto"),
+                "descricao" => $this->input->post('"txtDescProjeto"'),
+                "responsavel" => $this->input->post("slRespProjeto"),
+                "id_departamento" => $this->input->post("slDepProjeto"),
+                "anexo" => $anexo,
+                "dtentrega" => $this->input->post("txtDataFimProjeto"),
+                "usucria" => $this->session->userdata('id_users')
+            );
+
+            $value = $this->input->post();
+            $this->load->model('M_insert');
+            $return = $this->M_insert->cadProjeto($dados);
         }
         echo json_encode($return);
+
+
+
+        // var_dump($this->input->post());
+
+
+        //echo json_encode($return);
     }
 
 
-    // Método que fará o download do arquivo
-    public function Download()
-    {
-        // recuperamos o terceiro segmento da url, que é o nome do arquivo
-        $arquivo = $this->uri->segment(3);
-        // recuperamos o segundo segmento da url, que é o diretório
-        $diretorio = $this->uri->segment(2);
-        // definimos original path do arquivo
-        $arquivoPath = '.assets/uploads/' . $diretorio . "/" . $arquivo;
-
-        // forçamos o download no browser
-        // passando como parâmetro o path original do arquivo
-        force_download($arquivoPath, null);
-    }
 }

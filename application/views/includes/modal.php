@@ -66,7 +66,7 @@
 
                     <div class="form-group col-12">
                         <label for="formFileLg" class="form-label">Anexo</label>
-                        <input class="form-control form-control-lg" id="anexoProjeto" name="anexoProjeto" name="anexoProjeto" type="file" />
+                        <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoProjeto" name="anexoProjeto" type="file" />
                     </div>
 
                 </div>
