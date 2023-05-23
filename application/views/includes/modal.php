@@ -49,7 +49,7 @@
                         <textarea type="text" class="form-control" name="txtDescProjeto" id="txtDescProjeto" placeholder="Descrição do projeto"></textarea>
                     </div>
                     <div class="form-group col-12">
-                        <select id="slRespProjeto" name="slRespProjeto" class="selectpicker form-control usuarios" data-style="btn-success" onchange="selectUsuarios()">
+                        <select id="slRespProjeto" name="slRespProjeto" class="selectpicker form-control" data-style="btn-success">
                             <option value="">Responsável</option>
                         </select>
                     </div>
@@ -63,19 +63,16 @@
                         <label class="m-0">Data limite do projeto:</label>
                         <input type="date" class="form-control" name="txtDataFimProjeto" id="txtDataFimProjeto" placeholder="Data limite para o projeto">
                     </div>
-                   
+
                     <div class="form-group col-12">
-                        <!-- <label class="m-0">Anexar:</label> -->
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="anexoProjeto" id="anexoProjeto" value="Anexar">
-                            <label class="custom-file-label" for="docAnexo">ANEXAR ARQUIVOS</label>
-                        </div>
+                        <label for="formFileLg" class="form-label">Anexo</label>
+                        <input class="form-control form-control-lg" id="anexoProjeto" name="anexoProjeto" name="anexoProjeto" type="file" />
                     </div>
 
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
-                    <button type="submit" class="btn btn-success" id="btnCadEtapas">Salvar</button>
+                    <button type="submit" class="btn btn-success" id="btnCadProjeto">Salvar</button>
                 </div>
             </form>
         </div>
@@ -104,7 +101,7 @@
                     </div>
                     <div class="form-group col-12">
                         <label class="m-0">Data limite do projeto:</label>
-                        <input type="date" class="form-control" name="txtEtaDtLimit" id="txtEtaDtLimit" placeholder="Data limite para terminar o projeto">
+                        <input type="date" class="form-control" name="txtEtaDtLimit" id="txtEtaDtLimit" placeholder="Data limite para finalização">
                     </div>
                     <div class="form-group col-12">
                         <!-- <label class="m-0">Prioridade:</label> -->
@@ -117,8 +114,8 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <select id="SlResponsavel" name="SlResponsavel" class="selectpicker form-control usuarios" data-style="btn-success">
-                            <option value="">RESPONSÁVEL</option>
+                        <select id="slResponsavel" name="slResponsavel" class="form-control" data-style="btn-success">
+                            <option value="">Responsável</option>
                         </select>
                     </div>
                     <div class="form-group col-12">

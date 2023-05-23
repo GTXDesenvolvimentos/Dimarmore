@@ -26,59 +26,60 @@ class Projetos extends CI_Controller
         /////////////////////////////////////////////////
     }
 
-    public function retAllProjects(){
-        $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retAllProjects();
-        echo json_encode($retorno);
-    }
-
-    public function retAllDeptos(){
-        $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retAllProjects();
-        echo json_encode($retorno);
-    }
-
-    /*
-    public function login()
+    public function retAllProjects()
     {
-        $this->load->library('form_validation');
-        $this->form_validation->set_rules('txtEmail', 'Email', 'required');
-        $this->form_validation->set_rules('txtPassword', 'Senha', 'required');
+        $this->load->model('M_retorno');
+        $retorno = $this->M_retorno->retAllProjects();
+        echo json_encode($retorno);
+    }
 
-        if ($this->form_validation->run() == FALSE) {
-            $erros = array(
-                'message' => validation_errors(),
-                'code' => 2
-            );
-            echo json_encode($erros);
+    public function retAllDeptos()
+    {
+        $this->load->model('M_retorno');
+        $retorno = $this->M_retorno->retAllProjects();
+        echo json_encode($retorno);
+    }
+
+
+    public function cadProjeto()
+    {
+        //ar_dump($this->input->post());
+        error_reporting(E_ERROR | E_PARSE);
+
+        $files    = $_FILES['anexoProjeto'];
+        $configuracao = array(
+            "upload_path"   => "./assets/uploads/",
+            'allowed_types' => 'jpg|png|gif|pdf|zip|rar|doc|xls|csv',
+            'file_name'     => md5($files['name']).'.'.pathinfo($files['name'], PATHINFO_EXTENSION),
+            'max_size'      => '500'
+        );
+        $this->load->library('upload');
+        $this->upload->initialize($configuracao);
+        if ($this->upload->do_upload('anexoProjeto')) {
+            echo 'Arquivo salvo com sucesso.';
         } else {
-            $dados = array(
-                "email" => $this->input->post('txtEmail'),
-                "password" => $this->input->post('txtPassword'),
+           
+            $return = array(
+                'code' => 2,
+                'message' =>  trim($this->upload->display_errors())
             );
-
-            $return = $this->m_retorno->login($dados);
-
-            if ($return == true) {
-                $retorno = array(
-                    'message' => "Logado com sucesso!!!!",
-                    'code' => 1
-                );
-                echo json_encode($retorno);
-            } else {
-                $retorno = array(
-                    'message' => "Usuário ou senha inválido!",
-                    'code' => 0
-                );
-                echo json_encode($retorno);
-            }
         }
+        echo json_encode($return);
     }
 
-    public function logout()
+
+    // Método que fará o download do arquivo
+    public function Download()
     {
-        $this->session->sess_destroy();
-        redirect('');
+        // recuperamos o terceiro segmento da url, que é o nome do arquivo
+        $arquivo = $this->uri->segment(3);
+        // recuperamos o segundo segmento da url, que é o diretório
+        $diretorio = $this->uri->segment(2);
+        // definimos original path do arquivo
+        $arquivoPath = '.assets/uploads/' . $diretorio . "/" . $arquivo;
+
+        // forçamos o download no browser
+        // passando como parâmetro o path original do arquivo
+        force_download($arquivoPath, null);
     }
-    */
 }
