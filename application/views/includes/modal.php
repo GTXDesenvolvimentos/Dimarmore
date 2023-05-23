@@ -121,8 +121,8 @@
                     <div class="form-group col-12">
                         <!-- <label class="m-0">Anexar:</label> -->
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="docAnexo" id="docAnexo" value="Anexar">
-                            <label class="custom-file-label" for="docAnexo">ANEXAR ARQUIVOS</label>
+                            <input type="file" class="custom-file-input" name="anexoEtapa" id="anexoEtapa" value="Anexar">
+                            <label class="custom-file-label" for="anexoEtapa">ANEXAR ARQUIVOS</label>
                         </div>
                     </div>
                 </div>
