@@ -37,7 +37,6 @@ class M_retorno extends CI_Model
     ////////////////////////////////////////
     public function retDepto()
     {
-
         $this->db->select('*');
         $this->db->select("DATE_FORMAT(dtcria, '%d/%m/%Y') AS dtcria", FALSE);
         $this->db->where('status !=', 'D');
