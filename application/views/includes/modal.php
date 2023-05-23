@@ -32,27 +32,50 @@
 <div class="modal" id="ModalProjeto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="post" id="formDepartamentos">
+            <form method="post" id="formProjetos" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h4 class="modal-title">Departasdamentos</h4>
+                    <h4 class="modal-title">Projetos</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-                <input type="number" name="txtIdDepto" id="txtIdDepto">
+                <input type="number" name="txtIdProjeto" id="txtIdProjeto">
                 <div class="modal-body p-2">
                     <div class="form-group col-12">
-                        <label class="m-0">Departamento:</label>
-                        <select name="slDepto" id="slDepto" class="selectpicker form-control" onchange="" data-style="">
-                            <option value="">SELECIONE UMA OPÇÃO</option>
+                        <label class="m-0">Projetos:</label>
+                        <input type="text" class="form-control" name="txtNomeProjeto" id="txtNomeProjeto" placeholder="Nome do projeto">
                     </div>
 
                     <div class="form-group col-12">
                         <label class="m-0">Descrição:</label>
-                        <input type="text" class="form-control" name="txtDescDepto" id="txtDescDepto" placeholder="Descrição do departamento">
+                        <textarea type="text" class="form-control" name="txtDescProjeto" id="txtDescProjeto" placeholder="Descrição do projeto"></textarea>
                     </div>
+                    <div class="form-group col-12">
+                        <select id="slRespProjeto" name="slRespProjeto" class="selectpicker form-control usuarios" data-style="btn-success" onchange="selectUsuarios()">
+                            <option value="">Responsável</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12">
+                        <select id="slDepProjeto" name="slDepProjeto" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Departamento'</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Data limite do projeto:</label>
+                        <input type="date" class="form-control" name="txtDataFimProjeto" id="txtDataFimProjeto" placeholder="Data limite para o projeto">
+                    </div>
+                   
+                    <div class="form-group col-12">
+                        <!-- <label class="m-0">Anexar:</label> -->
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" name="anexoProjeto" id="anexoProjeto" value="Anexar">
+                            <label class="custom-file-label" for="docAnexo">ANEXAR ARQUIVOS</label>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
-                    <button type="button" class="btn btn-success" id="btnDepartamentos">Salvar</button>
+                    <button type="submit" class="btn btn-success" id="btnCadEtapas">Salvar</button>
                 </div>
             </form>
         </div>
@@ -94,7 +117,7 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <select id="SlResponsavel" name="SlResponsavel" class="selectpicker form-control" data-style="btn-success">
+                        <select id="SlResponsavel" name="SlResponsavel" class="selectpicker form-control usuarios" data-style="btn-success">
                             <option value="">RESPONSÁVEL</option>
                         </select>
                     </div>

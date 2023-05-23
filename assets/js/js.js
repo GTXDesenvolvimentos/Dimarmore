@@ -276,7 +276,7 @@ function selectUsuarios() {
 
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function(idx, obj) {
-                $('#SlResponsavel').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
+                $('#SlResponsavel', slRespProjeto).append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
             });
             swal.fire({
                 timer: 1,
