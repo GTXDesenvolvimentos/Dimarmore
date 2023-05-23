@@ -27,7 +27,7 @@
 
     <script>
         function opcoesDepto(index, row) {
-            return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altDepto(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delDepto(' + row.id_departamento + ');"><i class="fas fa-trash-alt"></i></button>`;
+            return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altDepto(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delDepto(` + row.id_departamento + `);"><i class="fas fa-trash-alt"></i></button>`;
         }
         function altDepto(value){
             console.log(value.id_departamento);

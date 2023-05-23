@@ -65,33 +65,11 @@ class deptos extends MY_Controller
     // CRIADO POR MARCIO SILVA            
     // DATA: 09/02/2023                   
     ////////////////////////////////////////
-    public function del_departamento()
+    public function delDepto()
     {
         $id_departamento = $this->input->post('id_departamento');
-        $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retUsuarios($id_departamento);
-
-        if ($retorno->num_rows() > 0) {
-            $return[] = array(
-                'ret' => 3,
-                'msg' => 'Existem funcionários cadastrados com esse departamento.'
-            );
-        } else {
-            $this->load->model('M_delete');
-            $returno = $this->M_delete->del_departamento($id_departamento);
-
-            if ($returno == 1) {
-                $return[] = array(
-                    'ret' => 1,
-                    'msg' => 'Departamento deletado com sucesso!'
-                );
-            } else {
-                $return[] = array(
-                    'ret' => 0,
-                    'msg' => 'Não foi possível deletar o departamento!'
-                );
-            }
-        }
+        $this->load->model('M_delete');
+        $return = $this->M_delete->delDepto($id_departamento);
         echo json_encode($return);
     }
 }

@@ -4,19 +4,35 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class M_delete extends CI_Model {
-    
+class M_delete extends CI_Model
+{
+
     ////////////////////////////////////////
     // DELETAR CONGREGACOES                     
     // CRIADO POR MARCIO SILVA          
     // DATA: 31/05/2019                  
     ////////////////////////////////////////
-    public function delCongregacao() {
-        $id_congregacao = $this->input->post('id_congregacao');
-        $this->db->where('id_congregacao', $id_congregacao);
-        $congregacoes = array('status'=>'D');
-        $this->db->update('tbl_congregacoes',$congregacoes);
-        return 1;
+    public function delDepto($id_departamento)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_departamento', $id_departamento);
+        $dados = array('status' => 'D');
+        $this->db->update('tbl_departamentos', $dados);
+
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $return = array(
+                'code' => 0,
+                'message' => "Erro ao deletar o departamento!"
+            );
+        } else {
+            $this->db->trans_commit();
+            $return = array(
+                'code' => 1,
+                'message' => "Deparatamento deletado com sucesso!"
+            );
+        }
+        return $return;
     }
-    
 }
