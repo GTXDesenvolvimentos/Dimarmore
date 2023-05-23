@@ -55,7 +55,7 @@ class M_retorno extends CI_Model
         $this->db->select("DATE_FORMAT(dtcria, '%d/%m/%Y') AS dtcria", FALSE);
         // $this->db->where('status !=', 'D');
         $retorno = $this->db->get('tbl_projetos');
-        return $retorno;
+        return $retorno->result();
     }
 
 

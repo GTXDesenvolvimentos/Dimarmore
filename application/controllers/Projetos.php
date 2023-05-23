@@ -33,13 +33,6 @@ class Projetos extends CI_Controller
         echo json_encode($retorno);
     }
 
-    public function retAllDeptos()
-    {
-        $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retAllProjects();
-        echo json_encode($retorno);
-    }
-
 
     public function cadProjeto()
     {
@@ -76,7 +69,6 @@ class Projetos extends CI_Controller
             $this->form_validation->set_rules('slRespProjeto', 'Responsável', 'required');
             $this->form_validation->set_rules('slDepProjeto', 'Departamento', 'required');
             $this->form_validation->set_rules('txtDataFimProjeto', 'Data', 'required');
-
         }
 
         if ($this->form_validation->run() == FALSE) {
@@ -102,13 +94,6 @@ class Projetos extends CI_Controller
             $return = $this->M_insert->cadProjeto($dados);
         }
         echo json_encode($return);
-
-
-
-        // var_dump($this->input->post());
-
-
-        //echo json_encode($return);
     }
 
 

@@ -19,7 +19,7 @@
                                     <th data-field="situacao" data-halign="center" data-align="center" data-sortable="true">Situação</th>
                                     <th data-field="data_fim" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
                                     <th data-field="anexo" data-halign="center" data-align="center" data-sortable="true">ANEXO</th>
-                                    <th data-halign="center" data-align="center" data-formatter="opcoesDepto">Opções</th>
+                                    <th data-halign="center" data-align="center" data-formatter="optProject">Opções</th>
                                 </tr>
                             </thead>
                         </table>
