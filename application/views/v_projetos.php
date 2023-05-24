@@ -30,16 +30,27 @@
     </div>
 
     <script>
+
         function optProject(index, row) {
             return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altProjeto(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delProjeto(' + row.id_departamento + ');"><i class="fas fa-trash-alt"></i></button>`;
         }
 
-        function altDepto(value){
-            console.log(value.id_departamento);
-            $('#txtIdDepto').val(value.id_departamento);
-            $('#txtCodDepto').val(value.cod_departamento);
-            $('#txtDescDepto').val(value.descricao);
-            $('#ModalDepto').modal('show');
+        function altProjeto(value){
+            $('#txtIdProjeto').val(value.id_projeto);
+            $('#txtNomeProjeto ').val(value.nome);
+            $('#txtDescProjeto').val(value.descricao);
+            $('#txtDataFimProjeto').val(value.dtentrega);
+            $('#slRespProjeto').selectpicker('val',value.responsavel);
+            $('#slDepProjeto').selectpicker('val',value.id_departamento);
+            
+
+            $('#ModalProjeto').modal('show');
+
+
+        // "slRespProjeto"
+        // "slDepProjeto"
+        // ""
+
          }
     </script>
 
