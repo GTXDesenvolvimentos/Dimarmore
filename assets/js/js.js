@@ -265,6 +265,72 @@ function delDepto(value) {
 
 
 
+////////////////////////////////////////
+// FUNÇÃO DELETA DEPARTAMENTOS                  
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+function delEtapas(value) {
+    Swal.fire({
+        title: 'Atenção!',
+        text: "Deseja realmente deletar o etapa?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, quero deletar',
+        cancelButtonText: 'Não, voltar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: base_url + "/Etapas/delEtapa",
+                data: {
+                    id_etapa: value
+                },
+                type: 'POST',
+                dataType: "json",
+                cache: false,
+                beforeSend: function () {
+                    swal.fire({
+                        title: "Aguarde!",
+                        text: "Validando os dados...",
+                        imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                        showConfirmButton: false
+                    });
+                },
+                success: function (data) {
+                    console.log(data);
+                    if (data.code == 2) {
+                        swal.fire({
+                            title: "Atenção!",
+                            html: data.message,
+                            icon: 'info',
+                            confirmButtonColor: '#0b475a',
+                            confirmButtonText: 'Voltar'
+                        });
+                    } else if (data.code == 0) {
+                        swal.fire("Atenção!", data.message, "warning");
+                    } else if (data.code == 1) {
+
+                        clearForm();
+                        $('#tableDepto').bootstrapTable('refresh');
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonColor: '#268917',
+                            confirmButtonText: 'Sair'
+                        });
+                    }
+                },
+                error: function (xhr, er) {
+                    swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+                }
+            });
+        }
+    })
+}
+
 
 
 
@@ -354,8 +420,6 @@ function selectUsuarios() {
             });
         },
         success: function (result) {
-
-
             $('#slResponsavel').prop('disabled', false);
             $('#slResponsavel').selectpicker('refresh');
             $('#slResponsavel').html('');
@@ -377,11 +441,6 @@ function selectUsuarios() {
 
 }
 //==================================================================
-
-
-
-
-
 
 ////////////////////////////////////////
 // MONTA SELECT DE DEPARTAMENTOS                 
@@ -407,13 +466,10 @@ function selectDepto() {
             });
         },
         success: function (result) {
-            console.log(result);
-
-
             $('#slDepProjeto').prop('disabled', false);
             $('#slDepProjeto').selectpicker('refresh');
             $('#slDepProjeto').html('');
-            $('#slDepProjeto').append('<option value="">Departamentos</option>');
+            $('#slDepProjeto').append('<option value="">Projetos</option>');
 
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function (idx, obj) {
@@ -431,4 +487,63 @@ function selectDepto() {
 
 }
 //==================================================================
+
+////////////////////////////////////////
+// MONTA SELECT DE PROJETOS                 
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+function selectProjeto() {
+
+    $.ajax({
+        url: base_url + "Etapas/retProjeto",
+        type: 'POST',
+        dataType: "json",
+        cache: false,
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (result) {
+            $('#slEtapProjeto').prop('disabled', false);
+            $('#slEtapProjeto').selectpicker('refresh');
+            $('#slEtapProjeto').html('');
+            $('#slEtapProjeto').append('<option value=""> Projeto </option>');
+
+            var jsonData1 = JSON.stringify(result);
+            $.each(JSON.parse(jsonData1), function (idx, obj) {
+                $('#slEtapProjeto').append('<option value="' + obj.id_projeto + '">' + obj.id_projeto + " - " + obj.descricao + '</option>').selectpicker('refresh');
+            });
+            swal.fire({
+                timer: 1,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        }
+    });
+
+}
+//==================================================================
+
+////////////////////////////////////////
+// ALTERA O NOME DO INPUT FILE
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+$("#anexoEtapa").on('change', function () {
+    var input = document.getElementById("anexoEtapa");
+    let anexo = input.files[0].name;
+    document.getElementById("lbEtapa").innerHTML = anexo
+})
+//==================================================================
+
 
