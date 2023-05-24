@@ -115,8 +115,8 @@ class M_insert extends CI_Model
         $retorno = $this->db->get('tbl_projetos p, tbl_departamentos d')->result;
 
         $values = array(
-            "id_departamento" => 51,
-            "id_projeto" => 1,
+            "id_departamento" => 57,
+            "id_projeto" => 184,
             "etapa" => $dados['txtNomeEtapa'],
             "descricao" => $dados['txtDescEtapa'],
             "prioridade" => $dados['SlPrioridade'],

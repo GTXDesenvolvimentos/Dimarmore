@@ -11,8 +11,8 @@
                         <table class="table align-items-center table-flush" id="tableDepto" data-toolbar=".toolbar" toobar data-toggle="table" data-flat="true" data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]" data-url="<?= base_url('etapas/retEtapas') ?>">
                             <thead class="thead-light">
                                 <tr>
-                                    <th data-field="id_departamento" data-align="center" data-sortable="true">ID</th>
-                                    <th data-field="cod_departamento" data-halign="center" data-align="center" data-sortable="true">Código do departamento</th>
+                                    <th data-field="id_etapa" data-align="center" data-sortable="true">ID</th>
+                                    <th data-field="etapa" data-halign="center" data-align="center" data-sortable="true">Etapa</th>
                                     <th data-field="descricao" data-halign="center" data-align="center" data-sortable="true">Descrição</th>
                                     <th data-field="dtcria" data-halign="center" data-align="center" data-sortable="true">Data de criação</th>
                                     <th data-halign="center" data-align="center" data-formatter="opcoesDepto">Opções</th>

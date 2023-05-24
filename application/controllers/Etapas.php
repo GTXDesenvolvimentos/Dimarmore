@@ -49,7 +49,7 @@ class Etapas extends MY_Controller
         $nameFil = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
 
         $configuracao = array(
-            "upload_path"   => "./assets/uploads/etapas/",
+            "upload_path"   => "./assets/uploads/imgEtapas/",
             'allowed_types' => 'jpg|jpeg|png|gif|pdf|zip|rar|doc|xls|csv',
             'file_name'     => $nameFil,
             'max_size'      => '500'
