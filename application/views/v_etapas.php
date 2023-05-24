@@ -39,9 +39,9 @@
             $('#txtNomeEtapa').val(value.etapa);
             $('#txtDescEtapa').val(value.descricao);
             $('#txtEtaDtLimit').val(value.data_fim);
-            $('#SlPrioridade').selectpicker('val', value.prioridade);
+            $('#SlEtaPrioridade').selectpicker('val', value.prioridade);
             $('#slEtapProjeto').selectpicker('val', value.id_projeto);
-            $('#slResponsavel').selectpicker("val", value.responsavel);
+            $('#slEtapResponsavel').selectpicker("val", value.responsavel);
             $('#dvAnexo').addClass('d-none');
             $('#ModalEtapas').modal('show');
         }

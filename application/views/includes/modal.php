@@ -105,7 +105,7 @@
                     </div>
                     <div class="form-group col-12">
                         <!-- <label class="m-0">Prioridade:</label> -->
-                        <select id="SlPrioridade" name="SlPrioridade" class="selectpicker form-control" data-style="btn-success">
+                        <select id="SlEtaPrioridade" name="SlEtaPrioridade" class="selectpicker form-control" data-style="btn-success">
                             <option value="">Prioridade</option>
                             <option value="A">Aguardando</option>
                             <option value="P">Pendente</option>
@@ -119,7 +119,7 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <select id="slResponsavel" name="slResponsavel" class="form-control" data-style="btn-success">
+                        <select id="slEtapResponsavel" name="slEtapResponsavel" class="form-control" data-style="btn-success">
                             <option value="">Responsável</option>
                         </select>
                     </div>

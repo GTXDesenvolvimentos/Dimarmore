@@ -420,14 +420,14 @@ function selectUsuarios() {
             });
         },
         success: function (result) {
-            $('#slResponsavel').prop('disabled', false);
-            $('#slResponsavel').selectpicker('refresh');
-            $('#slResponsavel').html('');
-            $('#slResponsavel').append('<option value=""> Responsável </option>');
+            $('#slEtapResponsavel').prop('disabled', false);
+            $('#slEtapResponsavel').selectpicker('refresh');
+            $('#slEtapResponsavel').html('');
+            $('#slEtapResponsavel').append('<option value=""> Responsável </option>');
 
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function (idx, obj) {
-                $('#slResponsavel, #slRespProjeto').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
+                $('#slEtapResponsavel, #slRespProjeto').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
             });
             swal.fire({
                 timer: 1,
