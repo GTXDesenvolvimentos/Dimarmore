@@ -61,8 +61,8 @@ class Projetos extends CI_Controller
 
         $this->load->library('form_validation');
         if ($this->input->post('txtIdProjeto') !== '') {
-            $this->form_validation->set_rules('txtCodDepto', 'Código do departamento', 'required');
-            $this->form_validation->set_rules('txtDescDepto', 'Departamento', 'required');
+            $this->form_validation->set_rules('txtNomeProjeto', 'Nome do projeto', 'required');
+            $this->form_validation->set_rules('txtDescProjeto', 'Descrição', 'required');
         } else {
             $this->form_validation->set_rules('txtNomeProjeto', 'Nome do projeto', 'required|is_unique[tbl_departamentos.cod_departamento]');
             $this->form_validation->set_rules('txtDescProjeto', 'Descrição', 'required');
@@ -81,7 +81,7 @@ class Projetos extends CI_Controller
             $dados = array(
                 "id_projeto" => $this->input->post("txtIdProjeto"),
                 "nome" => $this->input->post("txtNomeProjeto"),
-                "descricao" => $this->input->post('"txtDescProjeto"'),
+                "descricao" => $this->input->post("txtDescProjeto"),
                 "responsavel" => $this->input->post("slRespProjeto"),
                 "id_departamento" => $this->input->post("slDepProjeto"),
                 "anexo" => $anexo,

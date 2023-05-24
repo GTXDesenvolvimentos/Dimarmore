@@ -80,7 +80,7 @@ class M_insert extends CI_Model
                 );
             }
         } else {
-            $this->db->where('id_etapa', $dados['txtIdDepto']);
+            $this->db->where('id_projeto', $dados['id_projeto']);
             $this->db->update('tbl_projetos', $dados);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -92,7 +92,7 @@ class M_insert extends CI_Model
                 $this->db->trans_commit();
                 $return = array(
                     'code' => 1,
-                    'message' => "Deparatamento atualizado com sucesso!"
+                    'message' => "Projeto atualizado com sucesso!"
                 );
             }
         }
