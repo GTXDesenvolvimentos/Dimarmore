@@ -105,7 +105,7 @@
                     </div>
                     <div class="form-group col-12">
                         <!-- <label class="m-0">Prioridade:</label> -->
-                        <select id="SlPrioridade" name="SlPrioridade" class="selectpicker form-control" data-style="btn-success">
+                        <select id="SlEtaPrioridade" name="SlEtaPrioridade" class="selectpicker form-control" data-style="btn-success">
                             <option value="">Prioridade</option>
                             <option value="A">Aguardando</option>
                             <option value="P">Pendente</option>
@@ -114,17 +114,24 @@
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <select id="slResponsavel" name="slResponsavel" class="form-control" data-style="btn-success">
-                            <option value="">Responsável</option>
+                        <select id="slEtapProjeto" name="slEtapProjeto" class="form-control" data-style="btn-success">
+                            <option value="">Projeto</option>
                         </select>
                     </div>
                     <div class="form-group col-12">
+                        <select id="slEtapResponsavel" name="slEtapResponsavel" class="form-control" data-style="btn-success">
+                            <option value="">Responsável</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-12" id="dvAnexo">
                         <!-- <label class="m-0">Anexar:</label> -->
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" name="anexoEtapa" id="anexoEtapa" value="Anexar">
-                            <label class="custom-file-label" for="anexoEtapa">ANEXAR ARQUIVOS</label>
+                            <label class="custom-file-label" for="anexoEtapa" id="lbEtapa">ANEXAR ARQUIVOS</label>
                         </div>
+
                     </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>

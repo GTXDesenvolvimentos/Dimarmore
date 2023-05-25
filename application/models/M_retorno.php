@@ -88,4 +88,18 @@ class M_retorno extends CI_Model
 
         return $retorno;
     }
+    ////////////////////////////////////////
+    // RETORNO DE ETAPAS                  //
+    // CRIADO POR MARCIO SILVA            //
+    // DATA: 22/05/2022                   //
+    ////////////////////////////////////////
+    public function retProjeto()
+    {
+
+        $this->db->select('*');
+        $this->db->where('status !=', 'D');
+        $retorno = $this->db->get('tbl_projetos');
+
+        return $retorno;
+    }
 }

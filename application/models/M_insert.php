@@ -108,26 +108,23 @@ class M_insert extends CI_Model
     ////////////////////////////////////////   
     public function cadEtapa($dados)
     {
-
-        $this->db->select("d.id_departamento, p.id_projeto");
-        $this->db->where('d.id_departamento', 51);
-        $this->db->where('d.id_departamento', 'p.id_departamento');
-        $retorno = $this->db->get('tbl_projetos p, tbl_departamentos d')->result;
-
-        $values = array(
-            "id_departamento" => 57,
-            "id_projeto" => 184,
-            "etapa" => $dados['txtNomeEtapa'],
-            "descricao" => $dados['txtDescEtapa'],
-            "prioridade" => $dados['SlPrioridade'],
-            "data_inicio" => date('d/m/Y'),
-            "data_fim" => $dados['txtEtaDtLimit'],
-            "responsavel" => $dados['SlResponsavel'],
-            "anexo" => $dados['anexo']
-        );
+        $this->db->select("id_departamento, id_projeto");
+        $this->db->where('id_projeto', $dados['slEtapProjeto']);
+        $retorno = $this->db->get('tbl_projetos')->result();
 
         $this->db->trans_begin();
         if ($dados['txtIdEtapa'] == '') {
+            $values = array(
+                "id_departamento" => $retorno[0]->id_departamento,
+                "id_projeto" => $retorno[0]->id_projeto,
+                "etapa" => $dados['txtNomeEtapa'],
+                "descricao" => $dados['txtDescEtapa'],
+                "prioridade" => $dados['SlPrioridade'],
+                "data_inicio" => date('d/m/Y'),
+                "data_fim" => $dados['txtEtaDtLimit'],
+                "responsavel" => $dados['slResponsavel'],
+                "anexo" => $dados['anexo']
+            );
             $this->db->insert('tbl_etapas', $values);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -143,7 +140,17 @@ class M_insert extends CI_Model
                 );
             }
         } else {
-            $this->db->where('tbl_etapas', $dados['txtIdEtapa']);
+            $values = array(
+                "id_departamento" => $retorno[0]->id_departamento,
+                "id_projeto" => $retorno[0]->id_projeto,
+                "etapa" => $dados['txtNomeEtapa'],
+                "descricao" => $dados['txtDescEtapa'],
+                "prioridade" => $dados['SlPrioridade'],
+                "data_inicio" => date('d/m/Y'),
+                "data_fim" => $dados['txtEtaDtLimit'],
+                "responsavel" => $dados['slResponsavel'],
+            );
+            $this->db->where('id_etapa', $dados['txtIdEtapa']);
             $this->db->update('tbl_etapas', $values);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
