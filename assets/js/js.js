@@ -1,5 +1,6 @@
 selectUsuarios();
 selectDepto();
+selectProjeto();
 ////////////////////////////////////////
 // FUNÇOES GLOBAIS                   
 // CRIADO POR MARCIO SILVA            
@@ -420,14 +421,14 @@ function selectUsuarios() {
             });
         },
         success: function (result) {
-            $('#slEtapResponsavel').prop('disabled', false);
-            $('#slEtapResponsavel').selectpicker('refresh');
-            $('#slEtapResponsavel').html('');
-            $('#slEtapResponsavel').append('<option value=""> Responsável </option>');
+            $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').prop('disabled', false);
+            $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').selectpicker('refresh');
+            $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').html('');
+            $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').append('<option value=""> Responsável </option>');
 
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function (idx, obj) {
-                $('#slEtapResponsavel, #slRespProjeto').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
+                $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
             });
             swal.fire({
                 timer: 1,
@@ -512,14 +513,14 @@ function selectProjeto() {
             });
         },
         success: function (result) {
-            $('#slEtapProjeto').prop('disabled', false);
-            $('#slEtapProjeto').selectpicker('refresh');
-            $('#slEtapProjeto').html('');
-            $('#slEtapProjeto').append('<option value=""> Projeto </option>');
+            $('#slEtapProjeto, #slInforProjeto').prop('disabled', false);
+            $('#slEtapProjeto, #slInforProjeto').selectpicker('refresh');
+            $('#slEtapProjeto, #slInforProjeto').html('');
+            $('#slEtapProjeto, #slInforProjeto').append('<option value=""> Projeto </option>');
 
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function (idx, obj) {
-                $('#slEtapProjeto').append('<option value="' + obj.id_projeto + '">' + obj.id_projeto + " - " + obj.descricao + '</option>').selectpicker('refresh');
+                $('#slEtapProjeto, #slInforProjeto').append('<option value="' + obj.id_projeto + '">' + obj.id_projeto + " - " + obj.descricao + '</option>').selectpicker('refresh');
             });
             swal.fire({
                 timer: 1,
@@ -546,4 +547,49 @@ $("#anexoEtapa").on('change', function () {
 })
 //==================================================================
 
-
+function imgEtapa(value) {
+    $.ajax({
+        url: base_url + "Etapas/imgEtapa",
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id_etapa: value
+        },
+        cache: false,
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar a imagem!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (result) {
+            console.log(result);
+            swal.fire({
+                timer: 1,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+            $('#ModalInfor').modal('show');
+            $('#txtInfor').html("ETAPA : " + value);
+            var img = document.querySelector("#imgInfor");
+            img.setAttribute('src', base_url + 'assets/uploads/imgEtapas/' + result[0].anexo);
+            $('#txtIdInfor').val(result[0].id_etapa);
+            $('#txtNomeInfor').val(result[0].etapa);
+            $('#txtDescInfor').val(result[0].descricao);
+            $('#txtInforDtLimit').val(result[0].data_fim);
+            $('#slInforPrioridade').selectpicker('val', result[0].prioridade);
+            $('#slInforProjeto').selectpicker('val', result[0].id_projeto);
+            $('#slInforResponsavel').selectpicker("val", result[0].responsavel);
+            $('#slInforPrioridade, #slInforProjeto, #slInforResponsavel').prop('disabled', true);
+            $('#slInforPrioridade, #slInforProjeto, #slInforResponsavel').selectpicker('refresh');
+        }
+    });
+}
+''

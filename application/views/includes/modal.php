@@ -88,7 +88,7 @@
                     <h4 class="modal-title">Etapas</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-                <input type="number" name="txtIdEtapa" id="txtIdEtapa">
+                <input type="number" name="txtIdEtapa" id="txtIdEtapa" class="d-none">
                 <div class="modal-body p-2">
                     <div class="form-group col-12">
                         <label class="m-0">Nome da etapa:</label>
@@ -136,6 +136,32 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
                     <button type="submit" class="btn btn-success" id="btnCadEtapas">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL INFORMATIVO -->
+<div id="ModalInfor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <form method="post" id="formInfor" enctype="multipart/form-data">
+
+                <div class="modal-header">
+                    <h4 class="modal-title" id="txtInfor"></h4>
+                    <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
+                </div>
+                <input type="number" name="txtIdInfor" id="txtIdInfor" class="d-none">
+                <div class="modal-body p-2">
+                    <div class="form-group col-12">
+                        <div class="text-center">
+                            <img id="imgInfor" class="img-fluid mx-auto d-block" width="75%">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
                 </div>
             </form>
         </div>
