@@ -501,12 +501,12 @@ $(document).ready(function() {
 
 function viewAnexo(value) {
     if (value !== '') {
-        return '<buttom class="btn btn-outline-success btn-sm" onclick="modalAnexo(' + value + ');"><i class="fa-regular fa-images"></i></button';
+        return '<buttom class="btn btn-outline-success btn-sm" onclick="modalAnexo(\'' + value + '\');"><i class="fa-regular fa-images"></i></button';
     }
 }
 
-function modalAnexo() {
-    $('#docAnexoView').val(value);
+function modalAnexo(value) {
+    $('#docAnexoView').html('<embed id="docAnexoView" src="' + base_url + '/assets/uploads/' + value + '" frameborder="0" width="100%" height="400px">');
     $('#modalAnexo').modal('show');
 
 }

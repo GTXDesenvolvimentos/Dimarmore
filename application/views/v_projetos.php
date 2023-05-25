@@ -18,7 +18,6 @@
                         data-pagination="true" 
                         data-show-export="true" 
                         data-page-list="[2, 5, 25, 50, 100, ALL]" 
-                        data-show-refresh="true" 
                         data-show-toggle="true" 
                         data-show-fullscreen="true" 
                         data-show-columns="true" 
@@ -27,23 +26,18 @@
                         data-minimum-count-columns="2" 
                         data-show-pagination-switch="true" 
                         data-mobile-responsive="true"
-                        data-url="<?= base_url('projetos/retAllProjects') ?>" 
-                        
-                        
-
-
-                            >
+                        data-url="<?= base_url('projetos/retAllProjects') ?>">
                             <thead class="thead-light">
                                 <tr>
                                     <th data-field="id_projeto" data-align="center" data-sortable="true">ID</th>
-                                    <th data-field="id_departamento" data-align="center" data-sortable="true">Deparatamento</th>
-                                    <th data-field="nomeResponsavel" data-halign="center" data-align="center" data-sortable="true">Responsável</th>
-                                    <th data-field="nomeProjeto" data-halign="center" data-align="center" data-sortable="true">Projeto</th>
-                                    <th data-field="descrPropjeto" data-halign="center" data-align="center" data-sortable="true">Descrição</th>
+                                    <th data-field="descrDepartamento" data-halign="center" data-align="left" data-sortable="true">Depto</th>
+                                    <th data-field="nomeResponsavel" data-halign="center" data-align="left" data-sortable="true">Responsável</th>
+                                    <th data-field="nomeProjeto" data-halign="center" data-align="left" data-sortable="true">Projeto</th>
+                                    <th data-field="descrPropjeto" data-halign="center" data-align="left" data-sortable="true">Descrição</th>
                                     <th data-field="situacaoPropjeto" data-halign="center" data-align="center" data-sortable="true" data-formatter="situacao">Situação</th>
                                     <th data-field="dtEntregaProjeto" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
-                                    <th data-field="anexoProjeto" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">ANEXO</th>
-                                    <th data-halign="center" data-align="center" data-formatter="optProject">Opções</th>
+                                    <th data-field="anexoProjeto" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
+                                    <th data-halign="center" class="" data-align="center" data-formatter="optProject">Opções</th>
                                 </tr>
                             </thead>
                         </table>
