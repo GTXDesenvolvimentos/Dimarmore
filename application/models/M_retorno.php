@@ -52,7 +52,7 @@ class M_retorno extends CI_Model
     public function retAllProjects($id_departamento = null, $id_projeto = null, $responsavel = null)
     {
         //RETORNO DE TABELA PROJETOS
-        $this->db->select('A.id_projeto as id_id_projeto');
+        $this->db->select('A.id_projeto as id_projeto');
         $this->db->select('A.id_departamento as id_departamento');
         $this->db->select('A.responsavel as id_responsavel');
         $this->db->select('A.nome as nomeProjeto');

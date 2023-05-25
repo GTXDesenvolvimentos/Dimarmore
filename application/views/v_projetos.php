@@ -18,7 +18,7 @@
                                     <th data-field="descrPropjeto" data-halign="center" data-align="center" data-sortable="true">Descrição</th>
                                     <th data-field="situacaoPropjeto" data-halign="center" data-align="center" data-sortable="true">Situação</th>
                                     <th data-field="dtEntregaProjeto" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
-                                    <th data-field="anexoProjeto" data-halign="center" data-align="center" data-sortable="true">ANEXO</th>
+                                    <th data-field="anexoProjeto" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">ANEXO</th>
                                     <th data-halign="center" data-align="center" data-formatter="optProject">Opções</th>
                                 </tr>
                             </thead>
