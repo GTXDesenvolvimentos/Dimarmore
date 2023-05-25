@@ -134,7 +134,7 @@ class M_retorno extends CI_Model
         isset($id_situacao) == true && $id_situacao != '' ? $this->db->where('A.id_atividade', $id_situacao) : '';
         $this->db->where('A.status !=', 'D');
         $retorno = $this->db->get('tbl_atividades A');
-     }
+    }
 
     ////////////////////////////////////////
     // RETORNO DE ETAPAS                  //
@@ -149,5 +149,5 @@ class M_retorno extends CI_Model
         $retorno = $this->db->get('tbl_projetos');
 
         return $retorno;
+    }
 }
-  
