@@ -407,11 +407,6 @@ $(document).ready(function() {
 
 $(document).ready(function() {
     $('[data-id="slRespProjeto"]').on('click', function() {
-        alert('ddddd');
-
-
-
-
         $.ajax({
             url: base_url + "Etapas/retUsers",
             type: 'POST',
@@ -458,45 +453,47 @@ $(document).ready(function() {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-function selectDepto() {
 
-    $.ajax({
-        url: base_url + "deptos/retDepto",
-        type: 'POST',
-        dataType: "json",
-        cache: false,
-        error: function() {
-            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
-        },
-        beforeSend: function() {
-            swal.fire({
-                title: "Aguarde!",
-                text: "Validando os dados...",
-                imageUrl: base_url + "/assets/img/gifs/loader.gif",
-                showConfirmButton: false
-            });
-        },
-        success: function(result) {
-            console.log(result);
+$(document).ready(function() {
+    $('[data-id="slDepProjeto"]').on('click', function() {
+
+        $.ajax({
+            url: base_url + "deptos/retDepto",
+            type: 'POST',
+            dataType: "json",
+            cache: false,
+            error: function() {
+                swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+            },
+            beforeSend: function() {
+                swal.fire({
+                    title: "Aguarde!",
+                    text: "Validando os dados...",
+                    imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                    showConfirmButton: false
+                });
+            },
+            success: function(result) {
+                console.log(result);
 
 
-            $('#slDepProjeto').prop('disabled', false);
-            $('#slDepProjeto').selectpicker('refresh');
-            $('#slDepProjeto').html('');
-            $('#slDepProjeto').append('<option value="">Projetos</option>');
+                $('#slDepProjeto').prop('disabled', false);
+                $('#slDepProjeto').selectpicker('refresh');
+                $('#slDepProjeto').html('');
+                $('#slDepProjeto').append('<option value="">Projetos</option>');
 
-            var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function(idx, obj) {
-                $('#slDepProjeto').append('<option value="' + obj.id_departamento + '">' + obj.descricao + '</option>').selectpicker('refresh');
-            });
-            swal.fire({
-                timer: 1,
-                title: "Aguarde!",
-                text: "Validando os dados...",
-                imageUrl: base_url + "/assets/img/gifs/loader.gif",
-                showConfirmButton: false
-            });
-        }
+                var jsonData1 = JSON.stringify(result);
+                $.each(JSON.parse(jsonData1), function(idx, obj) {
+                    $('#slDepProjeto').append('<option value="' + obj.id_departamento + '">' + obj.descricao + '</option>').selectpicker('refresh');
+                });
+                swal.fire({
+                    timer: 1,
+                    title: "Aguarde!",
+                    text: "Validando os dados...",
+                    imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                    showConfirmButton: false
+                });
+            }
+        });
     });
-
-}
+});

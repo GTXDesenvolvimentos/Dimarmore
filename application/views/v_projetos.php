@@ -13,12 +13,12 @@
                                 <tr>
                                     <th data-field="id_projeto" data-align="center" data-sortable="true">ID</th>
                                     <th data-field="id_departamento" data-align="center" data-sortable="true">Deparatamento</th>
-                                    <th data-field="responsavel" data-halign="center" data-align="center" data-sortable="true">Responsável</th>
-                                    <th data-field="nome" data-halign="center" data-align="center" data-sortable="true">Projeto</th>
-                                    <th data-field="descricao" data-halign="center" data-align="center" data-sortable="true">Descrição</th>
-                                    <th data-field="situacao" data-halign="center" data-align="center" data-sortable="true">Situação</th>
-                                    <th data-field="data_fim" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
-                                    <th data-field="anexo" data-halign="center" data-align="center" data-sortable="true">ANEXO</th>
+                                    <th data-field="nomeResponsavel" data-halign="center" data-align="center" data-sortable="true">Responsável</th>
+                                    <th data-field="nomeProjeto" data-halign="center" data-align="center" data-sortable="true">Projeto</th>
+                                    <th data-field="descrPropjeto" data-halign="center" data-align="center" data-sortable="true">Descrição</th>
+                                    <th data-field="situacaoPropjeto" data-halign="center" data-align="center" data-sortable="true">Situação</th>
+                                    <th data-field="dtEntregaProjeto" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
+                                    <th data-field="anexoProjeto" data-halign="center" data-align="center" data-sortable="true">ANEXO</th>
                                     <th data-halign="center" data-align="center" data-formatter="optProject">Opções</th>
                                 </tr>
                             </thead>
@@ -28,7 +28,6 @@
             </div>
         </div>
     </div>
-
     <script>
 
         function optProject(index, row) {
