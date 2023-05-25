@@ -204,3 +204,23 @@
         </div>
     </div>
 </div>
+
+
+<!-- MODAL VIEW ANEXO -->
+
+<div class="modal fade" id="modalAnexo" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Atividade</h4>
+                <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
+            </div>
+            <div class="modal-body p-2">
+                <embed id="docAnexoView" src="<?=base_url('assets/uploads/1.pdf')?>" frameborder="0" width="100%" height="400px">
+            </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
+                </div>
+        </div>
+    </div>
+</div>
