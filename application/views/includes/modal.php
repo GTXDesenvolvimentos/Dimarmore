@@ -155,14 +155,14 @@
                 <div class="modal-body p-2">
 
                     <div class="form-group col-12">
-                        <select id="slProjeto" name="slProjeto" class="selectpicker form-control" data-style="btn-success">
-                            <option value="">Projeto</option>
+                        <select id="slEtapa" name="slEtapa" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Etapa</option>
                         </select>
                     </div>
 
                     <div class="form-group col-12">
-                        <select id="slEtapa" name="slEtapa" class="selectpicker form-control" data-style="btn-success">
-                            <option value="">Etapa</option>
+                        <select id="slProjeto" name="slProjeto" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Projeto</option>
                         </select>
                     </div>
 
@@ -216,11 +216,11 @@
                 <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
             </div>
             <div class="modal-body p-2">
-                <embed id="docAnexoView" src="<?=base_url('assets/uploads/1.pdf')?>" frameborder="0" width="100%" height="400px">
+                <embed id="docAnexoView" src="<?= base_url('assets/uploads/1.pdf') ?>" frameborder="0" width="100%" height="400px">
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
-                </div>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
+            </div>
         </div>
     </div>
 </div>
