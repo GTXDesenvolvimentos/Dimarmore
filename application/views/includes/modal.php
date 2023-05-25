@@ -37,7 +37,7 @@
                     <h4 class="modal-title">Projetos</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-                <input type="number" name="txtIdProjeto" id="txtIdProjeto">
+                <input class="d-none" type="number" name="txtIdProjeto" id="txtIdProjeto">
                 <div class="modal-body p-2">
                     <div class="form-group col-12">
                         <label class="m-0">Projetos:</label>
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="form-group col-12">
-                        <label for="formFileLg" class="form-label">Anexo</label>
+                        <label class="form-label">Anexo</label>
                         <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoProjeto" name="anexoProjeto" type="file" />
                     </div>
 
@@ -151,7 +151,7 @@
                     <h4 class="modal-title">Atividade</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-                <input type="number" name="txtIdProjeto" id="txtIdProjeto">
+                <input  type="number" name="txtIdProjeto" id="txtIdProjeto">
                 <div class="modal-body p-2">
 
                     <div class="form-group col-12">
@@ -180,11 +180,6 @@
                             <option value="">Responsável</option>
                         </select>
                     </div>
-                    <!-- <div class="form-group col-12">
-                        <select id="slDepProjeto" name="slDepProjeto" class="selectpicker form-control" data-style="btn-success">
-                            <option value="">Departamento</option>
-                        </select>
-                    </div> -->
 
                     <div class="form-group col-12">
                         <label class="m-0">Data limite da atividade:</label>
@@ -192,7 +187,7 @@
                     </div>
 
                     <div class="form-group col-12">
-                        <label for="formFileLg" class="form-label">Anexo</label>
+                        <label class="form-label">Anexo</label>
                         <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoProjeto" name="anexoProjeto" type="file" />
                     </div>
                 </div>
@@ -207,7 +202,6 @@
 
 
 <!-- MODAL VIEW ANEXO -->
-
 <div class="modal fade" id="modalAnexo" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">

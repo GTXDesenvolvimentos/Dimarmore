@@ -500,10 +500,19 @@ $(document).ready(function() {
 
 
 function viewAnexo(value) {
-    return '<buttom class="btn btn-outline-success btn-sm" onclick="modalAnexo(' + value + ');"><i class="fa-regular fa-images"></i></button';
+    if (value !== '') {
+        return '<buttom class="btn btn-outline-success btn-sm" onclick="modalAnexo(' + value + ');"><i class="fa-regular fa-images"></i></button';
+    }
 }
 
 function modalAnexo() {
+    $('#docAnexoView').val(value);
     $('#modalAnexo').modal('show');
 
+}
+
+function situacao(value) {
+    if (value == 'P') {
+        return 'Pendente';
+    }
 }
