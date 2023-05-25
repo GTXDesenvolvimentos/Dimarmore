@@ -536,7 +536,7 @@ $('#ModalAtividades').on('show.bs.modal', function () {
         })
     })
 
-    $('[data-id="slEtapa"]').click(function(){
+    $('[data-id="slEtapa"]').click(function () {
         $('#slEtapa').on('show.bs.select', function () {
             $.ajax({
                 url: base_url + '/etapas/retEtapas',
@@ -566,12 +566,103 @@ $('#ModalAtividades').on('show.bs.modal', function () {
             })
         })
     })
-
-
-
-
-
 });
+
+///////////////////////////////////////////////////
+// MONTA SELECT DE PROJETOS APÓS SELEÇÃO DE ETAPA
+// CRIADO POR ELIEL AMORIM    
+// DATA: 25/05/2023                   
+///////////////////////////////////////////////////
+
+function retAllProjects(id_etapa) {
+    $.ajax({
+        url: base_url + '/projetos/retAllProjects',
+        dataType: 'json',
+        type: 'post',
+        data: { id_etapa: id_etapa },
+        success: function (ret) {
+            console.log(ret)
+            $('#slProjeto').html('');
+            $('#slProjeto').append('<option value=""> Projeto </option>').selectpicker('refresh')
+            $.each(ret, (index, row) => {
+                $('#slProjeto').append('<option value="' + row.id_projeto + '"> ' + row.id_projeto + ' - ' + row.nomeProjeto + ' </option>').selectpicker('refresh')
+            })
+
+            if (ret.length == 1) {
+                $('#slProjeto').selectpicker('val', ret[0].id_projeto);
+            }
+
+            swal.close();
+        },
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Buscando os projetos...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+    })
+}
+
+//==================================================================
+
+///////////////////////////////////////////////////
+// CADASTRO DE ETAPA
+// CRIADO POR ELIEL AMORIM    
+// DATA: 25/05/2023                   
+///////////////////////////////////////////////////
+
+$('#formAtividade').submit(function (e) {
+    e.preventDefault()
+
+    $.ajax({
+        url: base_url + 'atividades/cadAtividades',
+        dataType: 'json',
+        type: 'POST',
+        data: new FormData(this),
+        processData: false,
+        contentType: false,
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (data) {
+            if (data.code == 2) {
+                swal.fire({
+                    title: "Atenção!",
+                    html: data.message,
+                    icon: 'info',
+                    confirmButtonColor: '#0b475a',
+                    confirmButtonText: 'Voltar'
+                });
+            } else if (data.code == 0) {
+                swal.fire("Atenção!", data.message, "warning");
+            } else if (data.code == 1) {
+
+                clearForm();
+                $('#tableAtividades').bootstrapTable('refresh');
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonColor: '#268917',
+                    confirmButtonText: 'Sair'
+                });
+            }
+        },
+        error: function (xhr, er) {
+
+        }
+    })
+})
 
 // TRANSFORMA TODOS OS SELECTPICKERS EM MODO MOBILE
 $(document).ready(function () {

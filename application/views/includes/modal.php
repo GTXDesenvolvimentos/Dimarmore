@@ -151,11 +151,15 @@
                     <h4 class="modal-title">Atividade</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-                <input type="number" name="txtIdProjeto" id="txtIdProjeto">
+
                 <div class="modal-body p-2">
 
                     <div class="form-group col-12">
-                        <select id="slEtapa" name="slEtapa" class="selectpicker form-control" data-style="btn-success">
+                        <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control" placeholder="ID atividade">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <select id="slEtapa" name="slEtapa" class="selectpicker form-control" data-style="btn-success" onchange="retAllProjects(this.value)">
                             <option value="">Etapa</option>
                         </select>
                     </div>
@@ -188,17 +192,17 @@
 
                     <div class="form-group col-12">
                         <label class="m-0">Data limite da atividade:</label>
-                        <input type="date" class="form-control" name="txtDataFimProjeto" id="txtDataFimProjeto" placeholder="Data limite para o projeto">
+                        <input type="date" class="form-control" name="txtDataFimProjeto" id="txtDataFimAtividade" placeholder="Data limite para a ativivdade">
                     </div>
 
                     <div class="form-group col-12">
                         <label for="formFileLg" class="form-label">Anexo</label>
-                        <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoProjeto" name="anexoProjeto" type="file" />
+                        <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoAtividade" type="file" />
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
-                    <button type="submit" class="btn btn-success" id="btnCadProjeto">Salvar</button>
+                    <button type="submit" class="btn btn-success" id="btnCadAtividade">Salvar</button>
                 </div>
             </form>
         </div>

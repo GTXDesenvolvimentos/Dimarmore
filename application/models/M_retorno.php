@@ -49,15 +49,17 @@ class M_retorno extends CI_Model
     // CRIADO POR ???                     //
     // DATA: 22/05/2023                   //
     ////////////////////////////////////////
-    public function retAllProjects($id_departamento = null, $id_projeto = null, $responsavel = null)
+    public function retAllProjects($id_departamento = null, $id_projeto = null, $responsavel = null, $id_etapa = null)
     {
+        $id_etapa = is_null($id_etapa) ? $this->input->post('id_etapa'): $id_etapa;
+
         //RETORNO DE TABELA PROJETOS
         $this->db->select('A.id_projeto as id_projeto');
         $this->db->select('A.id_departamento as id_departamento');
         $this->db->select('A.responsavel as id_responsavel');
         $this->db->select('A.nome as nomeProjeto');
         $this->db->select("DATE_FORMAT(A.dtentrega, '%d/%m/%Y') AS dtEntregaProjeto", FALSE);
-        $this->db->select('A.descricao as descrPropjeto');
+        $this->db->select('A.descricao as descrProjeto');
         $this->db->select('A.data_fim as dtfimProjeto');
         $this->db->select('A.anexo as anexoProjeto');
         $this->db->select('A.usucria as usucriaPropjeto');
@@ -73,7 +75,7 @@ class M_retorno extends CI_Model
         isset($id_departamento) == true && $id_departamento != '' ? $this->db->where('B.id_departamento', $id_departamento) : '';
         isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
         isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $responsavel) : '';
-        // isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $responsavel) : '';
+        isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('E.id_etapa', $id_etapa) : '';
         $this->db->where('A.status !=', 'D');
         $this->db->join("tbl_departamentos B", "A.id_departamento = B.id_departamento", "inner");
         $this->db->join("tbl_users C", "A.responsavel = C.id_users", "inner");
