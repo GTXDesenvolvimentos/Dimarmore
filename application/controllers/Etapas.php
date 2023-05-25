@@ -39,53 +39,62 @@ class Etapas extends MY_Controller
         echo json_encode($retorno->result());
     }
 
+
+    public function retProjeto()
+    {
+        $this->load->model('M_retorno');
+        $retorno = $this->M_retorno->retProjeto();
+        echo json_encode($retorno->result());
+    }
+
     public function cadEtapa()
     {
         error_reporting(E_ERROR | E_PARSE);
 
-        $files    = $_FILES['anexoEtapa'];
         $value = $this->input->post();
 
-        $nameFil = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+        if ($value['txtIdEtapa'] == '') {
+            $files    = $_FILES['anexoEtapa'];
+            $nameFil = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
 
-        $configuracao = array(
-            "upload_path"   => "./assets/uploads/etapas/",
-            'allowed_types' => 'jpg|jpeg|png|gif|pdf|zip|rar|doc|xls|csv',
-            'file_name'     => $nameFil,
-            'max_size'      => '500'
-        );
+            $configuracao = array(
+                "upload_path"   => "./assets/uploads/imgEtapas/",
+                'allowed_types' => 'jpg|jpeg|png|gif|pdf|zip|rar|doc|xls|csv',
+                'file_name'     => $nameFil,
+                'max_size'      => '500'
+            );
 
-        $value['anexo'] = $nameFil;
+            $value['anexo'] = $nameFil;
 
-        $this->load->library('upload');
-        $this->upload->initialize($configuracao);
-        if ($this->upload->do_upload('anexoEtapa')) {
+            $this->load->library('upload');
+            $this->upload->initialize($configuracao);
+            if ($this->upload->do_upload('anexoEtapa')) {
+                $this->load->model('M_insert');
+                $return = $this->M_insert->cadEtapa($value);
+            } else {
+
+                $return = array(
+                    'code' => 2,
+                    'message' =>  trim($this->upload->display_errors())
+                );
+            }
+        } else {
             $this->load->model('M_insert');
             $return = $this->M_insert->cadEtapa($value);
-        } else {
-
-            $return = array(
-                'code' => 2,
-                'message' =>  trim($this->upload->display_errors())
-            );
         }
-
         echo json_encode($return);
     }
 
-
-    // Método que fará o download do arquivo
-    public function Download()
+    ////////////////////////////////////////
+    // DELETAR DEPARTAMENTO                     
+    // CRIADO POR MARCIO SILVA            
+    // DATA: 09/02/2023                   
+    ////////////////////////////////////////
+    public function delEtapa()
     {
-        // recuperamos o terceiro segmento da url, que é o nome do arquivo
-        $arquivo = $this->uri->segment(3);
-        // recuperamos o segundo segmento da url, que é o diretório
-        $diretorio = $this->uri->segment(2);
-        // definimos original path do arquivo
-        $arquivoPath = '.assets/uploads/' . $diretorio . "/" . $arquivo;
-
-        // forçamos o download no browser
-        // passando como parâmetro o path original do arquivo
-        force_download($arquivoPath, null);
+        $id_etapas = $this->input->post('id_etapa');
+        $this->load->model('M_delete');
+        $return = $this->M_delete->delEtapa($id_etapas);
+        echo json_encode($return);
     }
 }
