@@ -63,16 +63,5 @@
 
                 }
             })
-
-            // QUERY PARA RETORNAR TODOS OS DADOS DE UMA VEZ. RECOMENDADO USO DE ARRAYCOLUMN
-
-            // select p.id_projeto, p.nome, p.descricao, e.id_etapa, e.etapa, e.descricao, d.id_departamento, d.descricao
-            // from tbl_projetos p, tbl_etapas e, tbl_departamentos d
-            // where p.id_projeto = e.id_projeto
-            // and d.id_departamento = e.id_departamento
-            // and p.status != 'D'
-            // and e.status != 'D'
-            // and d.status != 'D';
-
         }
     </script>

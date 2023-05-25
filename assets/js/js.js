@@ -3,8 +3,6 @@ const arrayColumn = (array, column) => {
     return array.map(item => parseInt(item[column]));
 };
 
-selectUsuarios();
-selectDepto();
 ////////////////////////////////////////
 // FUNÇOES GLOBAIS                    
 // CRIADO POR MARCIO SILVA            
