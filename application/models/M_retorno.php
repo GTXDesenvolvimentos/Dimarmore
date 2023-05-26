@@ -172,4 +172,17 @@ class M_retorno extends CI_Model
 
         return $retorno;
     }
+    ////////////////////////////////////////
+    // RETORNO DE CODIGO DE IMAGEM        //
+    // CRIADO POR MARCIO SILVA            //
+    // DATA: 22/05/2022                   //
+    ////////////////////////////////////////
+    public function imgEtapa($etapa)
+    {
+        $this->db->select('*');
+        $this->db->where('id_etapa', $etapa);
+        $retorno = $this->db->get('tbl_etapas');
+
+        return $retorno;
+    }
 }

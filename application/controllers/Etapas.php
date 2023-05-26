@@ -97,4 +97,12 @@ class Etapas extends MY_Controller
         $return = $this->M_delete->delEtapa($id_etapas);
         echo json_encode($return);
     }
+
+    public function imgEtapa()
+    {
+        $etapas = $this->input->post('id_etapa');
+        $this->load->model('M_retorno');
+        $retorno = $this->M_retorno->imgEtapa($etapas);
+        echo json_encode($retorno->result());
+    }
 }
