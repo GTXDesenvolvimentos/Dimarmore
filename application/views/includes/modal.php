@@ -158,7 +158,7 @@
                         <div class="text-center">
                             <img id="imgInfor" class="img-fluid mx-auto d-block" width="75%">
                         </div>
-=======
+
 <!-- MODAL ATIVIDADES -->
 <div class="modal fade" id="ModalAtividades" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
@@ -168,18 +168,24 @@
                     <h4 class="modal-title">Atividade</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
+
                 <input  type="number" name="txtIdProjeto" id="txtIdProjeto">
+
                 <div class="modal-body p-2">
 
                     <div class="form-group col-12">
-                        <select id="slProjeto" name="slProjeto" class="selectpicker form-control" data-style="btn-success">
-                            <option value="">Projeto</option>
+                        <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control" placeholder="ID atividade">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <select id="slEtapa" name="slEtapa" class="selectpicker form-control" data-style="btn-success" onchange="retAllProjects(this.value)">
+                            <option value="">Etapa</option>
                         </select>
                     </div>
 
                     <div class="form-group col-12">
-                        <select id="slEtapa" name="slEtapa" class="selectpicker form-control" data-style="btn-success">
-                            <option value="">Etapa</option>
+                        <select id="slProjeto" name="slProjeto" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Projeto</option>
                         </select>
                     </div>
 
@@ -200,10 +206,13 @@
 
                     <div class="form-group col-12">
                         <label class="m-0">Data limite da atividade:</label>
-                        <input type="date" class="form-control" name="txtDataFimProjeto" id="txtDataFimProjeto" placeholder="Data limite para o projeto">
+                        <input type="date" class="form-control" name="txtDataFimProjeto" id="txtDataFimAtividade" placeholder="Data limite para a ativivdade">
                     </div>
 
                     <div class="form-group col-12">
+                        <label for="formFileLg" class="form-label">Anexo</label>
+                        <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoAtividade" type="file" />
+
                         <label class="form-label">Anexo</label>
                         <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoProjeto" name="anexoProjeto" type="file" />
 
@@ -211,7 +220,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
-
+                    <button type="submit" class="btn btn-success" id="btnCadAtividade">Salvar</button>
                     <button type="submit" class="btn btn-success" id="btnCadProjeto">Salvar</button>
                 </div>
             </form>
@@ -230,11 +239,12 @@
                 <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
             </div>
             <div class="modal-body p-2">
-                <div id="docAnexoView"></div>
+               <embed id="docAnexoView" src="<?= base_url('assets/uploads/1.pdf') ?>" frameborder="0" width="100%" height="400px">
+               <div id="docAnexoView"></div>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
-                </div>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
+            </div>
         </div>
     </div>
 </div>

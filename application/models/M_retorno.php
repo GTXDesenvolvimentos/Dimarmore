@@ -46,17 +46,20 @@ class M_retorno extends CI_Model
 
     ////////////////////////////////////////
     // RETORNO DE TODOS OS PROJETOS       //
-    // CRIADO POR ELIEL FELIX             //
+    // CRIADO POR ???                     //
     // DATA: 22/05/2023                   //
     ////////////////////////////////////////
-    public function retAllProjects($id_departamento = null, $id_projeto = null, $responsavel = null)
+    public function retAllProjects($id_departamento = null, $id_projeto = null, $responsavel = null, $id_etapa = null)
     {
+        $id_etapa = is_null($id_etapa) ? $this->input->post('id_etapa'): $id_etapa;
+
         //RETORNO DE TABELA PROJETOS
         $this->db->select('A.id_projeto as id_projeto');
         $this->db->select('A.id_departamento as id_departamento');
         $this->db->select('A.responsavel as id_responsavel');
         $this->db->select('A.nome as nomeProjeto');
         $this->db->select("DATE_FORMAT(A.dtentrega, '%d/%m/%Y') AS dtEntregaProjeto", FALSE);
+        $this->db->select("A.dtentrega AS dtEntregaProjetoE", FALSE);
         $this->db->select('A.descricao as descrPropjeto');
         $this->db->select('A.data_fim as dtfimProjeto');
         $this->db->select('A.anexo as anexoProjeto');
@@ -68,14 +71,17 @@ class M_retorno extends CI_Model
         $this->db->select('B.cod_departamento as codDepartamento');
         $this->db->select('B.descricao as descrDepartamento');
         //RETORNO DE TABELA USERS - RESPONSÁVEL
+        $this->db->select('C.id_users as idResponsavel');
         $this->db->select('C.nome as nomeResponsavel');
         //PARAMETROS DE CONSULTAS
         isset($id_departamento) == true && $id_departamento != '' ? $this->db->where('B.id_departamento', $id_departamento) : '';
         isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
-        isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $$responsavel) : '';
+        isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $responsavel) : '';
+        isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('E.id_etapa', $id_etapa) : '';
         $this->db->where('A.status !=', 'D');
         $this->db->join("tbl_departamentos B", "A.id_departamento = B.id_departamento", "inner");
         $this->db->join("tbl_users C", "A.responsavel = C.id_users", "inner");
+        $this->db->join("tbl_etapas E", "A.id_projeto = E.id_projeto", "inner");
         $retorno = $this->db->get('tbl_projetos A');
         return $retorno->result();
     }
@@ -103,12 +109,11 @@ class M_retorno extends CI_Model
     ////////////////////////////////////////
     public function retUsers()
     {
-
-        $this->db->select('*');
-        $this->db->where('status !=', 'D');
+        $this->db->select('id_users, id_departamento, nome, registro, usuario, nivel, status, DATE_FORMAT(dtcria, "%d/%m/%Y")');
+        $this->db->where('status != "D"');
         $retorno = $this->db->get('tbl_users');
 
-        return $retorno;
+        return $retorno->result();
     }
 
 
