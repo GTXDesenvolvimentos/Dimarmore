@@ -59,15 +59,8 @@ class M_retorno extends CI_Model
         $this->db->select('A.responsavel as id_responsavel');
         $this->db->select('A.nome as nomeProjeto');
         $this->db->select("DATE_FORMAT(A.dtentrega, '%d/%m/%Y') AS dtEntregaProjeto", FALSE);
-<<<<<<< HEAD
         $this->db->select("A.dtentrega AS dtEntregaProjetoE", FALSE);
-        
-        
-
         $this->db->select('A.descricao as descrPropjeto');
-=======
-        $this->db->select('A.descricao as descrProjeto');
->>>>>>> 98829ec0b67e0f339a75218a55b711b97103e6c0
         $this->db->select('A.data_fim as dtfimProjeto');
         $this->db->select('A.anexo as anexoProjeto');
         $this->db->select('A.usucria as usucriaPropjeto');
