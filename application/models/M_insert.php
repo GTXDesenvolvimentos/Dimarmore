@@ -169,4 +169,16 @@ class M_insert extends CI_Model
         }
         return $return;
     }
+
+    ////////////////////////////////////////
+    // CADASTRO DE ATIVIDADE
+    // CRIADO POR ELIEL AMORIM            
+    // DATA: 25/05/2023
+    ////////////////////////////////////////   
+    public function cadAtividades($dados)
+    {
+
+        
+
+    }
 }
