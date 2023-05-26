@@ -57,6 +57,10 @@ class M_retorno extends CI_Model
         $this->db->select('A.responsavel as id_responsavel');
         $this->db->select('A.nome as nomeProjeto');
         $this->db->select("DATE_FORMAT(A.dtentrega, '%d/%m/%Y') AS dtEntregaProjeto", FALSE);
+        $this->db->select("A.dtentrega AS dtEntregaProjetoE", FALSE);
+        
+        
+
         $this->db->select('A.descricao as descrPropjeto');
         $this->db->select('A.data_fim as dtfimProjeto');
         $this->db->select('A.anexo as anexoProjeto');
@@ -68,6 +72,7 @@ class M_retorno extends CI_Model
         $this->db->select('B.cod_departamento as codDepartamento');
         $this->db->select('B.descricao as descrDepartamento');
         //RETORNO DE TABELA USERS - RESPONSÁVEL
+        $this->db->select('C.id_users as idResponsavel');
         $this->db->select('C.nome as nomeResponsavel');
         //PARAMETROS DE CONSULTAS
         isset($id_departamento) == true && $id_departamento != '' ? $this->db->where('B.id_departamento', $id_departamento) : '';

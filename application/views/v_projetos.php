@@ -53,19 +53,11 @@
 
         function altProjeto(value) {
             $('#txtIdProjeto').val(value.id_projeto);
-            $('#txtNomeProjeto ').val(value.nome);
-            $('#txtDescProjeto').val(value.descricao);
-            $('#txtDataFimProjeto').val(value.dtentrega);
-            $('#slRespProjeto').selectpicker('val', value.responsavel);
+            $('#txtNomeProjeto ').val(value.nomeProjeto);
+            $('#txtDescProjeto').val(value.descrPropjeto);
+            $('#txtDataFimProjeto').val(value.dtEntregaProjetoE);
+            $('#slRespProjeto').selectpicker('val', value.idResponsavel);
             $('#slDepProjeto').selectpicker('val', value.id_departamento);
-
-
             $('#ModalProjeto').modal('show');
-
-
-            // "slRespProjeto"
-            // "slDepProjeto"
-            // ""
-
         }
     </script>
