@@ -42,7 +42,7 @@ class Projetos extends CI_Controller
             $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
             $configuracao = array(
                 "upload_path"   => "./assets/uploads/",
-                'allowed_types' => 'jpg|png|gif|pdf|zip|rar|doc|xls|csv',
+                'allowed_types' => 'jpg|png|gif|pdf',
                 'file_name'     => $anexo,
                 'max_size'      => '500'
             );

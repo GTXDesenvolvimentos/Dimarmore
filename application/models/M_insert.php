@@ -112,6 +112,7 @@ class M_insert extends CI_Model
         $this->db->where('id_projeto', $dados['slEtapProjeto']);
         $retorno = $this->db->get('tbl_projetos')->result();
 
+
         $this->db->trans_begin();
         if ($dados['txtIdEtapa'] == '') {
             $values = array(
@@ -119,7 +120,7 @@ class M_insert extends CI_Model
                 "id_projeto" => $retorno[0]->id_projeto,
                 "etapa" => $dados['txtNomeEtapa'],
                 "descricao" => $dados['txtDescEtapa'],
-                "prioridade" => $dados['SlPrioridade'],
+                "prioridade" => $dados['SlEtaPrioridade'],
                 "data_inicio" => date('d/m/Y'),
                 "data_fim" => $dados['txtEtaDtLimit'],
                 "responsavel" => $dados['slResponsavel'],
@@ -145,7 +146,7 @@ class M_insert extends CI_Model
                 "id_projeto" => $retorno[0]->id_projeto,
                 "etapa" => $dados['txtNomeEtapa'],
                 "descricao" => $dados['txtDescEtapa'],
-                "prioridade" => $dados['SlPrioridade'],
+                "prioridade" => $dados['SlEtaPrioridade'],
                 "data_inicio" => date('d/m/Y'),
                 "data_fim" => $dados['txtEtaDtLimit'],
                 "responsavel" => $dados['slResponsavel'],

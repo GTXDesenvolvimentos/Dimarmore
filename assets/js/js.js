@@ -1,3 +1,4 @@
+
 // FUNÇÃO arrayColumn DO PHP PARA JAVASCRIPT
 const arrayColumn = (array, column) => {
     return array.map(item => parseInt(item[column]));
@@ -404,6 +405,42 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
+function selectUsuarios() {
+
+    $.ajax({
+        url: base_url + "Etapas/retUsers",
+        type: 'POST',
+        dataType: "json",
+        cache: false,
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (result) {
+            $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').prop('disabled', false);
+            $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').selectpicker('refresh');
+            $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').html('');
+            $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').append('<option value=""> Responsável </option>');
+
+            var jsonData1 = JSON.stringify(result);
+            $.each(JSON.parse(jsonData1), function (idx, obj) {
+                $('#slEtapResponsavel, #slRespProjeto, #slInforResponsavel').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
+            });
+            swal.fire({
+                timer: 1,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        }
 
 $(document).ready(function () {
     $('[data-id="slRespProjeto"]').on('click', function () {
@@ -442,6 +479,7 @@ $(document).ready(function () {
                 });
             }
         });
+
     });
 });
 
@@ -456,6 +494,48 @@ $(document).ready(function () {
 
 $(document).ready(function () {
     $('[data-id="slDepProjeto"]').on('click', function () {
+
+////////////////////////////////////////
+// MONTA SELECT DE PROJETOS                 
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+function selectProjeto() {
+
+    $.ajax({
+        url: base_url + "Etapas/retProjeto",
+        type: 'POST',
+        dataType: "json",
+        cache: false,
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (result) {
+            $('#slEtapProjeto, #slInforProjeto').prop('disabled', false);
+            $('#slEtapProjeto, #slInforProjeto').selectpicker('refresh');
+            $('#slEtapProjeto, #slInforProjeto').html('');
+            $('#slEtapProjeto, #slInforProjeto').append('<option value=""> Projeto </option>');
+
+            var jsonData1 = JSON.stringify(result);
+            $.each(JSON.parse(jsonData1), function (idx, obj) {
+                $('#slEtapProjeto, #slInforProjeto').append('<option value="' + obj.id_projeto + '">' + obj.id_projeto + " - " + obj.descricao + '</option>').selectpicker('refresh');
+            });
+            swal.fire({
+                timer: 1,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        }
 
         $.ajax({
             url: base_url + "deptos/retDepto",
@@ -495,6 +575,7 @@ $(document).ready(function () {
                 });
             }
         });
+
     });
 });
 
@@ -674,10 +755,67 @@ $(document).ready(function () {
 //==================================================================
 
 function viewAnexo(value) {
-    return '<buttom class="btn btn-outline-success btn-sm" onclick="modalAnexo(' + value + ');"><i class="fa-regular fa-images"></i></button';
+    if (value !== '') {
+        return '<buttom class="btn btn-outline-success btn-sm" onclick="modalAnexo(\'' + value + '\');"><i class="fa-regular fa-images"></i></button';
+    }
 }
 
-function modalAnexo() {
+function modalAnexo(value) {
+    $('#docAnexoView').html('<embed id="docAnexoView" src="' + base_url + '/assets/uploads/' + value + '" frameborder="0" width="100%" height="400px">');
     $('#modalAnexo').modal('show');
+}
+function imgEtapa(value) {
+    $.ajax({
+        url: base_url + "Etapas/imgEtapa",
+        type: 'POST',
+        dataType: "json",
+        data: {
+            id_etapa: value
+        },
+        cache: false,
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar a imagem!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (result) {
+            console.log(result);
+            swal.fire({
+                timer: 1,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+            $('#ModalInfor').modal('show');
+            $('#txtInfor').html("ETAPA : " + value);
+            var img = document.querySelector("#imgInfor");
+            img.setAttribute('src', base_url + 'assets/uploads/imgEtapas/' + result[0].anexo);
+            $('#txtIdInfor').val(result[0].id_etapa);
+            $('#txtNomeInfor').val(result[0].etapa);
+            $('#txtDescInfor').val(result[0].descricao);
+            $('#txtInforDtLimit').val(result[0].data_fim);
+            $('#slInforPrioridade').selectpicker('val', result[0].prioridade);
+            $('#slInforProjeto').selectpicker('val', result[0].id_projeto);
+            $('#slInforResponsavel').selectpicker("val", result[0].responsavel);
+            $('#slInforPrioridade, #slInforProjeto, #slInforResponsavel').prop('disabled', true);
+            $('#slInforPrioridade, #slInforProjeto, #slInforResponsavel').selectpicker('refresh');
+        }
+    });
+}
+
 
 }
+
+function situacao(value) {
+    if (value == 'P') {
+        return 'Pendente';
+    }
+}
+
