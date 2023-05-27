@@ -8,7 +8,7 @@ class M_delete extends CI_Model
 {
 
     ////////////////////////////////////////
-    // DELETAR CONGREGACOES                     
+    // DELETAR DEPARTAMENTO               
     // CRIADO POR MARCIO SILVA          
     // DATA: 31/05/2019                  
     ////////////////////////////////////////
@@ -31,6 +31,35 @@ class M_delete extends CI_Model
             $return = array(
                 'code' => 1,
                 'message' => "Deparatamento deletado com sucesso!"
+            );
+        }
+        return $return;
+    }
+
+    ////////////////////////////////////////
+    // DELETAR PROJETOS                     
+    // CRIADO POR MARCIO SILVA          
+    // DATA: 31/05/2019                  
+    ////////////////////////////////////////
+    public function delProjeto($id_projeto)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_projeto', $id_projeto);
+        $dados = array('status' => 'D');
+        $this->db->update('tbl_projetos', $dados);
+
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $return = array(
+                'code' => 0,
+                'message' => "Erro ao deletar o projeto!"
+            );
+        } else {
+            $this->db->trans_commit();
+            $return = array(
+                'code' => 1,
+                'message' => "Projeto deletado com sucesso!"
             );
         }
         return $return;

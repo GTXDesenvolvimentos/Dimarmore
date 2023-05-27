@@ -127,7 +127,7 @@
                         <!-- <label class="m-0">Anexar:</label> -->
                         <div class="custom-file">
                             <input type="file" class="custom-file-input" name="anexoEtapa" id="anexoEtapa" value="Anexar">
-                            <label class="custom-file-label" for="anexoEtapa" id="lbEtapa">ANEXAR ARQUIVOS</label>
+                            <label class="custom-file-label" id="lbEtapa">ANEXAR ARQUIVOS</label>
                         </div>
 
                     </div>
@@ -142,22 +142,7 @@
     </div>
 </div>
 
-<!-- MODAL INFORMATIVO -->
-<div id="ModalInfor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <form method="post" id="formInfor" enctype="multipart/form-data">
 
-                <div class="modal-header">
-                    <h4 class="modal-title" id="txtInfor"></h4>
-                    <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
-                </div>
-                <input type="number" name="txtIdInfor" id="txtIdInfor" class="d-none">
-                <div class="modal-body p-2">
-                    <div class="form-group col-12">
-                        <div class="text-center">
-                            <img id="imgInfor" class="img-fluid mx-auto d-block" width="75%">
-                        </div>
 
 <!-- MODAL ATIVIDADES -->
 <div class="modal fade" id="ModalAtividades" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
@@ -169,7 +154,7 @@
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
 
-                <input  type="number" name="txtIdProjeto" id="txtIdProjeto">
+                <input type="number" name="txtIdProjeto" id="txtIdProjeto">
 
                 <div class="modal-body p-2">
 
@@ -210,7 +195,7 @@
                     </div>
 
                     <div class="form-group col-12">
-                        <label for="formFileLg" class="form-label">Anexo</label>
+                        <label class="form-label">Anexo</label>
                         <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoAtividade" type="file" />
 
                         <label class="form-label">Anexo</label>
@@ -231,16 +216,15 @@
 
 
 <!-- MODAL VIEW ANEXO -->
-<div class="modal fade" id="modalAnexo" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="modalAnexo" class="modal fade" tabindex="-1" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Atividade</h4>
-                <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body p-2">
-               <embed id="docAnexoView" src="<?= base_url('assets/uploads/1.pdf') ?>" frameborder="0" width="100%" height="400px">
-               <div id="docAnexoView"></div>
+                <div id="docAnexoView"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
