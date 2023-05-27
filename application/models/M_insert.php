@@ -64,7 +64,7 @@ class M_insert extends CI_Model
     {
 
         $this->db->trans_begin();
-        if ($dados['id_projeto'] == '') {
+        if ($this->input->post("txtIdProjeto") == '') {
             $this->db->insert('tbl_projetos', $dados);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -80,7 +80,7 @@ class M_insert extends CI_Model
                 );
             }
         } else {
-            $this->db->where('id_projeto', $dados['id_projeto']);
+            $this->db->where('id_projeto', $this->input->post("txtIdProjeto"));
             $this->db->update('tbl_projetos', $dados);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();

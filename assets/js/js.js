@@ -138,7 +138,7 @@ $(document).ready(function() {
 
 
 ////////////////////////////////////////
-// FUNÇÃO CAD E ALTERAR ETAPAS                 
+// FUNÇÃO CAD E ALTERAR PROJETOS           
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
@@ -176,7 +176,7 @@ $(document).ready(function() {
                     } else if (data.code == 1) {
 
                         clearForm();
-                        $('#tableDepto').bootstrapTable('refresh');
+                        $('#tableProjeto').bootstrapTable('refresh');
                         Swal.fire({
                             title: 'Sucesso!',
                             text: data.message,
@@ -249,6 +249,77 @@ function delDepto(value) {
 
                         clearForm();
                         $('#tableDepto').bootstrapTable('refresh');
+                        Swal.fire({
+                            title: 'Sucesso!',
+                            text: data.message,
+                            icon: 'success',
+                            confirmButtonColor: '#268917',
+                            confirmButtonText: 'Sair'
+                        });
+                    }
+                },
+                error: function(xhr, er) {
+                    swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+                }
+            });
+        }
+    })
+}
+
+
+
+
+
+
+////////////////////////////////////////
+// FUNÇÃO DELETA PROJETO              
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+function delProjeto(value) {
+    Swal.fire({
+        title: 'Atenção!',
+        text: "Deseja realmente deletar o projeto?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sim, quero deletar',
+        cancelButtonText: 'Não, voltar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: base_url + "/projetos/delProjeto",
+                data: {
+                    id_projeto: value
+                },
+                type: 'POST',
+                dataType: "json",
+                cache: false,
+                beforeSend: function() {
+                    swal.fire({
+                        title: "Aguarde!",
+                        text: "Validando os dados...",
+                        imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                        showConfirmButton: false
+                    });
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.code == 2) {
+                        swal.fire({
+                            title: "Atenção!",
+                            html: data.message,
+                            icon: 'info',
+                            confirmButtonColor: '#0b475a',
+                            confirmButtonText: 'Voltar'
+                        });
+                    } else if (data.code == 0) {
+                        swal.fire("Atenção!", data.message, "warning");
+                    } else if (data.code == 1) {
+
+                        clearForm();
+                        $('#tableProjeto').bootstrapTable('refresh');
                         Swal.fire({
                             title: 'Sucesso!',
                             text: data.message,
@@ -404,48 +475,49 @@ $(document).ready(function() {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
+function selectUsers() {
+    $.ajax({
+        url: base_url + "Usuarios/retUsers",
+        type: 'POST',
+        dataType: "json",
+        cache: false,
+        error: function() {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function() {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function(result) {
+            $('#slEtapResponsavel').prop('disabled', false);
+            $('#slEtapResponsavel').selectpicker('refresh');
+            $('#slEtapResponsavel').html('');
+            $('#slEtapResponsavel').append('<option value=""> Responsável </option>');
 
-$(document).ready(function() {
-    $('[data-id="slRespProjeto"]').on('click', function() {
-        $.ajax({
-            url: base_url + "Etapas/retUsers",
-            type: 'POST',
-            dataType: "json",
-            cache: false,
-            error: function() {
-                swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
-            },
-            beforeSend: function() {
-                swal.fire({
-                    title: "Aguarde!",
-                    text: "Validando os dados...",
-                    imageUrl: base_url + "/assets/img/gifs/loader.gif",
-                    showConfirmButton: false
-                });
-            },
-            success: function(result) {
-                $('#slEtapResponsavel').prop('disabled', false);
-                $('#slEtapResponsavel').selectpicker('refresh');
-                $('#slEtapResponsavel').html('');
-                $('#slEtapResponsavel').append('<option value=""> Responsável </option>');
-
-                var jsonData1 = JSON.stringify(result);
-                $.each(JSON.parse(jsonData1), function(idx, obj) {
-                    $('#slResponsavel, #slRespProjeto').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
-                });
-                swal.fire({
-                    timer: 1,
-                    title: "Aguarde!",
-                    text: "Validando os dados...",
-                    imageUrl: base_url + "/assets/img/gifs/loader.gif",
-                    showConfirmButton: false
-                });
-            }
-        });
+            var jsonData1 = JSON.stringify(result);
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
+                $('#slResponsavel, #slRespProjeto').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
+            });
+            swal.fire({
+                timer: 1,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        }
     });
-});
+
+}
 
 //==================================================================
+
+
+
 
 
 ////////////////////////////////////////
@@ -453,8 +525,7 @@ $(document).ready(function() {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-
-$(document).ready(function() {
+function selectDepto() {
     $.ajax({
         url: base_url + "deptos/retDepto",
         type: 'POST',
@@ -472,14 +543,10 @@ $(document).ready(function() {
             });
         },
         success: function(result) {
-            console.log(result);
-
-
             $('#slDepProjeto').prop('disabled', false);
             $('#slDepProjeto').selectpicker('refresh');
             $('#slDepProjeto').html('');
-            $('#slDepProjeto').append('<option value="">Projetos</option>');
-
+            $('#slDepProjeto').append('<option value="">Departamentos</option>');
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function(idx, obj) {
                 $('#slDepProjeto').append('<option value="' + obj.id_departamento + '">' + obj.descricao + '</option>').selectpicker('refresh');
@@ -494,12 +561,11 @@ $(document).ready(function() {
         }
     });
 
-});
-
+}
 
 function viewAnexo(value) {
-    if (value !== '') {
-        return '<buttom class="btn btn-outline-success btn-sm" onclick="modalAnexo(\'' + value + '\');"><i class="fa-regular fa-images"></i></button';
+    if (value != '') {
+        return '<buttom class="btn btn-warning btn-sm" onclick="modalAnexo(\'' + value + '\');"><i class="fa-regular fa-images"></i></button';
     }
 }
 
@@ -513,4 +579,14 @@ function situacao(value) {
     if (value == 'P') {
         return 'Pendente';
     }
+}
+
+
+//Loading the variable
+var subURL = window.location.href;
+var myarr = subURL.split("/");
+
+if (myarr[4] == 'projetos') {
+    selectDepto();
+    selectUsers();
 }

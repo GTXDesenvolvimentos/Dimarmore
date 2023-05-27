@@ -13,7 +13,7 @@
                                 <tr>
                                     <th data-field="id_departamento" data-align="center" data-sortable="true">ID</th>
                                     <th data-field="cod_departamento" data-halign="center" data-align="center" data-sortable="true">Código do departamento</th>
-                                    <th data-field="descricao" data-halign="center" data-align="center" data-sortable="true">Descrição</th>
+                                    <th data-field="descricao" data-halign="center" data-align="left" data-sortable="true">Descrição</th>
                                     <th data-field="dtcria" data-halign="center" data-align="center" data-sortable="true">Data de criação</th>
                                     <th data-halign="center" data-align="center" data-formatter="opcoesDepto">Opções</th>
                                 </tr>

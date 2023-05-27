@@ -2,9 +2,8 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Projetos extends CI_Controller
+class Projetos extends MY_Controller
 {
-
     public function __construct()
     {
         parent::__construct();
@@ -13,19 +12,27 @@ class Projetos extends CI_Controller
         $this->load->database();
     }
 
+    ////////////////////////////////////////
+    // FUNÇÃO PRINCIPAL INDEX                 
+    // CRIADO POR MARCIO SILVA            
+    // DATA: 09/02/2023                   
+    ////////////////////////////////////////
     public function index()
     {
-        /////////////////////////////////////////////////
-        //// TELA DE PROJETOS
-        /////////////////////////////////////////////////
+        $return['usuarios'] = $this->m_retorno->retUsers();
+        $return['deptos'] = $this->m_retorno->retDepto();
         $this->load->view('includes/header');
         $this->load->view('includes/menu_sup');
-        $this->load->view('v_projetos');
+        $this->load->view('v_projetos', $return);
         $this->load->view('includes/modal');
         $this->load->view('includes/footer');
-        /////////////////////////////////////////////////
     }
 
+    ////////////////////////////////////////
+    // FUNÇÃO DE RETORNO PROJETOS           
+    // CRIADO POR MARCIO SILVA            
+    // DATA: 09/02/2023                   
+    ////////////////////////////////////////
     public function retAllProjects()
     {
         $this->load->model('M_retorno');
@@ -33,7 +40,11 @@ class Projetos extends CI_Controller
         echo json_encode($retorno);
     }
 
-
+    ////////////////////////////////////////
+    // FUNÇÃO DE CADASTRO PROJETOS     
+    // CRIADO POR MARCIO SILVA            
+    // DATA: 09/02/2023                   
+    ////////////////////////////////////////
     public function cadProjeto()
     {
         $files = $_FILES['anexoProjeto'];
@@ -42,7 +53,7 @@ class Projetos extends CI_Controller
             $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
             $configuracao = array(
                 "upload_path"   => "./assets/uploads/",
-                'allowed_types' => 'jpg|png|gif|pdf',
+                'allowed_types' => 'jpg|png|gif|pdf|jpeg',
                 'file_name'     => $anexo,
                 'max_size'      => '500'
             );
@@ -77,18 +88,28 @@ class Projetos extends CI_Controller
                 'message' => validation_errors()
             );
         } else {
-
-            $dados = array(
-                "id_projeto" => $this->input->post("txtIdProjeto"),
-                "nome" => $this->input->post("txtNomeProjeto"),
-                "descricao" => $this->input->post("txtDescProjeto"),
-                "responsavel" => $this->input->post("slRespProjeto"),
-                "id_departamento" => $this->input->post("slDepProjeto"),
-                "anexo" => $anexo,
-                "dtentrega" => $this->input->post("txtDataFimProjeto"),
-                "usucria" => $this->session->userdata('id_users')
-            );
-
+            if ($this->input->post("txtIdProjeto") !== '') {
+                $dados = array(
+                    "nome" => $this->input->post("txtNomeProjeto"),
+                    "descricao" => $this->input->post("txtDescProjeto"),
+                    "responsavel" => $this->input->post("slRespProjeto"),
+                    "id_departamento" => $this->input->post("slDepProjeto"),
+                    "anexo" => $anexo,
+                    "dtentrega" => $this->input->post("txtDataFimProjeto"),
+                    "usucria" => $this->session->userdata('id_users')
+                );
+            } else {
+                $dados = array(
+                    "id_projeto" => $this->input->post("txtIdProjeto"),
+                    "nome" => $this->input->post("txtNomeProjeto"),
+                    "descricao" => $this->input->post("txtDescProjeto"),
+                    "responsavel" => $this->input->post("slRespProjeto"),
+                    "id_departamento" => $this->input->post("slDepProjeto"),
+                    "anexo" => $anexo,
+                    "dtentrega" => $this->input->post("txtDataFimProjeto"),
+                    "usucria" => $this->session->userdata('id_users')
+                );
+            }
             $value = $this->input->post();
             $this->load->model('M_insert');
             $return = $this->M_insert->cadProjeto($dados);
@@ -96,5 +117,16 @@ class Projetos extends CI_Controller
         echo json_encode($return);
     }
 
-
+    ////////////////////////////////////////
+    // DELETAR PROJETO        
+    // CRIADO POR MARCIO SILVA            
+    // DATA: 09/02/2023                   
+    ////////////////////////////////////////
+    public function delProjeto()
+    {
+        $id_projeto = $this->input->post('id_projeto');
+        $this->load->model('M_delete');
+        $return = $this->M_delete->delProjeto($id_projeto);
+        echo json_encode($return);
+    }
 }

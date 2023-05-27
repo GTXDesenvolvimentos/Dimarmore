@@ -30,6 +30,22 @@ class M_retorno extends CI_Model
         }
     }
 
+
+    ////////////////////////////////////////
+    // RETORNO DE USUARIOS                //
+    // CRIADO POR MARCIO SILVA            //
+    // DATA: 22/05/2022                   //
+    ////////////////////////////////////////
+    public function retUsers()
+    {
+        $this->db->select('id_users, nome, registro, usuario, nivel, status, DATE_FORMAT(dtcria, "%d/%m/%Y")');
+        $this->db->where('status != "D"');
+        $retorno = $this->db->get('tbl_users');
+
+        return $retorno->result();
+    }
+
+
     ////////////////////////////////////////
     // RETORNO DE DEPARTAMENTOS           //
     // CRIADO POR MARCIO SILVA            //
@@ -77,10 +93,10 @@ class M_retorno extends CI_Model
         isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
         isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $responsavel) : '';
         isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('E.id_etapa', $id_etapa) : '';
-        $this->db->where('A.status !=', 'D');
-        $this->db->join("tbl_departamentos B", "A.id_departamento = B.id_departamento", "inner");
         $this->db->join("tbl_users C", "A.responsavel = C.id_users", "inner");
-        $this->db->join("tbl_etapas E", "A.id_projeto = E.id_projeto", "inner");
+        $this->db->join("tbl_etapas E", "A.id_projeto = E.id_projeto", "left");
+        $this->db->join("tbl_departamentos B", "A.id_departamento = B.id_departamento", "inner");
+        $this->db->where('A.status !=', 'D');
         $retorno = $this->db->get('tbl_projetos A');
         return $retorno->result();
     }
@@ -101,23 +117,10 @@ class M_retorno extends CI_Model
         return $retorno;
     }
 
-    ////////////////////////////////////////
-    // RETORNO DE ETAPAS                  //
-    // CRIADO POR MARCIO SILVA            //
-    // DATA: 22/05/2022                   //
-    ////////////////////////////////////////
-    public function retUsers()
-    {
-        $this->db->select('id_users, id_departamento, nome, registro, usuario, nivel, status, DATE_FORMAT(dtcria, "%d/%m/%Y")');
-        $this->db->where('status != "D"');
-        $retorno = $this->db->get('tbl_users');
-
-        return $retorno->result();
-    }
-
+    
 
     ////////////////////////////////////////
-    // RETORNO DE TODOS OS PROJETOS       //
+    // RETORNO DE TODOS OS ATIVIDADES     //
     // CRIADO POR ELIEL FELIX             //
     // DATA: 22/05/2023                   //
     ////////////////////////////////////////
