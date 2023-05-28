@@ -48,7 +48,6 @@ class Projetos extends MY_Controller
     public function cadProjeto()
     {
         $files = $_FILES['anexoProjeto'];
-        $anexo = '';
         if ($_FILES['anexoProjeto']['tmp_name'] !== '') {
             $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
             $configuracao = array(
@@ -75,7 +74,7 @@ class Projetos extends MY_Controller
             $this->form_validation->set_rules('txtNomeProjeto', 'Nome do projeto', 'required');
             $this->form_validation->set_rules('txtDescProjeto', 'Descrição', 'required');
         } else {
-            $this->form_validation->set_rules('txtNomeProjeto', 'Nome do projeto', 'required|is_unique[tbl_departamentos.cod_departamento]');
+            $this->form_validation->set_rules('txtNomeProjeto', 'Nome do projeto', 'required|is_unique[tbl_projetos.nome]');
             $this->form_validation->set_rules('txtDescProjeto', 'Descrição', 'required');
             $this->form_validation->set_rules('slRespProjeto', 'Responsável', 'required');
             $this->form_validation->set_rules('slDepProjeto', 'Departamento', 'required');
@@ -89,15 +88,26 @@ class Projetos extends MY_Controller
             );
         } else {
             if ($this->input->post("txtIdProjeto") !== '') {
-                $dados = array(
-                    "nome" => $this->input->post("txtNomeProjeto"),
-                    "descricao" => $this->input->post("txtDescProjeto"),
-                    "responsavel" => $this->input->post("slRespProjeto"),
-                    "id_departamento" => $this->input->post("slDepProjeto"),
-                    "anexo" => $anexo,
-                    "dtentrega" => $this->input->post("txtDataFimProjeto"),
-                    "usucria" => $this->session->userdata('id_users')
-                );
+                if ($_FILES['anexoProjeto']['tmp_name'] !== '') {
+                    $dados = array(
+                        "nome" => $this->input->post("txtNomeProjeto"),
+                        "descricao" => $this->input->post("txtDescProjeto"),
+                        "responsavel" => $this->input->post("slRespProjeto"),
+                        "id_departamento" => $this->input->post("slDepProjeto"),
+                        "dtentrega" => $this->input->post("txtDataFimProjeto"),
+                        "anexo" => $anexo,
+                        "usucria" => $this->session->userdata('id_users')
+                    );
+                } else {
+                    $dados = array(
+                        "nome" => $this->input->post("txtNomeProjeto"),
+                        "descricao" => $this->input->post("txtDescProjeto"),
+                        "responsavel" => $this->input->post("slRespProjeto"),
+                        "id_departamento" => $this->input->post("slDepProjeto"),
+                        "dtentrega" => $this->input->post("txtDataFimProjeto"),
+                        "usucria" => $this->session->userdata('id_users')
+                    );
+                }
             } else {
                 $dados = array(
                     "id_projeto" => $this->input->post("txtIdProjeto"),

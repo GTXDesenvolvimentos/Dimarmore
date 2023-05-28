@@ -91,7 +91,7 @@
                 <input type="number" name="txtIdEtapa" id="txtIdEtapa" class="d-none">
                 <div class="modal-body p-2">
                     <div class="form-group col-12">
-                        <label class="m-0">Nome da etapa:</label>
+                        <label class="m-0">Etapa:</label>
                         <input type="text" class="form-control" name="txtNomeEtapa" id="txtNomeEtapa" placeholder="Nome da etapa">
                     </div>
 
@@ -100,36 +100,47 @@
                         <textarea type="text" class="form-control" name="txtDescEtapa" id="txtDescEtapa" placeholder="Descrição da etapa"></textarea>
                     </div>
                     <div class="form-group col-12">
-                        <label class="m-0">Data limite do projeto:</label>
+                        <label class="m-0">Data limite da etapa:</label>
                         <input type="date" class="form-control" name="txtEtaDtLimit" id="txtEtaDtLimit" placeholder="Data limite para finalização">
                     </div>
-                    <div class="form-group col-12">
-                        <!-- <label class="m-0">Prioridade:</label> -->
-                        <select id="SlEtaPrioridade" name="SlEtaPrioridade" class="selectpicker form-control" data-style="btn-success">
-                            <option value="">Prioridade</option>
-                            <option value="A">Aguardando</option>
-                            <option value="P">Pendente</option>
-                            <option value="E">Executando</option>
-                            <option value="C">Concluido</option>
-                        </select>
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <label class="m-0">Prioridade:</label>
+                                <select id="SlEtaPrioridade" name="SlEtaPrioridade" class="selectpicker form-control" data-style="btn-success">
+                                    <option value="">Prioridade</option>
+                                    <option value="P">Padrão</option>
+                                    <option value="M">Média</option>
+                                    <option value="A">Alta</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-6">
+                                <label class="m-0">situação:</label>
+                                <select id="SlEtapaStatus" name="SlEtapaStatus" class="selectpicker form-control" data-style="btn-success">
+                                    <option value="A">Aguardando</option>
+                                    <option value="P">Pendente</option>
+                                    <option value="E">Exacutando</option>
+                                    <option value="C">Concluída</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-12">
-                        <select id="slEtapProjeto" name="slEtapProjeto" class="form-control" data-style="btn-success">
+                        <label class="m-0">Projeto:</label>
+                        <select id="slEtapProjeto" name="slEtapProjeto" class="form-control selectpicker" data-style="btn-success">
                             <option value="">Projeto</option>
                         </select>
                     </div>
                     <div class="form-group col-12">
-                        <select id="slEtapResponsavel" name="slEtapResponsavel" class="form-control" data-style="btn-success">
+                        <label class="m-0">Responsável:</label>
+                        <select id="slEtapResponsavel" name="slEtapResponsavel" class="form-control selectpicker" data-style="btn-success">
                             <option value="">Responsável</option>
                         </select>
                     </div>
-                    <div class="form-group col-12" id="dvAnexo">
-                        <!-- <label class="m-0">Anexar:</label> -->
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="anexoEtapa" id="anexoEtapa" value="Anexar">
-                            <label class="custom-file-label" id="lbEtapa">ANEXAR ARQUIVOS</label>
-                        </div>
 
+                    <div class="form-group col-12">
+                        <label class="form-label">Anexo</label>
+                        <input class="form-control form-control-lg btn" id="anexoEtapa" name="anexoEtapa" name="anexoEtapa" type="file" />
                     </div>
 
                 </div>

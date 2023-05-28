@@ -21,7 +21,7 @@ class Etapas extends MY_Controller
     }
 
     ////////////////////////////////////////
-    // RETORNA DEPARTAMENTO                     
+    // RETORNA ETAPAS                
     // CRIADO POR MARCIO SILVA            
     // DATA: 08/02/2023                   
     ////////////////////////////////////////
@@ -32,55 +32,92 @@ class Etapas extends MY_Controller
         echo json_encode($retorno->result());
     }
 
-    public function retUsers()
-    {
-        $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retUsers();
-        echo json_encode($retorno->result());
-    }
-
-
-    public function retProjeto()
-    {
-        $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retProjeto();
-        echo json_encode($retorno->result());
-    }
 
     public function cadEtapa()
     {
-        error_reporting(E_ERROR | E_PARSE);
 
-        $value = $this->input->post();
-
-        if ($value['txtIdEtapa'] == '') {
-            $files    = $_FILES['anexoEtapa'];
-            $nameFil = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
-
+        $files = $_FILES['anexoEtapa'];
+        if ($_FILES['anexoEtapa']['tmp_name'] !== '') {
+            $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
             $configuracao = array(
-                "upload_path"   => "./assets/uploads/imgEtapas/",
-                'allowed_types' => 'jpg|jpeg|png|gif|pdf|zip|rar|doc|xls|csv',
-                'file_name'     => $nameFil,
+                "upload_path"   => "./assets/uploads/",
+                'allowed_types' => 'jpg|png|gif|pdf|jpeg',
+                'file_name'     => $anexo,
                 'max_size'      => '500'
             );
-
-            $value['anexo'] = $nameFil;
-
             $this->load->library('upload');
             $this->upload->initialize($configuracao);
             if ($this->upload->do_upload('anexoEtapa')) {
-                $this->load->model('M_insert');
-                $return = $this->M_insert->cadEtapa($value);
             } else {
-
                 $return = array(
                     'code' => 2,
                     'message' =>  trim($this->upload->display_errors())
                 );
+                echo json_encode($return);
+                exit();
             }
+        }
+
+        $this->load->library('form_validation');
+        if ($this->input->post('txtIdEtapa') !== '') {
+            $this->form_validation->set_rules('txtNomeEtapa', 'Nome do projeto', 'required');
+            $this->form_validation->set_rules('txtDescEtapa', 'Descrição', 'required');
         } else {
+            $this->form_validation->set_rules('txtNomeEtapa', 'Nome da etapa', 'required|is_unique[tbl_etapas.etapa]');
+            $this->form_validation->set_rules('txtDescEtapa', 'Descrição', 'required');
+            $this->form_validation->set_rules('SlEtaPrioridade', 'Responsável', 'required');
+            $this->form_validation->set_rules('slEtapResponsavel', 'Responsável', 'required');
+            $this->form_validation->set_rules('slEtapProjeto', 'Departamento', 'required');
+            $this->form_validation->set_rules('txtEtaDtLimit', 'Data', 'required');
+        }
+
+        if ($this->form_validation->run() == FALSE) {
+            $return = array(
+                'code' => 2,
+                'message' => validation_errors()
+            );
+        } else {
+            if ($this->input->post("txtIdEtapa") !== '') {
+                if ($_FILES['anexoEtapa']['tmp_name'] !== '') {
+                    $dados = array(
+                        "id_projeto" => $this->input->post("slEtapProjeto"),
+                        "etapa" => $this->input->post("txtNomeEtapa"),
+                        "descricao" => $this->input->post("txtDescEtapa"),
+                        "prioridade" => $this->input->post("SlEtaPrioridade"),
+                        "responsavel" => $this->input->post("slEtapResponsavel"),
+                        "situacao" => $this->input->post("SlEtapaStatus"),
+                        "data_fim" => $this->input->post("txtEtaDtLimit"),
+                        "anexo" => $anexo,
+                        "usucria" => $this->session->userdata('id_users')
+                    );
+                } else {
+                    $dados = array(
+                        "id_projeto" => $this->input->post("slEtapProjeto"),
+                        "etapa" => $this->input->post("txtNomeEtapa"),
+                        "descricao" => $this->input->post("txtDescEtapa"),
+                        "prioridade" => $this->input->post("SlEtaPrioridade"),
+                        "responsavel" => $this->input->post("slEtapResponsavel"),
+                        "situacao" => $this->input->post("SlEtapaStatus"),
+                        "data_fim" => $this->input->post("txtEtaDtLimit"),
+                        "usucria" => $this->session->userdata('id_users')
+                    );
+                }
+            } else {
+                $dados = array(
+                    "id_etapa" => $this->input->post("txtIdEtapa"),
+                    "id_projeto" => $this->input->post("slEtapProjeto"),
+                    "etapa" => $this->input->post("txtNomeEtapa"),
+                    "descricao" => $this->input->post("txtDescEtapa"),
+                    "prioridade" => $this->input->post("SlEtaPrioridade"),
+                    "responsavel" => $this->input->post("slEtapResponsavel"),
+                    "situacao" => $this->input->post("SlEtapaStatus"),
+                    "data_fim" => $this->input->post("txtEtaDtLimit"),
+                    "anexo" => $anexo,
+                    "usucria" => $this->session->userdata('id_users')
+                );
+            }
             $this->load->model('M_insert');
-            $return = $this->M_insert->cadEtapa($value);
+            $return = $this->M_insert->cadEtapa($dados);
         }
         echo json_encode($return);
     }
