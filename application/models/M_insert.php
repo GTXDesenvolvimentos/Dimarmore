@@ -108,25 +108,9 @@ class M_insert extends CI_Model
     ////////////////////////////////////////   
     public function cadEtapa($dados)
     {
-        $this->db->select("id_departamento, id_projeto");
-        $this->db->where('id_projeto', $dados['slEtapProjeto']);
-        $retorno = $this->db->get('tbl_projetos')->result();
-
-
         $this->db->trans_begin();
-        if ($dados['txtIdEtapa'] == '') {
-            $values = array(
-                "id_departamento" => $retorno[0]->id_departamento,
-                "id_projeto" => $retorno[0]->id_projeto,
-                "etapa" => $dados['txtNomeEtapa'],
-                "descricao" => $dados['txtDescEtapa'],
-                "prioridade" => $dados['SlEtaPrioridade'],
-                "data_inicio" => date('d/m/Y'),
-                "data_fim" => $dados['txtEtaDtLimit'],
-                "responsavel" => $dados['slResponsavel'],
-                "anexo" => $dados['anexo']
-            );
-            $this->db->insert('tbl_etapas', $values);
+        if ($this->input->post("txtIdEtapa") == '') {
+            $this->db->insert('tbl_etapas', $dados);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 $return = array(
@@ -137,22 +121,12 @@ class M_insert extends CI_Model
                 $this->db->trans_commit();
                 $return = array(
                     'code' => 1,
-                    'message' => "Etapa cadastrado com sucesso!"
+                    'message' => "Etapa cadastrada com sucesso!"
                 );
             }
         } else {
-            $values = array(
-                "id_departamento" => $retorno[0]->id_departamento,
-                "id_projeto" => $retorno[0]->id_projeto,
-                "etapa" => $dados['txtNomeEtapa'],
-                "descricao" => $dados['txtDescEtapa'],
-                "prioridade" => $dados['SlEtaPrioridade'],
-                "data_inicio" => date('d/m/Y'),
-                "data_fim" => $dados['txtEtaDtLimit'],
-                "responsavel" => $dados['slResponsavel'],
-            );
-            $this->db->where('id_etapa', $dados['txtIdEtapa']);
-            $this->db->update('tbl_etapas', $values);
+            $this->db->where('id_etapa', $this->input->post("txtIdEtapa"));
+            $this->db->update('tbl_etapas', $dados);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 $return = array(
@@ -163,12 +137,14 @@ class M_insert extends CI_Model
                 $this->db->trans_commit();
                 $return = array(
                     'code' => 1,
-                    'message' => "Etapa atualizado com sucesso!"
+                    'message' => "Etapa atualizada com sucesso!"
                 );
             }
         }
         return $return;
     }
+
+    
 
     ////////////////////////////////////////
     // CADASTRO DE ATIVIDADE

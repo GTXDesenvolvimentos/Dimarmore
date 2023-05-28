@@ -82,13 +82,13 @@ class M_delete extends CI_Model
             $this->db->trans_rollback();
             $return = array(
                 'code' => 0,
-                'message' => "Erro ao deletar o departamento!"
+                'message' => "Erro ao deletar a etapa!"
             );
         } else {
             $this->db->trans_commit();
             $return = array(
                 'code' => 1,
-                'message' => "Deparatamento deletado com sucesso!"
+                'message' => "Etapa deletada com sucesso!"
             );
         }
         return $return;
