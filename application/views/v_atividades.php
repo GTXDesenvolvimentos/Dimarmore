@@ -10,8 +10,11 @@
                     <table class="table align-items-center table-flush" id="tableAtividades" data-toolbar=".toolbar" toobar data-toggle="table" data-flat="true" data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]" data-url="<?= base_url('atividades/retAtividades') ?>">
                         <thead class="thead-light">
                             <tr>
-                                <th data-field="nomeAtividade" data-halign="center" data-align="left" data-sortable="true">Atividade</th>
-                                <th data-field="descrAtividade" data-halign="center" data-align="left" data-sortable="true">Descrição</th>
+                                <!-- <th data-field="nomeAtividade" data-halign="center" data-align="left" data-sortable="true">Atividade</th>
+                                <th data-field="descrAtividade" data-halign="center" data-align="left" data-sortable="true">Descrição</th> -->
+                                <th data-field="atividade" data-halign="center" data-align="left" data-sortable="true">Atividade</th>
+                                <th data-field="etapa" data-halign="center" data-align="left" data-sortable="true">Etapa</th>
+                                <th data-field="projeto" data-halign="center" data-align="left" data-sortable="true">Projeto</th>
                                 <th data-field="sitAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="situacao">Situação</th>
                                 <th data-field="dtEntregaAtividade" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
                                 <th data-field="anexoAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
@@ -34,13 +37,21 @@
             $('#txtIdAtividade').val(value.id_atividade);
             $('#slAtivDepto').selectpicker('val', value.id_departamento);
 
-            projetos = selectProjetos(value.id_departamento, value.id_projeto)
-            console.log(projetos);
+            selectProjetos(value.id_departamento, {projeto:value.id_projeto, etapa:value.id_etapa})
 
-            $('#slAtivProjeto').selectpicker('val', projetos);
+            $('#txtNomeAtividade').val(value.nomeAtividade);
+            $('#txtDescAtividade').val(value.descrAtividade);
+            $('#slRespAtividade').selectpicker('val', value.id_responsavel);
+            $('#slAtivStatus').selectpicker('val', value.sitAtividade);
+
+            if (typeof(value.dtEntregaAtividade) == 'string') {
+                $('#txtDataFimAtividade').val((value.dtEntregaAtividade).split('/').reverse().join('-'));
+            }
+
+            // $('#slAtivProjeto').selectpicker('val', projetos);
 
             // setTimeout(()=>{$('#slAtivProjeto').selectpicker('val', value.id_projeto);},3000) 
-            $('#slAtivProjeto').html('<option value="' +value.id_projeto + '">' +value.nomeProjeto + '</option>');
+            // $('#slAtivProjeto').html('<option value="' +value.id_projeto + '">' +value.nomeProjeto + '</option>');
 
             //$('#slRespAtividade').selectpicker('val', value.responsavel);
            // $('#txtNomeProjeto ').val(value.nome);

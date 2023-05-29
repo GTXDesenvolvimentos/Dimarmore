@@ -164,7 +164,7 @@ class M_retorno extends CI_Model
     {
         //RETORNO DE TABELA ATIVIDADE
        $this->db->select('A.id_atividade id_atividade');
-       $this->db->select('A.atividade as nomeAtividade');
+       $this->db->select('A.atividade as nomeAtividade, CONCAT(CONCAT(A.atividade, " - "), A.descricao) as atividade');
        $this->db->select('A.descricao as descrAtividade');
        $this->db->select('A.prioridade as priorAtividade');
        $this->db->select('A.responsavel as respAtividade');
@@ -177,7 +177,7 @@ class M_retorno extends CI_Model
        $this->db->select("DATE_FORMAT(A.data_fim, '%d/%m/%Y') AS dtEntregaAtividade", FALSE);
        //RETORNO DE TABELA ETAPAS
        $this->db->select('E.id_etapa as id_etapa');
-       $this->db->select('E.etapa as nomeEtapa');
+       $this->db->select('E.etapa as nomeEtapa, CONCAT(CONCAT(E.etapa, " - "), E.descricao) as etapa');
        $this->db->select('E.descricao as descrEtapa');
        $this->db->select('E.prioridade as priorEtapa');
        $this->db->select('E.responsavel as respEtapa');
@@ -192,7 +192,7 @@ class M_retorno extends CI_Model
        $this->db->select('B.id_projeto as id_projeto');
        $this->db->select('B.id_departamento as id_departamento');
        $this->db->select('B.responsavel as id_responsavel');
-       $this->db->select('B.nome as nomeProjeto');
+       $this->db->select('B.nome as nomeProjeto, CONCAT(CONCAT(B.nome , " - "), B.descricao) as projeto');
        $this->db->select("DATE_FORMAT(B.dtentrega, '%d/%m/%Y') AS dtEntregaProjeto", FALSE);
        $this->db->select("B.dtentrega AS dtEntregaProjetoE", FALSE);
        $this->db->select('B.descricao as descrPropjeto');
