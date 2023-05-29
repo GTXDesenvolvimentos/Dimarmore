@@ -115,7 +115,7 @@
                                 </select>
                             </div>
                             <div class="form-group col-6">
-                                <label class="m-0">situação:</label>
+                                <label class="m-0">Situação:</label>
                                 <select id="SlEtapaStatus" name="SlEtapaStatus" class="selectpicker form-control" data-style="btn-success">
                                     <option value="A">Aguardando</option>
                                     <option value="P">Pendente</option>
@@ -164,24 +164,27 @@
                     <h4 class="modal-title">Atividade</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-
-                <input type="number" name="txtIdProjeto" id="txtIdProjeto">
-
                 <div class="modal-body p-2">
+                    <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control">
 
                     <div class="form-group col-12">
-                        <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control" placeholder="ID atividade">
-                    </div>
-
-                    <div class="form-group col-12">
-                        <select id="slEtapa" name="slEtapa" class="selectpicker form-control" data-style="btn-success" onchange="retAllProjects(this.value)">
-                            <option value="">Etapa</option>
+                        <label class="m-0">Departamento:</label>
+                        <select id="slAtivDepto" name="slAtivDepto" class="selectpicker form-control" data-style="btn-success" onchange="selectProjetos(this.value)">
+                            <option value="">Departamento</option>
                         </select>
                     </div>
 
                     <div class="form-group col-12">
-                        <select id="slProjeto" name="slProjeto" class="selectpicker form-control" data-style="btn-success">
+                        <label class="m-0">Projetos:</label>
+                        <select id="slAtivProjeto" name="slAtivProjeto" class="selectpicker form-control" data-style="btn-success" onchange="selectEtapas (this.value)">
                             <option value="">Projeto</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-12">
+                    <label class="m-0">Etapas:</label>
+                        <select id="slAtivEtapas" name="slAtivEtapas" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Etapa</option>
                         </select>
                     </div>
 
@@ -200,24 +203,29 @@
                         </select>
                     </div>
 
+                    <div class="form-group col-6">
+                        <label class="m-0">Situação:</label>
+                        <select id="slAtivStatus" name="slAtivStatus" class="selectpicker form-control" data-style="btn-success">
+                            <option value="P">Pendente</option>
+                            <option value="I">Exacutando</option>
+                            <option value="C">Concluída</option>
+                        </select>
+                    </div>
+
                     <div class="form-group col-12">
                         <label class="m-0">Data limite da atividade:</label>
-                        <input type="date" class="form-control" name="txtDataFimProjeto" id="txtDataFimAtividade" placeholder="Data limite para a ativivdade">
+                        <input type="date" class="form-control" name="txtDataFimAtividade" id="txtDataFimAtividade" placeholder="Data limite para a ativivdade">
                     </div>
 
                     <div class="form-group col-12">
                         <label class="form-label">Anexo</label>
-                        <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoAtividade" type="file" />
-
-                        <label class="form-label">Anexo</label>
-                        <input class="form-control form-control-lg btn" id="anexoProjeto" name="anexoProjeto" name="anexoProjeto" type="file" />
+                        <input class="form-control form-control-lg btn" id="anexoAtividade" name="anexoAtividade" type="file" />
 
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
                     <button type="submit" class="btn btn-success" id="btnCadAtividade">Salvar</button>
-                    <button type="submit" class="btn btn-success" id="btnCadProjeto">Salvar</button>
                 </div>
             </form>
         </div>

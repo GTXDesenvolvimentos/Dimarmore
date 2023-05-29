@@ -106,6 +106,7 @@ class M_retorno extends CI_Model
     ////////////////////////////////////////
     public function retEtapas($id_etapa = null, $id_departamento = null, $id_projeto = null, $responsavel = null)
     {
+
         //RETORNO DE TABELA ETAPAS
         $this->db->select('A.id_etapa as id_etapa');
         $this->db->select('A.etapa as nomeEtapa');
@@ -141,8 +142,9 @@ class M_retorno extends CI_Model
         $this->db->select('D.nome as nomeResponsavel');
         //PARAMETROS DE CONSULTAS
         isset($id_departamento) == true && $id_departamento != '' ? $this->db->where('C.id_departamento', $id_departamento) : '';
-        isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('B.id_projeto', $id_projeto) : '';
+        isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
         isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $responsavel) : '';
+        isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('A.id_etapa', $id_etapa) : '';
         $this->db->join("tbl_users D", "A.responsavel = D.id_users", "inner");
         $this->db->join("tbl_projetos B", "A.id_projeto = B.id_projeto", "inner");
         $this->db->join("tbl_departamentos C", "B.id_departamento = C.id_departamento", "inner");
@@ -158,14 +160,67 @@ class M_retorno extends CI_Model
     // CRIADO POR ELIEL FELIX             //
     // DATA: 22/05/2023                   //
     ////////////////////////////////////////
-    public function retAtividades()
+    public function retAtividades($id_atividade = null, $id_etapa = null, $id_departamento = null, $id_projeto = null, $responsavel = null)
     {
-        $this->db->select('*');
-        $this->db->select("DATE_FORMAT(dtcria, '%d/%m/%Y') AS dtcria", FALSE);
-        $this->db->select("DATE_FORMAT(data_fim, '%d/%m/%Y') AS data_fim", FALSE);
-        $this->db->where('status !=', 'D');
-        $retorno = $this->db->get('tbl_atividades');
-        return $retorno->result();
+        //RETORNO DE TABELA ATIVIDADE
+       $this->db->select('A.id_atividade id_atividade');
+       $this->db->select('A.atividade as nomeAtividade');
+       $this->db->select('A.descricao as descrAtividade');
+       $this->db->select('A.prioridade as priorAtividade');
+       $this->db->select('A.responsavel as respAtividade');
+       $this->db->select('A.situacao as sitAtividade');
+       $this->db->select('A.anexo as anexoAtividade');
+       $this->db->select('A.dtcria as dtcriaAtividade');
+       $this->db->select('A.status as statusAtividade');
+       $this->db->select('A.usucria as usucriaAtividade');
+       $this->db->select('A.data_fim as dtEntregaAtividadeE');
+       $this->db->select("DATE_FORMAT(A.data_fim, '%d/%m/%Y') AS dtEntregaAtividade", FALSE);
+       //RETORNO DE TABELA ETAPAS
+       $this->db->select('E.id_etapa as id_etapa');
+       $this->db->select('E.etapa as nomeEtapa');
+       $this->db->select('E.descricao as descrEtapa');
+       $this->db->select('E.prioridade as priorEtapa');
+       $this->db->select('E.responsavel as respEtapa');
+       $this->db->select('E.situacao as sitEtapa');
+       $this->db->select('E.anexo as anexoEtapa');
+       $this->db->select('E.dtcria as dtcriaEtapa');
+       $this->db->select('E.status as statusEtapa');
+       $this->db->select('E.usucria as usucriaEtapa');
+       $this->db->select('E.data_fim as dtEntregaEtapaE');
+       $this->db->select("DATE_FORMAT(E.data_fim, '%d/%m/%Y') AS dtEntregaEtapa", FALSE);
+       //RETORNO DE TABELA PROJETOS
+       $this->db->select('B.id_projeto as id_projeto');
+       $this->db->select('B.id_departamento as id_departamento');
+       $this->db->select('B.responsavel as id_responsavel');
+       $this->db->select('B.nome as nomeProjeto');
+       $this->db->select("DATE_FORMAT(B.dtentrega, '%d/%m/%Y') AS dtEntregaProjeto", FALSE);
+       $this->db->select("B.dtentrega AS dtEntregaProjetoE", FALSE);
+       $this->db->select('B.descricao as descrPropjeto');
+       $this->db->select('B.data_fim as dtfimProjeto');
+       $this->db->select('B.anexo as anexoProjeto');
+       $this->db->select('B.usucria as usucriaPropjeto');
+       $this->db->select('B.situacao as situacaoPropjeto');
+       $this->db->select('B.status as statusPropjeto');
+       $this->db->select("DATE_FORMAT(A.dtcria, '%d/%m/%Y') AS dtcria", FALSE);
+       //RETORNO DE TABELA DEPARTAMENTOS
+       $this->db->select('C.id_departamento as id_departamento');
+       $this->db->select('C.cod_departamento as codDepartamento');
+       $this->db->select('C.descricao as descrDepartamento');
+       //RETORNO DE TABELA USERS - RESPONSÁVEL
+       $this->db->select('D.id_users as idResponsavel');
+       $this->db->select('D.nome as nomeResponsavel');
+       //PARAMETROS DE CONSULTAS
+       isset($id_departamento) == true && $id_departamento != '' ? $this->db->where('C.id_departamento', $id_departamento) : '';
+       isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
+       isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $responsavel) : '';
+       isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('A.id_etapa', $id_etapa) : '';
+       $this->db->join("tbl_etapas E", "A.id_etapa = E.id_etapa", "inner");
+       $this->db->join("tbl_users D", "A.responsavel = D.id_users", "inner");
+       $this->db->join("tbl_projetos B", "B.id_projeto = E.id_projeto", "inner");
+       $this->db->join("tbl_departamentos C", "B.id_departamento = C.id_departamento", "inner");
+       $this->db->where('A.status !=', 'D');
+       $retorno = $this->db->get('tbl_atividades A');
+       return $retorno->result();
     }
 
     ////////////////////////////////////////

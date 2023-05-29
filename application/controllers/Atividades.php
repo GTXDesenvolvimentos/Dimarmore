@@ -13,9 +13,6 @@ class Atividades extends MY_Controller
     public function index()
     {
         $this->load->model('M_retorno');
-        // $retorno['projetos'] = $this->M_retorno->retAllProjects();
-        // $retorno['depto'] = $this->M_retorno->retDepto();
-        // $retorno['usuarios'] = $this->M_retorno->retUsers();
         $this->load->view('includes/header');
         $this->load->view('includes/menu_sup');
         $this->load->view('v_atividades');
@@ -42,8 +39,95 @@ class Atividades extends MY_Controller
     ////////////////////////////////////////   
     public function cadAtividades()
     {
-        $this->load->model('M_insert');
-        $retorno = $this->M_insert->cadAtividades();
-        echo json_encode($retorno);
+        $files = $_FILES['anexoAtividade'];
+        if ($_FILES['anexoAtividade']['tmp_name'] !== '') {
+            $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+            $configuracao = array(
+                "upload_path"   => "./assets/uploads/",
+                'allowed_types' => 'jpg|png|gif|pdf|jpeg',
+                'file_name'     => $anexo,
+                'max_size'      => '500'
+            );
+            $this->load->library('upload');
+            $this->upload->initialize($configuracao);
+            if ($this->upload->do_upload('anexoAtividade')) {
+            } else {
+                $return = array(
+                    'code' => 2,
+                    'message' =>  trim($this->upload->display_errors())
+                );
+                echo json_encode($return);
+                exit();
+            }
+        }
+
+        $this->load->library('form_validation');
+        if ($this->input->post('txtIdAtividade') !== '') {
+            $this->form_validation->set_rules('txtNomeAtividade', 'Nome da atividade', 'required');
+            $this->form_validation->set_rules('txtDescAtividade', 'Descrição', 'required');
+            $this->form_validation->set_rules('slAtivDepto', 'Departamento', 'required');
+            $this->form_validation->set_rules('slAtivProjeto', 'Projeto', 'required');
+            $this->form_validation->set_rules('slAtivEtapas', 'Etapa', 'required');
+        } else {
+            $this->form_validation->set_rules('txtNomeAtividade', 'Nome da atividade', 'required|is_unique[tbl_etapas.etapa]');
+            $this->form_validation->set_rules('txtDescAtividade', 'Descrição', 'required');
+            $this->form_validation->set_rules('slRespAtividade', 'Responsável', 'required');
+            $this->form_validation->set_rules('slAtivDepto', 'Departamento', 'required');
+            $this->form_validation->set_rules('slAtivProjeto', 'Projeto', 'required');
+            $this->form_validation->set_rules('slAtivEtapas', 'Etapa', 'required');
+            $this->form_validation->set_rules('txtDataFimAtividade', 'Data', 'required');
+        }
+
+        if ($this->form_validation->run() == FALSE) {
+            $return = array(
+                'code' => 2,
+                'message' => validation_errors()
+            );
+        } else {
+            if ($this->input->post("txtIdAtividade") !== '') {
+                if ($_FILES['anexoAtividade']['tmp_name'] !== '') {
+                    $dados = array(
+                        "id_atividade" => $this->input->post("txtIdAtividade"),
+                        "id_etapa" => $this->input->post("slAtivEtapas"),
+                        "atividade" => $this->input->post("txtNomeAtividade"),
+                        "descricao" => $this->input->post("txtDescAtividade"),
+                        "prioridade" => '',
+                        "responsavel" => $this->input->post("slRespAtividade"),
+                        "situacao" => $this->input->post("slAtivStatus"),
+                        "data_fim" => $this->input->post("txtDataFimAtividade"),
+                        "anexo" => $anexo,
+                        "usucria" => $this->session->userdata('id_users')
+                    );
+                } else {
+                    $dados = array(
+                        "id_atividade" => $this->input->post("txtIdAtividade"),
+                        "id_etapa" => $this->input->post("slAtivEtapas"),
+                        "atividade" => $this->input->post("txtNomeAtividade"),
+                        "descricao" => $this->input->post("txtDescAtividade"),
+                        "prioridade" => '',
+                        "responsavel" => $this->input->post("slRespAtividade"),
+                        "situacao" => $this->input->post("slAtivStatus"),
+                        "data_fim" => $this->input->post("txtDataFimAtividade"),
+                        "usucria" => $this->session->userdata('id_users')
+                    );
+                }
+            } else {
+                $dados = array(
+                    "id_atividade" => $this->input->post("txtIdAtividade"),
+                    "id_etapa" => $this->input->post("slAtivEtapas"),
+                    "atividade" => $this->input->post("txtNomeAtividade"),
+                    "descricao" => $this->input->post("txtDescAtividade"),
+                    "prioridade" => '',
+                    "responsavel" => $this->input->post("slRespAtividade"),
+                    "situacao" => $this->input->post("slAtivStatus"),
+                    "data_fim" => $this->input->post("txtDataFimAtividade"),
+                    "anexo" => $anexo,
+                    "usucria" => $this->session->userdata('id_users')
+                );
+            }
+            $this->load->model('M_insert');
+            $return = $this->M_insert->cadAtividades($dados);
+        }
+        echo json_encode($return);
     }
 }
