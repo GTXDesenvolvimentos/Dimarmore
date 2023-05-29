@@ -637,7 +637,7 @@ function selectDepto() {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-function selectProjetos(value) {
+function selectProjetos(value, projeto) {
     $.ajax({
         url: base_url + "projetos/retAllProjects",
         type: 'POST',
@@ -671,9 +671,13 @@ function selectProjetos(value) {
                 imageUrl: base_url + "/assets/img/gifs/loader.gif",
                 showConfirmButton: false
             });
-        }
-    });
 
+            if(typeof($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != ''){
+                $('#slAtivProjeto').selectpicker('val', projeto)
+            }
+        }
+
+    });
 }
 
 

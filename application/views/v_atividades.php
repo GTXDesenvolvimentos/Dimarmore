@@ -30,11 +30,18 @@
         }
 
         function altAtividade(value) {
-            //selectProjetos(value.id_departamento);
+            
             $('#txtIdAtividade').val(value.id_atividade);
             $('#slAtivDepto').selectpicker('val', value.id_departamento);
-            //$('#slAtivProjeto').selectpicker('val', value.id_projeto);
+
+            projetos = selectProjetos(value.id_departamento, value.id_projeto)
+            console.log(projetos);
+
+            $('#slAtivProjeto').selectpicker('val', projetos);
+
+            // setTimeout(()=>{$('#slAtivProjeto').selectpicker('val', value.id_projeto);},3000) 
             $('#slAtivProjeto').html('<option value="' +value.id_projeto + '">' +value.nomeProjeto + '</option>');
+
             //$('#slRespAtividade').selectpicker('val', value.responsavel);
            // $('#txtNomeProjeto ').val(value.nome);
             //$('#txtDescProjeto').val(value.descricao);
