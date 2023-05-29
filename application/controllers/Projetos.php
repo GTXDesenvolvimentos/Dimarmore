@@ -35,8 +35,9 @@ class Projetos extends MY_Controller
     ////////////////////////////////////////
     public function retAllProjects()
     {
+        $id_departamento = $this->input->post('id_departamento');
         $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retAllProjects();
+        $retorno = $this->M_retorno->retAllProjects($id_departamento,'','');
         echo json_encode($retorno);
     }
 

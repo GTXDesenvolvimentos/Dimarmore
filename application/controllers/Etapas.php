@@ -27,8 +27,9 @@ class Etapas extends MY_Controller
     ////////////////////////////////////////
     public function retEtapas()
     {
+        $id_projeto = $this->input->post('id_projeto');
         $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retEtapas();
+        $retorno = $this->M_retorno->retEtapas('','',$id_projeto,'');
         echo json_encode($retorno->result());
     }
 
@@ -60,7 +61,7 @@ class Etapas extends MY_Controller
 
         $this->load->library('form_validation');
         if ($this->input->post('txtIdEtapa') !== '') {
-            $this->form_validation->set_rules('txtNomeEtapa', 'Nome do projeto', 'required');
+            $this->form_validation->set_rules('txtNomeEtapa', 'Nome da etapa', 'required');
             $this->form_validation->set_rules('txtDescEtapa', 'Descrição', 'required');
         } else {
             $this->form_validation->set_rules('txtNomeEtapa', 'Nome da etapa', 'required|is_unique[tbl_etapas.etapa]');

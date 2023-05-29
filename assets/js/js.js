@@ -12,10 +12,12 @@ function clearForm() {
     $('#formDepartamentos').trigger('reset');
     $('#formProjetos').trigger('reset');
     $('#formEtapas').trigger('reset');
+    $('#formAtividade').trigger('reset');
     $(".selectpicker").selectpicker("refresh");
     $('#ModalDepto').modal('hide');
     $('#ModalProjeto').modal('hide');
     $('#ModalEtapas').modal('hide');
+    $('#ModalAtividades ').modal('hide');
 }
 
 //==================================================================
@@ -209,7 +211,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('#formEtapas').submit(function(e) {
         e.preventDefault()
-        var serializeDados = $('#formProjetos').serialize()
+        var serializeDados = $('#formEtapas').serialize()
         $.ajax({
             url: base_url + 'etapas/cadEtapa',
             dataType: 'json',
@@ -240,6 +242,64 @@ $(document).ready(function() {
                 } else if (data.code == 1) {
                     clearForm();
                     $('#tableEtapa').bootstrapTable('refresh');
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonColor: '#268917',
+                        confirmButtonText: 'Sair'
+                    });
+                }
+
+            },
+            error: function(xhr, er) {
+
+            }
+        });
+    });
+});
+//==================================================================
+
+
+////////////////////////////////////////
+// FUNÇÃO CAD E ALTERAR ATIVIDADES       
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+$(document).ready(function() {
+    $('#formAtividade').submit(function(e) {
+        e.preventDefault()
+        var serializeDados = $('#formAtividade').serialize()
+        $.ajax({
+            url: base_url + 'atividades/cadAtividades',
+            dataType: 'json',
+            type: 'POST',
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+                swal.fire({
+                    title: "Aguarde!",
+                    text: "Validando os dados...",
+                    imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                    showConfirmButton: false
+                });
+            },
+            success: function(data) {
+                console.log(data);
+                if (data.code == 2) {
+                    swal.fire({
+                        title: "Atenção!",
+                        html: data.message,
+                        icon: 'info',
+                        confirmButtonColor: '#0b475a',
+                        confirmButtonText: 'Voltar'
+                    });
+                } else if (data.code == 0) {
+                    swal.fire("Atenção!", data.message, "warning");
+                } else if (data.code == 1) {
+                    clearForm();
+                    $('#tableAtividades').bootstrapTable('refresh');
                     Swal.fire({
                         title: 'Sucesso!',
                         text: data.message,
@@ -499,14 +559,14 @@ function selectUsers() {
             });
         },
         success: function(result) {
-            $('#slEtapResponsavel, #slEtapResponsavel').prop('disabled', false);
-            $('#slEtapResponsavel, #slEtapResponsavel').selectpicker('refresh');
-            $('#slEtapResponsavel, #slEtapResponsavel').html('');
-            $('#slEtapResponsavel, #slEtapResponsavel').append('<option value=""> Responsável </option>');
+            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').prop('disabled', false);
+            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').selectpicker('refresh');
+            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').html('');
+            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').append('<option value=""> Responsável </option>');
 
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function(idx, obj) {
-                $('#slResponsavel, #slRespProjeto, #slEtapResponsavel').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
+                $('#slResponsavel, #slRespProjeto, #slEtapResponsavel, #slRespAtividade').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
             });
             swal.fire({
                 timer: 1,
@@ -549,13 +609,13 @@ function selectDepto() {
             });
         },
         success: function(result) {
-            $('#slDepProjeto').prop('disabled', false);
-            $('#slDepProjeto').selectpicker('refresh');
-            $('#slDepProjeto').html('');
-            $('#slDepProjeto').append('<option value="">Departamentos</option>');
+            $('#slDepProjeto,#slAtivDepto').prop('disabled', false);
+            $('#slDepProjeto,#slAtivDepto').selectpicker('refresh');
+            $('#slDepProjeto,#slAtivDepto').html('');
+            $('#slDepProjeto,#slAtivDepto').append('<option value="">Departamentos</option>');
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function(idx, obj) {
-                $('#slDepProjeto').append('<option value="' + obj.id_departamento + '">' + obj.descricao + '</option>').selectpicker('refresh');
+                $('#slDepProjeto,#slAtivDepto').append('<option value="' + obj.id_departamento + '">' + obj.descricao + '</option>').selectpicker('refresh');
             });
             swal.fire({
                 timer: 1,
@@ -573,14 +633,15 @@ function selectDepto() {
 
 
 ////////////////////////////////////////
-// MONTA SELECT DE PEOJETOS                 
+// MONTA SELECT DE PROJETOS                 
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-function selectProjetos() {
+function selectProjetos(value) {
     $.ajax({
         url: base_url + "projetos/retAllProjects",
         type: 'POST',
+        data: { id_departamento: value },
         dataType: "json",
         cache: false,
         error: function() {
@@ -595,13 +656,13 @@ function selectProjetos() {
             });
         },
         success: function(result) {
-            $('#slEtapProjeto').prop('disabled', false);
-            $('#slEtapProjeto').selectpicker('refresh');
-            $('#slEtapProjeto').html('');
-            $('#slEtapProjeto').append('<option value="">Projetos</option>');
+            $('#slEtapProjeto, #slAtivProjeto').prop('disabled', false);
+            $('#slEtapProjeto, #slAtivProjeto').selectpicker('refresh');
+            $('#slEtapProjeto, #slAtivProjeto').html('');
+            $('#slEtapProjeto, #slAtivProjeto').append('<option value="">Projetos</option>');
             var jsonData1 = JSON.stringify(result);
             $.each(JSON.parse(jsonData1), function(idx, obj) {
-                $('#slEtapProjeto').append('<option value="' + obj.id_projeto + '">' + obj.nomeProjeto + '</option>').selectpicker('refresh');
+                $('#slEtapProjeto, #slAtivProjeto').append('<option value="' + obj.id_projeto + '">' + obj.nomeProjeto + '</option>').selectpicker('refresh');
             });
             swal.fire({
                 timer: 1,
@@ -614,6 +675,52 @@ function selectProjetos() {
     });
 
 }
+
+
+////////////////////////////////////////
+// MONTA SELECT DE ETAPAS                 
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+function selectEtapas(value) {
+    $.ajax({
+        url: base_url + "etapas/retEtapas",
+        type: 'POST',
+        data: { id_projeto: value },
+        dataType: "json",
+        cache: false,
+        error: function() {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function() {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function(result) {
+            $('#slAtivEtapas,#slAtivEtapas').prop('disabled', false);
+            $('#slAtivEtapas,#slAtivEtapas').selectpicker('refresh');
+            $('#slAtivEtapas,#slAtivEtapas').html('');
+            $('#slAtivEtapas,#slAtivEtapas').append('<option value="">Etapas</option>');
+            var jsonData1 = JSON.stringify(result);
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
+                $('#slAtivEtapas,#slAtivEtapas').append('<option value="' + obj.id_etapa + '">' + obj.nomeEtapa + '</option>').selectpicker('refresh');
+            });
+            swal.fire({
+                timer: 1,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        }
+    });
+
+}
+
 
 
 function viewAnexo(value) {
@@ -646,6 +753,8 @@ function situacao(value) {
         return '<button class="btn btn-sm btn-outline-warning btn-block">Executando</button>';
     } else if (value == 'C') {
         return '<button class="btn btn-sm btn-outline-success btn-block">Concluida</button>';
+    } else if (value == 'I') {
+        return '<button class="btn btn-sm btn-outline-primary btn-block">Iniciada</button>';
     }
 }
 
@@ -661,4 +770,7 @@ if (myarr[4] == 'projetos') {
 } else if (myarr[4] == 'etapas') {
     selectUsers();
     selectProjetos();
+} else if (myarr[4] == 'atividades') {
+    selectDepto();
+    selectUsers();
 }

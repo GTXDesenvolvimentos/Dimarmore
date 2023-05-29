@@ -153,8 +153,39 @@ class M_insert extends CI_Model
     ////////////////////////////////////////   
     public function cadAtividades($dados)
     {
-
-        
-
+        $this->db->trans_begin();
+        if ($this->input->post("txtIdAtividade") == '') {
+            $this->db->insert('tbl_atividades', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao gravar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Atividade cadastrada com sucesso!"
+                );
+            }
+        } else {
+            $this->db->where('id_atividade', $this->input->post("txtIdAtividade"));
+            $this->db->update('tbl_atividades', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao atualizar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Atividade atualizada com sucesso!"
+                );
+            }
+        }
+        return $return;
     }
 }
