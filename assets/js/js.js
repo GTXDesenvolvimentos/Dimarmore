@@ -815,3 +815,9 @@ function altsituacao(){
     //     Swal.fire(`You selected: ${fruit}`)
     //   }
 }
+
+function posicionaValor(linha){
+    console.log(linha)
+    $('#txtIdAtividade').val(linha.id_atividade);
+    $(`#slaltsituacao`).selectpicker('val',situacao)
+}

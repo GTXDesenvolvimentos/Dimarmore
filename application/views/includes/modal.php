@@ -253,28 +253,32 @@
 </div>
 
 <!-- ALTERAR SITUAÇÃO -->
-<!-- <div class="modal fade" id="modalAltSituacao" class="modal fade" tabindex="-1" data-keyboard="false">
-    <div class="modal-dialog">
+<div class="modal fade" id="modalAltSituacao" class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Alterar Situação</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body p-2">
-                <div class="col-12">
-                    <select name="slaltsituacao" id="slaltsituacao" class="selectpicker" data-style="btn-success btn-block">
-                        <option value="">Situação</option>
-                        <option value="P">Pendente</option>
-                        <option value="I">Iniciada</option>
-                        <option value="E">Executando</option>
-                        <option value="C">Concluída</option>
-                    </select>
-                </div>
+                <form method="post" id="formAltSituacao">
+                    <div class="row">
+                        <div class="col-12 form-group">
+                            <select name="slaltsituacao" id="slaltsituacao" class="selectpicker form-control" data-style="btn-success">
+                                <option value="A">Aguardando</option>
+                                <option value="P">Pendente</option>
+                                <option value="I">Iniciada</option>
+                                <option value="E">Executando</option>
+                                <option value="C">Concluída</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" onclick="altsituacao()">Alterar</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="$('#slaltsituacao').val('')">Sair</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
             </div>
         </div>
     </div>
-</div> -->
+</div>
