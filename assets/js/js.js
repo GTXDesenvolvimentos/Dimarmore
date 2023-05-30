@@ -3,6 +3,19 @@ const arrayColumn = (array, column) => {
     return array.map(item => parseInt(item[column]));
 };
 
+
+////////////////////////////////////////
+// FUNÇÃO DE LOGAR APERTANDO ENTER                  
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+
+$('#txtPassword').keyup(()=>{
+    if(event.key == 'Enter'){
+        $('#btnLogin').click();
+    }
+})
+
 ////////////////////////////////////////
 // FUNÇOES GLOBAIS                    
 // CRIADO POR MARCIO SILVA            
