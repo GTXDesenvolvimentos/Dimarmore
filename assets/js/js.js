@@ -10,8 +10,8 @@ const arrayColumn = (array, column) => {
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
 
-$('#txtPassword').keyup(()=>{
-    if(event.key == 'Enter'){
+$('#txtPassword').keyup(() => {
+    if (event.key == 'Enter') {
         $('#btnLogin').click();
     }
 })
@@ -40,8 +40,8 @@ function clearForm() {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#btnLogin').click(function (e) {
+$(document).ready(function() {
+    $('#btnLogin').click(function(e) {
         e.preventDefault();
         var serializeDados = $('#formLogin').serialize();
         $.ajax({
@@ -50,7 +50,7 @@ $(document).ready(function () {
             type: 'POST',
             dataType: "json",
             cache: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Logando no sistema...",
@@ -61,7 +61,7 @@ $(document).ready(function () {
             //complete: function(data) {
             // alert('123');
             // },
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 if (data.code == 2) {
                     swal.fire({
@@ -76,7 +76,7 @@ $(document).ready(function () {
                     window.location.href = base_url;
                 }
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
                 swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
             }
         });
@@ -88,14 +88,77 @@ $(document).ready(function () {
 
 
 
+////////////////////////////////////////
+// FUNÇÃO CAD E ALTERAR DEPARTAMENTOS                  
+// CRIADO POR MARCIO SILVA            
+// DATA: 09/02/2023                   
+////////////////////////////////////////
+$(document).ready(function() {
+    $('#btnUser').click(function(e) {
+        e.preventDefault();
+        var serializeDados = $('#formUser').serialize();
+        $.ajax({
+            url: base_url + "/users/cadUser",
+            data: serializeDados,
+            type: 'POST',
+            dataType: "json",
+            cache: false,
+            beforeSend: function() {
+                swal.fire({
+                    title: "Aguarde!",
+                    text: "Validando os dados...",
+                    imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                    showConfirmButton: false
+                });
+            },
+            success: function(data) {
+
+                console.log(data);
+                if (data.code == 2) {
+                    swal.fire({
+                        title: "Atenção!",
+                        html: data.message,
+                        icon: 'info',
+                        confirmButtonColor: '#0b475a',
+                        confirmButtonText: 'Voltar'
+                    });
+                } else if (data.code == 0) {
+                    swal.fire("Atenção!", data.message, "warning");
+                } else if (data.code == 1) {
+                    clearForm();
+                    $('#tableUsers').bootstrapTable('refresh');
+                    Swal.fire({
+                        title: 'Sucesso!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonColor: '#268917',
+                        confirmButtonText: 'Sair'
+                    });
+                }
+            },
+            error: function(xhr, er) {
+                swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+            }
+        });
+    });
+
+    // document.getElementById('formEtapas')
+});
+//==================================================================
+
+
+
+
+
+
 
 ////////////////////////////////////////
 // FUNÇÃO CAD E ALTERAR DEPARTAMENTOS                  
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#btnDepartamentos').click(function (e) {
+$(document).ready(function() {
+    $('#btnDepartamentos').click(function(e) {
         e.preventDefault();
         var serializeDados = $('#formDepartamentos').serialize();
         $.ajax({
@@ -104,7 +167,7 @@ $(document).ready(function () {
             type: 'POST',
             dataType: "json",
             cache: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -112,7 +175,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
 
                 console.log(data);
                 if (data.code == 2) {
@@ -137,7 +200,7 @@ $(document).ready(function () {
                     });
                 }
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
                 swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
             }
         });
@@ -157,8 +220,8 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#formProjetos').submit(function (e) {
+$(document).ready(function() {
+    $('#formProjetos').submit(function(e) {
         e.preventDefault()
         var serializeDados = $('#formProjetos').serialize()
         $.ajax({
@@ -168,7 +231,7 @@ $(document).ready(function () {
             data: new FormData(this),
             processData: false,
             contentType: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -176,7 +239,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 if (data.code == 2) {
                     swal.fire({
@@ -202,7 +265,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
 
             }
         })
@@ -221,8 +284,8 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#formEtapas').submit(function (e) {
+$(document).ready(function() {
+    $('#formEtapas').submit(function(e) {
         e.preventDefault()
         var serializeDados = $('#formEtapas').serialize()
         $.ajax({
@@ -232,7 +295,7 @@ $(document).ready(function () {
             data: new FormData(this),
             processData: false,
             contentType: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -240,7 +303,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 if (data.code == 2) {
                     swal.fire({
@@ -265,7 +328,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
 
             }
         });
@@ -279,8 +342,8 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#formAtividade').submit(function (e) {
+$(document).ready(function() {
+    $('#formAtividade').submit(function(e) {
         e.preventDefault()
         var serializeDados = $('#formAtividade').serialize()
         $.ajax({
@@ -290,7 +353,7 @@ $(document).ready(function () {
             data: new FormData(this),
             processData: false,
             contentType: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -298,7 +361,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 if (data.code == 2) {
                     swal.fire({
@@ -323,7 +386,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
 
             }
         });
@@ -362,7 +425,7 @@ function delDepto(value) {
                 type: 'POST',
                 dataType: "json",
                 cache: false,
-                beforeSend: function () {
+                beforeSend: function() {
                     swal.fire({
                         title: "Aguarde!",
                         text: "Validando os dados...",
@@ -370,7 +433,7 @@ function delDepto(value) {
                         showConfirmButton: false
                     });
                 },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     if (data.code == 2) {
                         swal.fire({
@@ -395,7 +458,7 @@ function delDepto(value) {
                         });
                     }
                 },
-                error: function (xhr, er) {
+                error: function(xhr, er) {
                     swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
                 }
             });
@@ -433,7 +496,7 @@ function delProjeto(value) {
                 type: 'POST',
                 dataType: "json",
                 cache: false,
-                beforeSend: function () {
+                beforeSend: function() {
                     swal.fire({
                         title: "Aguarde!",
                         text: "Validando os dados...",
@@ -441,7 +504,7 @@ function delProjeto(value) {
                         showConfirmButton: false
                     });
                 },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     if (data.code == 2) {
                         swal.fire({
@@ -466,7 +529,7 @@ function delProjeto(value) {
                         });
                     }
                 },
-                error: function (xhr, er) {
+                error: function(xhr, er) {
                     swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
                 }
             });
@@ -501,7 +564,7 @@ function delEtapas(value) {
                 type: 'POST',
                 dataType: "json",
                 cache: false,
-                beforeSend: function () {
+                beforeSend: function() {
                     swal.fire({
                         title: "Aguarde!",
                         text: "Validando os dados...",
@@ -509,7 +572,7 @@ function delEtapas(value) {
                         showConfirmButton: false
                     });
                 },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     if (data.code == 2) {
                         swal.fire({
@@ -534,7 +597,7 @@ function delEtapas(value) {
                         });
                     }
                 },
-                error: function (xhr, er) {
+                error: function(xhr, er) {
                     swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
                 }
             });
@@ -560,10 +623,10 @@ function selectUsers() {
         type: 'POST',
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -571,14 +634,14 @@ function selectUsers() {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
+        success: function(result) {
             $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').prop('disabled', false);
             $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').selectpicker('refresh');
             $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').html('');
             $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').append('<option value=""> Responsável </option>');
 
             var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function (idx, obj) {
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
                 $('#slResponsavel, #slRespProjeto, #slEtapResponsavel, #slRespAtividade').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
             });
             swal.fire({
@@ -610,10 +673,10 @@ function selectDepto() {
         type: 'POST',
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -621,13 +684,13 @@ function selectDepto() {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
+        success: function(result) {
             $('#slDepProjeto,#slAtivDepto').prop('disabled', false);
             $('#slDepProjeto,#slAtivDepto').selectpicker('refresh');
             $('#slDepProjeto,#slAtivDepto').html('');
             $('#slDepProjeto,#slAtivDepto').append('<option value="">Departamentos</option>');
             var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function (idx, obj) {
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
                 $('#slDepProjeto,#slAtivDepto').append('<option value="' + obj.id_departamento + '">' + obj.descricao + '</option>').selectpicker('refresh');
             });
             swal.fire({
@@ -657,10 +720,10 @@ function selectProjetos(value, opt) {
         data: { id_departamento: value },
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -668,13 +731,13 @@ function selectProjetos(value, opt) {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
+        success: function(result) {
             $('#slEtapProjeto, #slAtivProjeto').prop('disabled', false);
             $('#slEtapProjeto, #slAtivProjeto').selectpicker('refresh');
             $('#slEtapProjeto, #slAtivProjeto').html('');
             $('#slEtapProjeto, #slAtivProjeto').append('<option value="">Projetos</option>');
             var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function (idx, obj) {
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
                 $('#slEtapProjeto, #slAtivProjeto').append('<option value="' + obj.id_projeto + '">' + obj.nomeProjeto + '</option>').selectpicker('refresh');
             });
             swal.fire({
@@ -685,7 +748,7 @@ function selectProjetos(value, opt) {
                 showConfirmButton: false
             });
 
-            if (typeof ($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
+            if (typeof($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
                 $('#slAtivProjeto').selectpicker('val', opt.projeto)
                 selectEtapas(opt.projeto, opt.etapa);
             }
@@ -707,10 +770,10 @@ function selectEtapas(value, etapa) {
         data: { id_projeto: value },
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -718,13 +781,13 @@ function selectEtapas(value, etapa) {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
+        success: function(result) {
             $('#slAtivEtapas,#slAtivEtapas').prop('disabled', false);
             $('#slAtivEtapas,#slAtivEtapas').selectpicker('refresh');
             $('#slAtivEtapas,#slAtivEtapas').html('');
             $('#slAtivEtapas,#slAtivEtapas').append('<option value="">Etapas</option>');
             var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function (idx, obj) {
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
                 $('#slAtivEtapas,#slAtivEtapas').append('<option value="' + obj.id_etapa + '">' + obj.nomeEtapa + '</option>').selectpicker('refresh');
             });
             swal.fire({
@@ -735,7 +798,7 @@ function selectEtapas(value, etapa) {
                 showConfirmButton: false
             });
 
-            if (typeof ($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
+            if (typeof($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
                 $('#slAtivEtapas').selectpicker('val', etapa)
             }
         }
@@ -797,19 +860,19 @@ if (myarr[4] == 'projetos') {
     selectUsers();
 }
 
-function altsituacao(){
+function altsituacao() {
     // const { value: fruit } = await 
     // Swal.fire({
     //     title: 'Alterar Situação:',
     //     input: 'select',
     //     inputOptions: {
-     
+
     //         apples: 'Apples',
     //         bananas: 'Bananas',
     //         grapes: 'Grapes',
     //         oranges: 'Oranges'
-    
-   
+
+
     //     },
     //     inputPlaceholder: 'Select a fruit',
     //     showCancelButton: true,
@@ -823,14 +886,14 @@ function altsituacao(){
     //       })
     //     }
     //   })
-      
+
     //   if (fruit) {
     //     Swal.fire(`You selected: ${fruit}`)
     //   }
 }
 
-function posicionaValor(linha){
+function posicionaValor(linha) {
     console.log(linha)
     $('#txtIdAtividade').val(linha.id_atividade);
-    $(`#slaltsituacao`).selectpicker('val',situacao)
+    $(`#slaltsituacao`).selectpicker('val', situacao)
 }
