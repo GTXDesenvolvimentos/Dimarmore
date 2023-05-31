@@ -35,9 +35,7 @@
                                     <th data-field="sitEtapa" data-halign="center" data-align="center" data-sortable="true" data-formatter="situacao">Situação</th>
                                     <th data-field="nomeProjeto" data-halign="center" data-align="left" data-sortable="true">Projeto</th>
                                     <th data-field="descrDepartamento" data-halign="center" data-align="left" data-sortable="true">depto</th>
-                                    <th data-field="nomeResponsavel" data-halign="center" data-align="left" data-sortable="true">Responsável</th>
                                     <th data-field="dtEntregaEtapa" data-halign="center" data-align="center" data-sortable="true">Data final prevista</th>
-                                    <th data-field="anexoEtapa" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
                                     <th data-halign="center" class="" data-align="center" data-formatter="opcoesEtapas">opções</th>
                                 </tr>
                             </thead>

@@ -164,8 +164,8 @@
                     <h4 class="modal-title">Atividade</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-                <div class="modal-body p-2">
-                    <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control">
+                <div class="modal-body p-2 row">
+                    <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control d-none">
 
                     <div class="form-group col-12">
                         <label class="m-0">Departamento:</label>
@@ -182,7 +182,7 @@
                     </div>
 
                     <div class="form-group col-12">
-                    <label class="m-0">Etapas:</label>
+                        <label class="m-0">Etapas:</label>
                         <select id="slAtivEtapas" name="slAtivEtapas" class="selectpicker form-control" data-style="btn-success">
                             <option value="">Etapa</option>
                         </select>
@@ -212,7 +212,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-6">
                         <label class="m-0">Data limite da atividade:</label>
                         <input type="date" class="form-control" name="txtDataFimAtividade" id="txtDataFimAtividade" placeholder="Data limite para a ativivdade">
                     </div>
@@ -247,6 +247,37 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ALTERAR SITUAÇÃO -->
+<div class="modal fade" id="modalAltSituacao" class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Alterar Situação</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body p-2">
+                <form method="post" id="formAltSituacao">
+                    <div class="row">
+                        <div class="col-12 form-group">
+                            <select name="slaltsituacao" id="slaltsituacao" class="selectpicker form-control" data-style="btn-success">
+                                <option value="A">Aguardando</option>
+                                <option value="P">Pendente</option>
+                                <option value="I">Iniciada</option>
+                                <option value="E">Executando</option>
+                                <option value="C">Concluída</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="altsituacao()">Alterar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
             </div>
         </div>
     </div>
