@@ -784,40 +784,87 @@ if (myarr[4] == 'projetos') {
     selectUsers();
 }
 
-function altsituacao(){
-    // const { value: fruit } = await 
-    // Swal.fire({
-    //     title: 'Alterar Situação:',
-    //     input: 'select',
-    //     inputOptions: {
-     
-    //         apples: 'Apples',
-    //         bananas: 'Bananas',
-    //         grapes: 'Grapes',
-    //         oranges: 'Oranges'
-    
-   
-    //     },
-    //     inputPlaceholder: 'Select a fruit',
-    //     showCancelButton: true,
-    //     inputValidator: (value) => {
-    //       return new Promise((resolve) => {
-    //         if (value === 'oranges') {
-    //           resolve()
-    //         } else {
-    //           resolve('You need to select oranges :)')
-    //         }
-    //       })
-    //     }
-    //   })
-      
-    //   if (fruit) {
-    //     Swal.fire(`You selected: ${fruit}`)
-    //   }
+function altsituacao(id_atividade) {
+
+    dados = new FormData($('#formAltSituacao')[0]);
+    dados.append("id_atividade", id_atividade);
+
+    $.ajax({
+        url: base_url + "atividades/altsituacao",
+        type: 'POST',
+        data: dados,//+ '&id_atividade=' + id_atividade,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao tentar registrar os dados!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (data) {
+
+            $('#txtIdAtividade').val('');
+
+            if (data.code == 0) {
+                swal.fire("Atenção!", data.message, "warning");
+            } else if (data.code == 1) {
+                // clearForm();
+                $('#tableProjeto').bootstrapTable('refresh');
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonColor: '#268917',
+                    confirmButtonText: 'Sair'
+                });
+
+                $('#tableAtividades').bootstrapTable('refresh');
+                $('#modalAltSituacao').modal('hide');
+                $('#formAltSituacao')[0].reset();
+            } else if (data.code == 2) {
+                swal.fire({
+                    title: "Atenção!",
+                    html: data.message,
+                    icon: 'info',
+                    confirmButtonColor: '#268917',
+                    confirmButtonText: 'Ok'
+                });
+            }
+
+            // $('#slAtivEtapas,#slAtivEtapas').prop('disabled', false);
+            // $('#slAtivEtapas,#slAtivEtapas').selectpicker('refresh');
+            // $('#slAtivEtapas,#slAtivEtapas').html('');
+            // $('#slAtivEtapas,#slAtivEtapas').append('<option value="">Etapas</option>');
+            // var jsonData1 = JSON.stringify(result);
+            // $.each(JSON.parse(jsonData1), function (idx, obj) {
+            //     $('#slAtivEtapas,#slAtivEtapas').append('<option value="' + obj.id_etapa + '">' + obj.nomeEtapa + '</option>').selectpicker('refresh');
+            // });
+            // swal.fire({
+            //     timer: 1,
+            //     title: "Aguarde!",
+            //     text: "Validando os dados...",
+            //     imageUrl: base_url + "/assets/img/gifs/loader.gif",
+            //     showConfirmButton: false
+            // });
+
+            // swal.close()
+
+            // if (typeof ($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
+            //     $('#slAtivEtapas').selectpicker('val', etapa)
+            // }
+        }
+    });
 }
 
-function posicionaValor(linha){
+function posicionaValor(linha) {
     console.log(linha)
     $('#txtIdAtividade').val(linha.id_atividade);
-    $(`#slaltsituacao`).selectpicker('val',situacao)
+    $(`#slaltsituacao`).selectpicker('val', linha.sitAtividade)
 }
