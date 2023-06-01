@@ -318,7 +318,7 @@
                 <form method="post" id="formAltSituacao">
                     <div class="row">
                         <div class="col-12 form-group">
-                            <select name="slaltsituacao" id="slaltsituacao" class="selectpicker form-control" data-style="btn-success">
+                            <select name="slAltSituacao" id="slAltSituacao" class="selectpicker form-control" data-style="btn-success">
                                 <option value="A">Aguardando</option>
                                 <option value="P">Pendente</option>
                                 <option value="I">Iniciada</option>
@@ -326,11 +326,23 @@
                                 <option value="C">Concluída</option>
                             </select>
                         </div>
+
+                        <div class="form-group col-12">
+                            <label class="m-0">Descrição:</label>
+                            <textarea type="text" class="form-control" id="txtLogDescAtividade" name="txtLogDescAtividade" placeholder="Descrição da atividade"></textarea>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label class="form-label">Anexo</label>
+                            <input class="form-control form-control-lg btn" id="anexoLogAtividade" name="anexoLogAtividade" type="file" />
+                        </div>
+
                     </div>
                 </form>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" onclick="altsituacao()">Alterar</button>
+                <button type="button" class="btn btn-success" onclick="altsituacao($('#txtIdAtividade').val())">Alterar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
             </div>
         </div>

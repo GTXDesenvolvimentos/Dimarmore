@@ -144,7 +144,7 @@ class M_insert extends CI_Model
         return $return;
     }
 
-    
+
 
     ////////////////////////////////////////
     // CADASTRO DE ATIVIDADE
@@ -186,6 +186,51 @@ class M_insert extends CI_Model
                 );
             }
         }
+        return $return;
+    }
+
+    ////////////////////////////////////////
+    // CADASTRO DE STATUS ATIVIDADE
+    // CRIADO POR ELIEL AMORIM            
+    // DATA: 31/05/2023
+    ////////////////////////////////////////   
+    public function altsituacao($dados)
+    {
+        $this->db->where('id_atividade', $dados['id_atividade']);
+        $this->db->select('max(seq) as sequencia');
+        $seq = $this->db->get('tbl_status_atividades');
+        $dados['seq'] = $seq->row()->sequencia + 1;
+
+        $this->db->trans_begin();
+        
+        $this->db->insert('tbl_status_atividades', $dados);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $return = array(
+                'code' => 0,
+                'message' => "Erro ao gravar os dados!"
+            );
+            return $return;
+        } 
+
+        $this->db->where('id_atividade', $dados['id_atividade']);
+        $this->db->update('tbl_atividades', ['situacao' => $dados['status_mov']]);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $return = array(
+                'code' => 0,
+                'message' => "Erro ao gravar os dados!"
+            );
+        } else {
+            $this->db->trans_commit();
+            $return = array(
+                'code' => 1,
+                'message' => "Atividade cadastrada com sucesso!"
+            );
+        }
+
         return $return;
     }
 }

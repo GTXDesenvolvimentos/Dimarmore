@@ -3,7 +3,6 @@ const arrayColumn = (array, column) => {
     return array.map(item => parseInt(item[column]));
 };
 
-
 ////////////////////////////////////////
 // FUNÇÃO DE LOGAR APERTANDO ENTER                  
 // CRIADO POR MARCIO SILVA            
@@ -84,10 +83,6 @@ $(document).ready(function() {
 });
 //==================================================================
 
-
-
-
-
 ////////////////////////////////////////
 // FUNÇÃO CAD E ALTERAR DEPARTAMENTOS                  
 // CRIADO POR MARCIO SILVA            
@@ -146,12 +141,6 @@ $(document).ready(function() {
 });
 //==================================================================
 
-
-
-
-
-
-
 ////////////////////////////////////////
 // FUNÇÃO CAD E ALTERAR DEPARTAMENTOS                  
 // CRIADO POR MARCIO SILVA            
@@ -209,11 +198,6 @@ $(document).ready(function() {
     // document.getElementById('formEtapas')
 });
 //==================================================================
-
-
-
-
-
 
 ////////////////////////////////////////
 // FUNÇÃO CAD E ALTERAR PROJETOS           
@@ -274,11 +258,6 @@ $(document).ready(function() {
 
 //==================================================================
 
-
-
-
-
-
 ////////////////////////////////////////
 // FUNÇÃO CAD E ALTERAR ETAPAS                 
 // CRIADO POR MARCIO SILVA            
@@ -336,7 +315,6 @@ $(document).ready(function() {
 });
 //==================================================================
 
-
 ////////////////////////////////////////
 // FUNÇÃO CAD E ALTERAR ATIVIDADES       
 // CRIADO POR MARCIO SILVA            
@@ -393,12 +371,6 @@ $(document).ready(function() {
     });
 });
 //==================================================================
-
-
-
-
-
-
 
 ////////////////////////////////////////
 // FUNÇÃO DELETA DEPARTAMENTOS                  
@@ -466,11 +438,6 @@ function delDepto(value) {
     })
 }
 
-
-
-
-
-
 ////////////////////////////////////////
 // FUNÇÃO DELETA PROJETO              
 // CRIADO POR MARCIO SILVA            
@@ -536,8 +503,6 @@ function delProjeto(value) {
         }
     })
 }
-
-
 
 ////////////////////////////////////////
 // FUNÇÃO DELETA DEPARTAMENTOS                  
@@ -605,13 +570,6 @@ function delEtapas(value) {
     })
 }
 
-
-
-
-
-
-
-
 ////////////////////////////////////////
 // MONTA SELECT DE USUARIOS                 
 // CRIADO POR MARCIO SILVA            
@@ -658,10 +616,6 @@ function selectUsers() {
 
 //==================================================================
 
-
-
-
-
 ////////////////////////////////////////
 // MONTA SELECT DE DEPARTAMENTOS                 
 // CRIADO POR MARCIO SILVA            
@@ -704,9 +658,6 @@ function selectDepto() {
     });
 
 }
-
-
-
 
 ////////////////////////////////////////
 // MONTA SELECT DE PROJETOS                 
@@ -757,7 +708,6 @@ function selectProjetos(value, opt) {
     });
 }
 
-
 ////////////////////////////////////////
 // MONTA SELECT DE ETAPAS                 
 // CRIADO POR MARCIO SILVA            
@@ -806,8 +756,6 @@ function selectEtapas(value, etapa) {
 
 }
 
-
-
 function viewAnexo(value) {
     if (value != '') {
         return '<buttom class="btn btn-outline-primary btn-sm" onclick="modalAnexo(\'' + value + '\');"><i class="fa-regular fa-images"></i></button';
@@ -843,8 +791,6 @@ function situacao(value) {
     }
 }
 
-
-
 //Loading the variable
 var subURL = window.location.href;
 var myarr = subURL.split("/");
@@ -860,40 +806,65 @@ if (myarr[4] == 'projetos') {
     selectUsers();
 }
 
-function altsituacao() {
-    // const { value: fruit } = await 
-    // Swal.fire({
-    //     title: 'Alterar Situação:',
-    //     input: 'select',
-    //     inputOptions: {
+function altsituacao(id_atividade) {
 
-    //         apples: 'Apples',
-    //         bananas: 'Bananas',
-    //         grapes: 'Grapes',
-    //         oranges: 'Oranges'
+    dados = new FormData($('#formAltSituacao')[0]);
+    dados.append("id_atividade", id_atividade);
 
+    $.ajax({
+        url: base_url + "atividades/altsituacao",
+        type: 'POST',
+        data: dados,//+ '&id_atividade=' + id_atividade,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        cache: false,
+        error: function () {
+            swal.fire("Atenção!", "Ocorreu um erro ao tentar registrar os dados!", "error");
+        },
+        beforeSend: function () {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function (data) {
 
-    //     },
-    //     inputPlaceholder: 'Select a fruit',
-    //     showCancelButton: true,
-    //     inputValidator: (value) => {
-    //       return new Promise((resolve) => {
-    //         if (value === 'oranges') {
-    //           resolve()
-    //         } else {
-    //           resolve('You need to select oranges :)')
-    //         }
-    //       })
-    //     }
-    //   })
+            $('#txtIdAtividade').val('');
 
-    //   if (fruit) {
-    //     Swal.fire(`You selected: ${fruit}`)
-    //   }
+            if (data.code == 0) {
+                swal.fire("Atenção!", data.message, "warning");
+            } else if (data.code == 1) {
+                // clearForm();
+                $('#tableProjeto').bootstrapTable('refresh');
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: data.message,
+                    icon: 'success',
+                    confirmButtonColor: '#268917',
+                    confirmButtonText: 'Sair'
+                });
+
+                $('#tableAtividades').bootstrapTable('refresh');
+                $('#modalAltSituacao').modal('hide');
+                $('#formAltSituacao')[0].reset();
+            } else if (data.code == 2) {
+                swal.fire({
+                    title: "Atenção!",
+                    html: data.message,
+                    icon: 'info',
+                    confirmButtonColor: '#268917',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        }
+    });
 }
 
 function posicionaValor(linha) {
-    console.log(linha)
     $('#txtIdAtividade').val(linha.id_atividade);
-    $(`#slaltsituacao`).selectpicker('val', situacao)
+    $(`#slaltsituacao`).selectpicker('val', linha.sitAtividade)
 }
+

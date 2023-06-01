@@ -130,4 +130,50 @@ class Atividades extends MY_Controller
         }
         echo json_encode($return);
     }
+
+    /////////////////////////////////////////
+    // ALTERAÇÃO DE STATUS DE ATIVIDADE
+    // CRIADO POR ELIEL AMORIM            
+    // DATA: 31/05/2023                 
+    ////////////////////////////////////////  
+    public function altsituacao()
+    {
+        $form = $this->input->post();
+
+        $files = $_FILES['anexoLogAtividade'];
+        if ($_FILES['anexoLogAtividade']['tmp_name'] !== '') {
+            $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+            $configuracao = array(
+                "upload_path"   => "./assets/uploads/",
+                'allowed_types' => 'jpg|png|gif|pdf|jpeg',
+                'file_name'     => $anexo,
+                'max_size'      => '500'
+            );
+            $this->load->library('upload');
+            $this->upload->initialize($configuracao);
+            if ($this->upload->do_upload('anexoLogAtividade')) {
+            } else {
+                $return = array(
+                    'code' => 2,
+                    'message' =>  trim($this->upload->display_errors())
+                );
+                echo json_encode($return);
+                exit();
+            }
+        }
+
+        $dados = [
+            "id_atividade" => $form['id_atividade'],
+            "movimento"    => "",
+            "anexo"        => isset($anexo) ? $anexo : '',
+            "descricao"    => $form['txtLogDescAtividade'],
+            "data"         => date('Y-m-d'),
+            "dtcria"       => date('Y-m-d H:i:s'),
+            "status_mov"   => $form['slAltSituacao']
+        ];
+
+        $this->load->model('M_insert');
+        $retorno = $this->M_insert->altsituacao($dados);
+        echo json_encode($retorno);
+    }
 }

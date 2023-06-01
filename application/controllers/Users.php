@@ -73,7 +73,6 @@ class users extends MY_Controller
                         "responsavel" => $this->input->post("slEtapResponsavel"),
                         "situacao" => $this->input->post("SlEtapaStatus"),
                         "data_fim" => $this->input->post("txtEtaDtLimit"),
-                        "anexo" => $anexo,
                         "usucria" => $this->session->userdata('id_users')
                     );
                 } else {
@@ -98,7 +97,6 @@ class users extends MY_Controller
                     "responsavel" => $this->input->post("slEtapResponsavel"),
                     "situacao" => $this->input->post("SlEtapaStatus"),
                     "data_fim" => $this->input->post("txtEtaDtLimit"),
-                    "anexo" => $anexo,
                     "usucria" => $this->session->userdata('id_users')
                 );
             }
