@@ -8,7 +8,7 @@
                 <a href="#!" class="btn btn-sm btn-success btn-lg toolbar" data-toggle="modal" data-target="#ModalUser">ADICIONAR</a>
                 <div class="table-responsive">
                     <div class="table-responsive">
-                        <table class="table align-items-center table-flush" id="tableUsers" data-toolbar=".toolbar" toobar data-toggle="table" data-flat="true" data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]" data-url="<?= base_url('users/retUsers') ?>">
+                        <table class="table align-items-center table-flush" id="tableUsers" data-toolbar=".toolbar" toobar data-toggle="table" data-flat="true" data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]" data-url="<?= base_url('usuarios/retUsers') ?>">
                             <thead class="thead-light">
                                 <tr>
                                     <th data-field="nome" data-halign="center" data-align="left" data-sortable="true">Nome</th>

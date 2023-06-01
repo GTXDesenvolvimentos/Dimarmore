@@ -13,7 +13,7 @@
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('projetos')?>">Projetos</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('etapas')?>">Etapas</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('atividades')?>">Atividades</a></li>
-            <li class="nav-item active"><a class="nav-link" href="<?=base_url('users')?>">Usuários</a></li>
+            <li class="nav-item active"><a class="nav-link" href="<?=base_url('usuarios')?>">Usuários</a></li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">
