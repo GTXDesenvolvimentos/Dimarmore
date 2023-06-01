@@ -51,12 +51,7 @@ class usuarios extends MY_Controller
             $this->form_validation->set_rules('slNivelUser', 'Nivel', 'required');
         }
 
-        //"txtIdUser"
-        //"txtNomeUser"
-        //"txtEmailUser"
-        //"txtSenhaUser"
-        //"txtConfirmaSenhaUser"
-        //"slNivelUser"
+        
         if ($this->form_validation->run() == FALSE) {
             $return = array(
                 'code' => 2,
@@ -64,48 +59,33 @@ class usuarios extends MY_Controller
             );
         } else {
             if ($this->input->post("txtIdEtapa") !== '') {
-                if ($_FILES['anexoEtapa']['tmp_name'] !== '') {
-                    $dados = array(
-                        "id_projeto" => $this->input->post("slEtapProjeto"),
-                        "etapa" => $this->input->post("txtNomeEtapa"),
-                        "descricao" => $this->input->post("txtDescEtapa"),
-                        "prioridade" => $this->input->post("SlEtaPrioridade"),
-                        "responsavel" => $this->input->post("slEtapResponsavel"),
-                        "situacao" => $this->input->post("SlEtapaStatus"),
-                        "data_fim" => $this->input->post("txtEtaDtLimit"),
-                        "usucria" => $this->session->userdata('id_users')
-                    );
-                } else {
-                    $dados = array(
-                        "id_projeto" => $this->input->post("slEtapProjeto"),
-                        "etapa" => $this->input->post("txtNomeEtapa"),
-                        "descricao" => $this->input->post("txtDescEtapa"),
-                        "prioridade" => $this->input->post("SlEtaPrioridade"),
-                        "responsavel" => $this->input->post("slEtapResponsavel"),
-                        "situacao" => $this->input->post("SlEtapaStatus"),
-                        "data_fim" => $this->input->post("txtEtaDtLimit"),
-                        "usucria" => $this->session->userdata('id_users')
-                    );
-                }
+                //"txtIdUser"
+        //"txtNomeUser"
+        //"txtEmailUser"
+        //"txtSenhaUser"
+        //"slNivelUser"
+                $dados = array(
+                    "id_users" => $this->input->post("txtIdUser"),
+                    "nome" => $this->input->post("txtNomeUser"),
+                    "usuario" => $this->input->post("txtEmailUser"),
+                    "senha" => $this->input->post("slNivelUser"),
+                    "nivel" => $this->input->post("slNivelUser"),
+                    "usucria" => $this->session->userdata('id_users')
+                );
             } else {
                 $dados = array(
-                    "id_etapa" => $this->input->post("txtIdEtapa"),
-                    "id_projeto" => $this->input->post("slEtapProjeto"),
-                    "etapa" => $this->input->post("txtNomeEtapa"),
-                    "descricao" => $this->input->post("txtDescEtapa"),
-                    "prioridade" => $this->input->post("SlEtaPrioridade"),
-                    "responsavel" => $this->input->post("slEtapResponsavel"),
-                    "situacao" => $this->input->post("SlEtapaStatus"),
-                    "data_fim" => $this->input->post("txtEtaDtLimit"),
+                    "id_users" => $this->input->post("txtIdUser"),
+                    "nome" => $this->input->post("txtNomeUser"),
+                    "usuario" => $this->input->post("txtEmailUser"),
+                    "senha" => $this->input->post("slNivelUser"),
+                    "nivel" => $this->input->post("slNivelUser"),
                     "usucria" => $this->session->userdata('id_users')
                 );
             }
             $this->load->model('M_insert');
-            $return = $this->M_insert->cadEtapa($dados);
+            $return = $this->M_insert->cadUser($dados);
         }
         echo json_encode($return);
-
-
     }
 
     ////////////////////////////////////////
