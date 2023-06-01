@@ -223,51 +223,12 @@ class M_retorno extends CI_Model
        return $retorno->result();
     }
 
-    ////////////////////////////////////////
-    // RETORNO DE ATIVIDADES              //
-    // CRIADO POR MARCIO SILA             //
-    // DATA: 31/05/2019                   //
-    ////////////////////////////////////////
-    public function retAtividades2()
-    {
-        $id_atividade = $this->input->post('id_atividade');
-        $id_situacao = $this->input->post('id_situacao');
-        $this->db->select('A.situacao as situacao');
-        $this->db->select('A.id_atividade as id_atividade');
-        $this->db->select('A.id_projeto as id_projeto');
-        $this->db->select('A.atividade as nome_atividade');
-        $this->db->select('A.descricao as descricao_atividade');
-        $this->db->select("DATE_FORMAT(A.dtcria, '%d/%m/%Y') AS data_criacao", FALSE);
-        $this->db->select('C.nome as responsavel');
-        $this->db->select('A.anexo as anexo');
-        $this->db->select('A.prioridade as prioridade');
-        $this->db->select('B.descricao as descricao_projeto');
-        $this->db->select('B.nome as nome_projeto');
-        $this->db->select('D.descricao as nome_dep');
-        $this->db->join("tbl_projetos B", "A.id_projeto = B.id_projeto", "inner");
-        $this->db->join("tbl_users C", "A.id_usuario = C.id_users", "inner");
-        $this->db->join("tbl_departamentos D", "A.id_departamento = D.id_departamento", "inner");
-        isset($id_atividade) == true && $id_atividade != '' ? $this->db->where('A.id_atividade', $id_atividade) : '';
-        // isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
-        isset($id_situacao) == true && $id_situacao != '' ? $this->db->where('A.id_atividade', $id_situacao) : '';
-        $this->db->where('A.status !=', 'D');
-        $retorno = $this->db->get('tbl_atividades A');
-    }
+   
 
-    ////////////////////////////////////////
-    // RETORNO DE ETAPAS                  //
-    // CRIADO POR MARCIO SILVA            //
-    // DATA: 22/05/2022                   //
-    ////////////////////////////////////////
-    public function retProjeto()
-    {
 
-        $this->db->select('*');
-        $this->db->where('status !=', 'D');
-        $retorno = $this->db->get('tbl_projetos');
 
-        return $retorno;
-    }
+
+
     ////////////////////////////////////////
     // RETORNO DE CODIGO DE IMAGEM        //
     // CRIADO POR MARCIO SILVA            //
