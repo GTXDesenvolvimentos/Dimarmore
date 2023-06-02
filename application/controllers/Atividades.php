@@ -176,4 +176,12 @@ class Atividades extends MY_Controller
         $retorno = $this->M_insert->altsituacao($dados);
         echo json_encode($retorno);
     }
+
+    function buscaHistorico(){
+        $form = $this->input->post();
+
+        $this->load->model('M_retorno');
+        $retorno = $this->M_retorno->buscaHistorico($form);
+        echo json_encode($retorno);
+    }
 }
