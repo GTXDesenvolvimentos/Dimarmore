@@ -17,6 +17,7 @@
                                 <th data-field="projeto" data-halign="center" data-align="left" data-sortable="true">Projeto</th>
                                 <th data-field="sitAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="situation">Situação</th>
                                 <th data-field="dtEntregaAtividade" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
+                                <th data-field="anexoAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewHistoric">Histórico</th>
                                 <th data-field="anexoAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
                                 <th data-halign="center" data-align="center" data-formatter="optAtividade">Opções</th>
                             </tr>
@@ -30,6 +31,10 @@
     <script>
         function optAtividade(index, row) {
             return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altAtividade(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delAtividade(' + row.id_atividade + ');"><i class="fas fa-trash-alt"></i></button>`;
+        }
+
+        function viewHistoric(index, row) {
+            return `<button type="button" class="btn btn-outline-success btn-sm" onclick='buscaHistorico(` + row.id_atividade + `)'><i class="fas fa-search"></i></button>`;
         }
 
         function altAtividade(value) {
