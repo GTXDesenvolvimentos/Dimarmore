@@ -29,16 +29,19 @@
             return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altUser(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delUser(` + row.id_departamento + `);"><i class="fas fa-trash-alt"></i></button>`;
         }
 
-        function altDepto(value) {
+        function altUser(value) {
             console.log(value.id_departamento);
-            $('#txtIdDepto').val(value.id_departamento);
+            $('#txtIdUser').val(value.id_user);
             $('#txtCodDepto').val(value.cod_departamento);
             $('#txtDescDepto').val(value.descricao);
-            $('#ModalDepto').modal('show');
+            $('#ModalUser').modal('show');
         }
 
         function nivel(index, row) {
-            return `<button type="button" class="btn btn-outline-danger btn-sm" onclick="delUser(` + row.id_usuario + `);">Administrador</i></button>`;
+            if (row.nivel == 1) {
+                return '<button type="button" class="btn btn-outline-danger btn-sm">Administrador</i></button>';
+            } else {
+                return '<button type="button" class="btn btn-outline-success btn-sm">Usuário</i></button>';
+            }
         }
-
     </script>

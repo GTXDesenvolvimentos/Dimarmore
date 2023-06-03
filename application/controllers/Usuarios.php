@@ -45,7 +45,7 @@ class usuarios extends MY_Controller
             $this->form_validation->set_rules('slNivelUser', 'Nivel', 'required');
         } else {
             $this->form_validation->set_rules('txtNomeUser', 'Nome', 'required');
-            $this->form_validation->set_rules('txtEmailUser', 'Email', 'required|is_unique[tbl_departamentos.cod_departamento]');
+            $this->form_validation->set_rules('txtEmailUser', 'Email', 'required|valid_email|is_unique[tbl_departamentos.cod_departamento]');
             $this->form_validation->set_rules('txtSenhaUser', 'Senha', 'required');
             $this->form_validation->set_rules('txtConfirmaSenhaUser', 'Confirme senha', 'required');
             $this->form_validation->set_rules('slNivelUser', 'Nivel', 'required');
