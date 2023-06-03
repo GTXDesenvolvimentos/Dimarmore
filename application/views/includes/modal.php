@@ -245,7 +245,7 @@
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
                 <div class="modal-body p-2 row">
-                    <input type="number" name="txtIdUser" id="txtIdUser" class="form-control">
+                    <input type="number" name="txtIdUser" id="txtIdUser" class="form-control d-none">
 
                     <div class="form-group col-12">
                         <label class="m-0">Nome:</label>
@@ -259,12 +259,12 @@
 
                     <div class="form-group col-12">
                         <label class="m-0">Senha:</label>
-                        <input type="text" class="form-control" name="txtSenhaUser" id="txtSenhaUser" placeholder="Senha">
+                        <input type="text" class="form-control" name="txtSenhaUser" id="txtSenhaUser" placeholder="********">
                     </div>
 
                     <div class="form-group col-12">
                         <label class="m-0">Confirma a senha:</label>
-                        <input type="text" class="form-control" name="txtConfirmaSenhaUser" id="txtConfirmaSenhaUser" placeholder="Senha">
+                        <input type="text" class="form-control" name="txtConfirmaSenhaUser" id="txtConfirmaSenhaUser" placeholder="********">
                     </div>
 
                     <div class="form-group col-12">

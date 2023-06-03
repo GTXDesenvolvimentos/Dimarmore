@@ -41,7 +41,11 @@ class usuarios extends MY_Controller
         $this->load->library('form_validation');
         if ($this->input->post('txtIdUser') !== '') {
             $this->form_validation->set_rules('txtNomeUser', 'Nome', 'required');
-            $this->form_validation->set_rules('txtEmailUser', 'Email', 'required|is_unique[tbl_departamentos.cod_departamento]');
+            $this->form_validation->set_rules('txtEmailUser', 'Email', 'required|valid_email|is_unique[tbl_departamentos.cod_departamento]');
+            if ($this->input->post('txtSenhaUser') !== '') {
+                $this->form_validation->set_rules('txtSenhaUser', 'Senha', 'required');
+                $this->form_validation->set_rules('txtConfirmaSenhaUser', 'Confirme senha', 'required');
+            }
             $this->form_validation->set_rules('slNivelUser', 'Nivel', 'required');
         } else {
             $this->form_validation->set_rules('txtNomeUser', 'Nome', 'required');
@@ -51,7 +55,7 @@ class usuarios extends MY_Controller
             $this->form_validation->set_rules('slNivelUser', 'Nivel', 'required');
         }
 
-        
+
         if ($this->form_validation->run() == FALSE) {
             $return = array(
                 'code' => 2,
@@ -59,11 +63,6 @@ class usuarios extends MY_Controller
             );
         } else {
             if ($this->input->post("txtIdEtapa") !== '') {
-                //"txtIdUser"
-        //"txtNomeUser"
-        //"txtEmailUser"
-        //"txtSenhaUser"
-        //"slNivelUser"
                 $dados = array(
                     "id_users" => $this->input->post("txtIdUser"),
                     "nome" => $this->input->post("txtNomeUser"),
@@ -93,11 +92,11 @@ class usuarios extends MY_Controller
     // CRIADO POR MARCIO SILVA            
     // DATA: 09/02/2023                   
     ////////////////////////////////////////
-    public function delDepto()
+    public function delUser()
     {
-        $id_departamento = $this->input->post('id_departamento');
+        $id_user = $this->input->post('txtIdUser');
         $this->load->model('M_delete');
-        $return = $this->M_delete->delDepto($id_departamento);
+        $return = $this->M_delete->delUser($id_user);
         echo json_encode($return);
     }
 }

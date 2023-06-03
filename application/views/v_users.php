@@ -26,14 +26,14 @@
 
     <script>
         function opcoesUser(index, row) {
-            return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altUser(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delUser(` + row.id_departamento + `);"><i class="fas fa-trash-alt"></i></button>`;
+            return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altUser(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delUser(` + row.id_users + `);"><i class="fas fa-trash-alt"></i></button>`;
         }
 
         function altUser(value) {
-            console.log(value.id_departamento);
-            $('#txtIdUser').val(value.id_user);
-            $('#txtCodDepto').val(value.cod_departamento);
-            $('#txtDescDepto').val(value.descricao);
+            $('#txtIdUser').val(value.id_users);
+            $('#txtNomeUser').val(value.nome);
+            $('#txtEmailUser').val(value.usuario);
+            $('#slNivelUser').selectpicker('val', value.nivel);
             $('#ModalUser').modal('show');
         }
 
