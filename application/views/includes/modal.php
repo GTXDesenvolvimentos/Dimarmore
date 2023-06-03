@@ -164,8 +164,8 @@
                     <h4 class="modal-title">Atividade</h4>
                     <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
                 </div>
-                <div class="modal-body p-2">
-                    <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control">
+                <div class="modal-body p-2 row">
+                    <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control d-none">
 
                     <div class="form-group col-12">
                         <label class="m-0">Departamento:</label>
@@ -182,7 +182,7 @@
                     </div>
 
                     <div class="form-group col-12">
-                    <label class="m-0">Etapas:</label>
+                        <label class="m-0">Etapas:</label>
                         <select id="slAtivEtapas" name="slAtivEtapas" class="selectpicker form-control" data-style="btn-success">
                             <option value="">Etapa</option>
                         </select>
@@ -212,7 +212,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-6">
                         <label class="m-0">Data limite da atividade:</label>
                         <input type="date" class="form-control" name="txtDataFimAtividade" id="txtDataFimAtividade" placeholder="Data limite para a ativivdade">
                     </div>
@@ -234,6 +234,60 @@
 </div>
 
 
+
+<!-- MODAL USUARIOS -->
+<div class="modal fade" id="ModalUser" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formUser" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h4 class="modal-title">Usuários</h4>
+                    <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
+                </div>
+                <div class="modal-body p-2 row">
+                    <input type="number" name="txtIdUser" id="txtIdUser" class="form-control">
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Nome:</label>
+                        <input type="text" class="form-control" name="txtNomeUser" id="txtNomeUser" placeholder="Nome do usuário">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Email:</label>
+                        <input type="text" class="form-control" name="txtEmailUser" id="txtEmailUser" placeholder="Email do usuário">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Senha:</label>
+                        <input type="text" class="form-control" name="txtSenhaUser" id="txtSenhaUser" placeholder="Senha">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Confirma a senha:</label>
+                        <input type="text" class="form-control" name="txtConfirmaSenhaUser" id="txtConfirmaSenhaUser" placeholder="Senha">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Nivel:</label>
+                        <select id="slNivelUser" name="slNivelUser" class="selectpicker form-control" data-style="btn-success">
+                        <option value="">Selecione o nível</option>
+                            <option value="1">Administrador</option>
+                            <option value="2">Usuário</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
+                    <button type="submit" class="btn btn-success" id="btnUser">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
 <!-- MODAL VIEW ANEXO -->
 <div class="modal fade" id="modalAnexo" class="modal fade" tabindex="-1" data-keyboard="false">
     <div class="modal-dialog">
@@ -247,6 +301,49 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ALTERAR SITUAÇÃO -->
+<div class="modal fade" id="modalAltSituacao" class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Alterar Situação</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body p-2">
+                <form method="post" id="formAltSituacao">
+                    <div class="row">
+                        <div class="col-12 form-group">
+                            <select name="slAltSituacao" id="slAltSituacao" class="selectpicker form-control" data-style="btn-success">
+                                <option value="A">Aguardando</option>
+                                <option value="P">Pendente</option>
+                                <option value="I">Iniciada</option>
+                                <option value="E">Executando</option>
+                                <option value="C">Concluída</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label class="m-0">Descrição:</label>
+                            <textarea type="text" class="form-control" id="txtLogDescAtividade" name="txtLogDescAtividade" placeholder="Descrição da atividade"></textarea>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label class="form-label">Anexo</label>
+                            <input class="form-control form-control-lg btn" id="anexoLogAtividade" name="anexoLogAtividade" type="file" />
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="altsituacao($('#txtIdAtividade').val())">Alterar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Sair</button>
             </div>
         </div>
     </div>

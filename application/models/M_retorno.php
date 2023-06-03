@@ -164,7 +164,7 @@ class M_retorno extends CI_Model
     {
         //RETORNO DE TABELA ATIVIDADE
        $this->db->select('A.id_atividade id_atividade');
-       $this->db->select('A.atividade as nomeAtividade');
+       $this->db->select('A.atividade as nomeAtividade, CONCAT(CONCAT(A.atividade, " - "), A.descricao) as atividade');
        $this->db->select('A.descricao as descrAtividade');
        $this->db->select('A.prioridade as priorAtividade');
        $this->db->select('A.responsavel as respAtividade');
@@ -177,7 +177,7 @@ class M_retorno extends CI_Model
        $this->db->select("DATE_FORMAT(A.data_fim, '%d/%m/%Y') AS dtEntregaAtividade", FALSE);
        //RETORNO DE TABELA ETAPAS
        $this->db->select('E.id_etapa as id_etapa');
-       $this->db->select('E.etapa as nomeEtapa');
+       $this->db->select('E.etapa as nomeEtapa, CONCAT(CONCAT(E.etapa, " - "), E.descricao) as etapa');
        $this->db->select('E.descricao as descrEtapa');
        $this->db->select('E.prioridade as priorEtapa');
        $this->db->select('E.responsavel as respEtapa');
@@ -192,7 +192,7 @@ class M_retorno extends CI_Model
        $this->db->select('B.id_projeto as id_projeto');
        $this->db->select('B.id_departamento as id_departamento');
        $this->db->select('B.responsavel as id_responsavel');
-       $this->db->select('B.nome as nomeProjeto');
+       $this->db->select('B.nome as nomeProjeto, CONCAT(CONCAT(B.nome , " - "), B.descricao) as projeto');
        $this->db->select("DATE_FORMAT(B.dtentrega, '%d/%m/%Y') AS dtEntregaProjeto", FALSE);
        $this->db->select("B.dtentrega AS dtEntregaProjetoE", FALSE);
        $this->db->select('B.descricao as descrPropjeto');
@@ -223,51 +223,12 @@ class M_retorno extends CI_Model
        return $retorno->result();
     }
 
-    ////////////////////////////////////////
-    // RETORNO DE ATIVIDADES              //
-    // CRIADO POR MARCIO SILA             //
-    // DATA: 31/05/2019                   //
-    ////////////////////////////////////////
-    public function retAtividades2()
-    {
-        $id_atividade = $this->input->post('id_atividade');
-        $id_situacao = $this->input->post('id_situacao');
-        $this->db->select('A.situacao as situacao');
-        $this->db->select('A.id_atividade as id_atividade');
-        $this->db->select('A.id_projeto as id_projeto');
-        $this->db->select('A.atividade as nome_atividade');
-        $this->db->select('A.descricao as descricao_atividade');
-        $this->db->select("DATE_FORMAT(A.dtcria, '%d/%m/%Y') AS data_criacao", FALSE);
-        $this->db->select('C.nome as responsavel');
-        $this->db->select('A.anexo as anexo');
-        $this->db->select('A.prioridade as prioridade');
-        $this->db->select('B.descricao as descricao_projeto');
-        $this->db->select('B.nome as nome_projeto');
-        $this->db->select('D.descricao as nome_dep');
-        $this->db->join("tbl_projetos B", "A.id_projeto = B.id_projeto", "inner");
-        $this->db->join("tbl_users C", "A.id_usuario = C.id_users", "inner");
-        $this->db->join("tbl_departamentos D", "A.id_departamento = D.id_departamento", "inner");
-        isset($id_atividade) == true && $id_atividade != '' ? $this->db->where('A.id_atividade', $id_atividade) : '';
-        // isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
-        isset($id_situacao) == true && $id_situacao != '' ? $this->db->where('A.id_atividade', $id_situacao) : '';
-        $this->db->where('A.status !=', 'D');
-        $retorno = $this->db->get('tbl_atividades A');
-    }
+   
 
-    ////////////////////////////////////////
-    // RETORNO DE ETAPAS                  //
-    // CRIADO POR MARCIO SILVA            //
-    // DATA: 22/05/2022                   //
-    ////////////////////////////////////////
-    public function retProjeto()
-    {
 
-        $this->db->select('*');
-        $this->db->where('status !=', 'D');
-        $retorno = $this->db->get('tbl_projetos');
 
-        return $retorno;
-    }
+
+
     ////////////////////////////////////////
     // RETORNO DE CODIGO DE IMAGEM        //
     // CRIADO POR MARCIO SILVA            //
@@ -278,6 +239,21 @@ class M_retorno extends CI_Model
         $this->db->select('*');
         $this->db->where('id_etapa', $etapa);
         $retorno = $this->db->get('tbl_etapas');
+
+        return $retorno;
+    }
+
+    ////////////////////////////////////////
+    // RETORNO HISTÓRICO DE ATIVIDADE     //
+    // CRIADO POR ELIEL AMORIM            //
+    // DATA: 02/06/2023                   //
+    ////////////////////////////////////////
+    public function buscaHistorico($dados){
+
+        $this->db->order_by('seq desc');
+        $this->db->where('id_atividade', $dados['id_atividade']);
+        $retorno = $this->db->get('tbl_status_atividades');
+        $retorno = $retorno->result();
 
         return $retorno;
     }
