@@ -93,7 +93,7 @@ $(document).ready(function() {
         e.preventDefault();
         var serializeDados = $('#formUser').serialize();
         $.ajax({
-            url: base_url + "/users/cadUser",
+            url: base_url + "/usuarios/cadUser",
             data: serializeDados,
             type: 'POST',
             dataType: "json",
@@ -814,15 +814,15 @@ function altsituacao(id_atividade) {
     $.ajax({
         url: base_url + "atividades/altsituacao",
         type: 'POST',
-        data: dados,//+ '&id_atividade=' + id_atividade,
+        data: dados, //+ '&id_atividade=' + id_atividade,
         dataType: "json",
         processData: false,
         contentType: false,
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao tentar registrar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -830,7 +830,7 @@ function altsituacao(id_atividade) {
                 showConfirmButton: false
             });
         },
-        success: function (data) {
+        success: function(data) {
 
             $('#txtIdAtividade').val('');
 
@@ -867,4 +867,3 @@ function posicionaValor(linha) {
     $('#txtIdAtividade').val(linha.id_atividade);
     $(`#slaltsituacao`).selectpicker('val', linha.sitAtividade)
 }
-

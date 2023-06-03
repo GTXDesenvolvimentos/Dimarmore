@@ -8,6 +8,53 @@ class M_insert extends CI_Model
 {
 
     ////////////////////////////////////////
+    // CADASTRO DE USUARIOS               
+    // CRIADO POR MARCIO SILVA            
+    // DATA: 31/05/2019                   
+    ////////////////////////////////////////   
+    public function cadUser($dados)
+    {
+
+
+        $this->db->trans_begin();
+        if ($this->input->post("txtIdUser") == '') {
+            $this->db->insert('tbl_users', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao gravar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Usuário cadastrado com sucesso!"
+                );
+            }
+        } else {
+            $this->db->where('id_user', $this->input->post("txtIdUser"));
+            $this->db->update('tbl_departamentos', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao atualizar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Usuário atualizado com sucesso!"
+                );
+            }
+        }
+        return $return;
+    }
+
+
+
+    ////////////////////////////////////////
     // CADASTRO DE DEPARTAMENTO               
     // CRIADO POR MARCIO SILVA            
     // DATA: 31/05/2019                   
