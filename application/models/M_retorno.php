@@ -242,4 +242,19 @@ class M_retorno extends CI_Model
 
         return $retorno;
     }
+
+    ////////////////////////////////////////
+    // RETORNO HISTÓRICO DE ATIVIDADE     //
+    // CRIADO POR ELIEL AMORIM            //
+    // DATA: 02/06/2023                   //
+    ////////////////////////////////////////
+    public function buscaHistorico($dados){
+
+        $this->db->order_by('seq desc');
+        $this->db->where('id_atividade', $dados['id_atividade']);
+        $retorno = $this->db->get('tbl_status_atividades');
+        $retorno = $retorno->result();
+
+        return $retorno;
+    }
 }
