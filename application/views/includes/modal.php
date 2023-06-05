@@ -213,8 +213,10 @@
                     <div class="form-group col-6">
                         <label class="m-0">Situação:</label>
                         <select id="slAtivStatus" name="slAtivStatus" class="selectpicker form-control" data-style="btn-success">
+                            <option value="A">Aguardando</option>
                             <option value="P">Pendente</option>
-                            <option value="I">Exacutando</option>
+                            <option value="I">Iniciada</option>
+                            <option value="E">Executando</option>
                             <option value="C">Concluída</option>
                         </select>
                     </div>
