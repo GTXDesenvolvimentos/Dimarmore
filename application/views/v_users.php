@@ -25,6 +25,7 @@
     </div>
 
     <script>
+        
         function opcoesUser(index, row) {
             return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altUser(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delUser(` + row.id_users + `);"><i class="fas fa-trash-alt"></i></button>`;
         }

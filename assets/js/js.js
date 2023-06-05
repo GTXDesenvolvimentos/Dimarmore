@@ -847,6 +847,11 @@ function prioridade(value) {
     }
 }
 
+function sequencia(value) {
+
+    return '<button class="btn btn-sm btn-outline-dark px-3">' + value + '</button>';
+}
+
 function situacao(value) {
     if (value == 'A') {
         return '<button class="btn btn-sm btn-outline-dark btn-block" data-toggle="modal" data-target="#modalAltSituacao">Aguardando</button>';

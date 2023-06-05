@@ -108,10 +108,17 @@
                             <div class="form-group col-6">
                                 <label class="m-0">Prioridade:</label>
                                 <select id="SlEtaPrioridade" name="SlEtaPrioridade" class="selectpicker form-control" data-style="btn-success">
-                                    <option value="">Prioridade</option>
-                                    <option value="P">Padrão</option>
-                                    <option value="M">Média</option>
-                                    <option value="A">Alta</option>
+                                    <option value="">Sequência</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
                                 </select>
                             </div>
                             <div class="form-group col-6">
