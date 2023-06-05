@@ -18,7 +18,7 @@
                                 <th data-field="sitAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="situation">Situação</th>
                                 <th data-field="dtEntregaAtividade" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
                                 <th data-field="anexoAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewHistoric">Histórico</th>
-                                <th data-field="anexoAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
+                                <th data-field="anexo" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
                                 <th data-halign="center" data-align="center" data-formatter="optAtividade">Opções</th>
                             </tr>
                         </thead>
@@ -29,6 +29,9 @@
     </div>
 
     <script>
+        // Reabre modal de Histórico quando fechar anexo
+        reabre_modal = 0;
+
         function optAtividade(index, row) {
             return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altAtividade(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delAtividade(' + row.id_atividade + ');"><i class="fas fa-trash-alt"></i></button>`;
         }
@@ -55,20 +58,7 @@
             if (typeof(value.dtEntregaAtividade) == 'string') {
                 $('#txtDataFimAtividade').val((value.dtEntregaAtividade).split('/').reverse().join('-'));
             }
-
-            // $('#slAtivProjeto').selectpicker('val', projetos);
-
-            // setTimeout(()=>{$('#slAtivProjeto').selectpicker('val', value.id_projeto);},3000) 
-            // $('#slAtivProjeto').html('<option value="' +value.id_projeto + '">' +value.nomeProjeto + '</option>');
-
-            //$('#slRespAtividade').selectpicker('val', value.responsavel);
-            // $('#txtNomeProjeto ').val(value.nome);
-            //$('#txtDescProjeto').val(value.descricao);
-            // $('#txtDataFimProjeto').val(value.dtentrega);
-            // $('#slRespProjeto').selectpicker('val', value.responsavel);
-
             $('#ModalAtividades').modal('show');
-
         }
 
         function situation(value, row) {
@@ -85,4 +75,6 @@
                 return `<button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Iniciada</button>`;
             }
         }
+
+       
     </script>

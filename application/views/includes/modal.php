@@ -277,7 +277,7 @@
                     <div class="form-group col-12">
                         <label class="m-0">Nivel:</label>
                         <select id="slNivelUser" name="slNivelUser" class="selectpicker form-control" data-style="btn-success">
-                        <option value="">Selecione o nível</option>
+                            <option value="">Selecione o nível</option>
                             <option value="1">Administrador</option>
                             <option value="2">Usuário</option>
                         </select>
@@ -355,3 +355,45 @@
         </div>
     </div>
 </div>
+
+<!-- MODAL HISTÓRICO ATIVIDADE -->
+<div class="modal fade" id="modalHistorico" class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Histórico de atividade</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body p-2">
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush" id="tableHistorico" data-toggle="table" data-flat="true" data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]">
+                        <thead class="thead-light">
+                            <tr>
+                                <!-- <th data-field="nomeAtividade" data-halign="center" data-align="left" data-sortable="true">Atividade</th>
+                                <th data-field="descrAtividade" data-halign="center" data-align="left" data-sortable="true">Descrição</th> -->
+                                <th data-field="id_atividade" data-halign="center" data-align="left" data-sortable="true">Atividade</th>
+                                <th data-field="seq" data-halign="center" data-align="left" data-sortable="true">Sequência</th>
+                                <th data-field="descricao" data-halign="center" data-align="left" data-sortable="true">Descricao</th>
+                                <th data-field="status_mov" data-halign="center" data-align="center" data-sortable="true" data-formatter="situation">Status</th>
+                                <th data-field="reg_data" data-halign="center" data-align="center" data-sortable="true"> Data</th>
+                                <th data-field="anexo" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
+                                <!-- <th data-halign="center" data-align="center" data-formatter="optAtividade">Opções</th> -->
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="">Sair</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- status
+: 
+""
+status_mov
+: 
+"A" -->
