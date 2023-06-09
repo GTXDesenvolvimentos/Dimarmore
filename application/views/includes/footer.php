@@ -172,9 +172,7 @@
                 <p class="description">${card.description}</p>
             </div>
             <form class="row mx-auto justify-content-between">
-                <span id="span-${card.id.toString()}" onclick="togglePriority(event)" class="material-icons priority ${card.priority? "is-priority": ""}">
-                    star
-                </span>
+                <span id="span-${card.id.toString()}" onclick="togglePriority(event)" class="material-icons priority ${card.priority? "is-priority": ""}"> star</span>
                 <button class="invisibleBtn">
                     <span class="material-icons delete" onclick="deleteCard(${card.id.toString()})">
                         remove_circle
