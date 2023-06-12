@@ -37,6 +37,7 @@ class Etapas extends MY_Controller
     public function cadEtapa()
     {
 
+        $anexo = null;
         $files = $_FILES['anexoEtapa'];
         if ($_FILES['anexoEtapa']['tmp_name'] !== '') {
             $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);

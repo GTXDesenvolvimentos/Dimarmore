@@ -224,11 +224,6 @@ class M_retorno extends CI_Model
     }
 
    
-
-
-
-
-
     ////////////////////////////////////////
     // RETORNO DE CODIGO DE IMAGEM        //
     // CRIADO POR MARCIO SILVA            //
@@ -256,5 +251,12 @@ class M_retorno extends CI_Model
         $retorno = $retorno->result();
 
         return $retorno;
+    }
+
+
+    public function retDash(){
+        $retorno = $this->retAtividades();
+        return $retorno;
+    
     }
 }

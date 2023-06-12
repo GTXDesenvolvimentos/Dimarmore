@@ -869,7 +869,6 @@ function situacao(value) {
 //Loading the variable
 var subURL = window.location.href;
 var myarr = subURL.split("/");
-
 if (myarr[4] == 'projetos') {
     selectDepto();
     selectUsers();
@@ -879,6 +878,8 @@ if (myarr[4] == 'projetos') {
 } else if (myarr[4] == 'atividades') {
     selectDepto();
     selectUsers();
+} else if (myarr[4] == '') {
+    retDashboard();
 }
 
 function altsituacao(id_atividade) {
@@ -968,4 +969,107 @@ function buscaHistorico(id_atv) {
 
         }
     })
+}
+
+
+function retDashboard() {
+    var html = ``;
+    $.ajax({
+        url: base_url + "home/retDash",
+        type: 'POST',
+        dataType: "json",
+        cache: false,
+        error: function() {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function() {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function(result) {
+            swal.fire({
+                timer: 100,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+
+            var arrayDeptos = dashboardDeptos(result);
+
+            var deptos = JSON.stringify(arrayDeptos);
+            $('#viewDashboar').html('');
+            $.each(JSON.parse(deptos), function(idx, obj) {
+
+                html += (`
+                <div id="accordion">
+                    <div class="card my-1">
+                    <div class="card-header bg-dark"><a class="card-link" data-toggle="collapse" href="#collapseOne"><span class="text-white">${obj}</span></a></div>
+                        <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                            <div class="card-body p-1">
+                                <div class="row mt-1">
+                                    <div class="col-12 p-0">
+                                        <div class="col-12">
+                                            <table class = "table table-bordered" >
+                                                <tbody>
+                                                    <tr>
+                                                        `);
+                arrayProjetos = dashboardProjetos(obj, result);
+                console.log(arrayProjetos)
+                $.each(arrayProjetos, function(index, obj) {
+                    console.log(obj)
+
+
+                    html += (`                  <td class = "col-2" >
+                                                            <strong>Projeto</strong>
+                                                        </td>
+                                                        <td class = "col-10" >
+                                                            <strong> Etapas </strong> 
+                                                        </td>`);
+
+                });
+                html += (`                          </tr>
+                                                </tbody>
+                                            </table>                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `);
+            });
+            $('#viewDashboar').append(html);
+        }
+    });
+
+}
+
+
+
+function dashboardDeptos(value) {
+    var deptos = [];
+    var jsonDepto = JSON.stringify(value);
+    $.each(JSON.parse(jsonDepto), function(idx, obj) {
+        if (deptos.indexOf(obj.descrDepartamento) > -1) {} else {
+            deptos.push(obj.descrDepartamento);
+        }
+    });
+    return deptos;
+};
+
+function dashboardProjetos(depto, result) {
+    var res = [];
+    var jsonProjeto = JSON.stringify(result);
+    $.each(JSON.parse(jsonProjeto), function(idx, obj) {
+        if (obj.descrDepartamento == depto) {
+            res.push(obj);
+        }
+    });
+    return res;
 }

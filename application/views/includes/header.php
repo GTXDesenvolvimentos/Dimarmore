@@ -18,7 +18,7 @@
     <!-- SelectPicker-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.css" integrity="sha512-cH0Nl/sqUkz1lqxq3KbVfqJMrgZT2ZdCY0rf3AbeZc9yYY8pHbwgQlXCpmAWix73ivasnGJJetBX59gsx5N0Eg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.17/css/bootstrap-select.min.css" integrity="sha512-8IKwXYhvXkrNGaU06NnGsiDqJign94kk5+AAdTu4wR3hkuU5x2Weo1evN3xYSpnRtIJNLwAT2/R4ITAAv0IhdA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+                <script src = "http://underscorejs.org/underscore-min.js" > </script>
 </head>
 
 <body>

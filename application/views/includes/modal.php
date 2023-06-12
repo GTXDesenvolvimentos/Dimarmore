@@ -145,7 +145,7 @@
                         </select>
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-12 d-none">
                         <label class="form-label">Anexo</label>
                         <input class="form-control form-control-lg btn" id="anexoEtapa" name="anexoEtapa" name="anexoEtapa" type="file" />
                     </div>
