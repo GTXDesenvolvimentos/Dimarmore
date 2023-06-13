@@ -991,6 +991,7 @@ function retDashboard() {
             });
         },
         success: function(result) {
+            console.log(result);
             swal.fire({
                 timer: 100,
                 title: "Aguarde!",
@@ -1004,7 +1005,6 @@ function retDashboard() {
             var deptos = JSON.stringify(arrayDeptos);
             $('#viewDashboar').html('');
             $.each(JSON.parse(deptos), function(idx, obj) {
-
                 html += (`
                 <div id="accordion">
                     <div class="card my-1">
@@ -1016,23 +1016,82 @@ function retDashboard() {
                                         <div class="col-12">
                                             <table class = "table table-bordered" >
                                                 <tbody>
-                                                    <tr>
+                                                    
                                                         `);
                 arrayProjetos = dashboardProjetos(obj, result);
-                console.log(arrayProjetos)
-                $.each(arrayProjetos, function(index, obj) {
-                    console.log(obj)
+                $.each(arrayProjetos, function(index, obj1) {
+                    console.log(obj1);
 
-
-                    html += (`                  <td class = "col-2" >
-                                                            <strong>Projeto</strong>
+                    html += (`    
+                    <tr>                      <td class = "col-2" >
+                                                            <strong>Projeto:<br></strong> ${obj1}
                                                         </td>
-                                                        <td class = "col-10" >
-                                                            <strong> Etapas </strong> 
-                                                        </td>`);
+                                                            <td class = "col-10">
+                                                                <strong> Etapas:<br></strong> 
+                                                                <div class="container-fluid p-1">
+                                                                <div class="col-12">
+                                                                    <div class="row">
 
+                                                                        <div class="col-3 p-1">
+                                                                            <div class="card mb-4 shadow-sm">
+                                                                                <div class="card-header">Pendente</div>
+                                                                                <div class="card-body">
+                                                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                                        <div class="btn-group"></div>
+                                                                                        <small class="text-muted">9 mins</small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-3 p-1">
+                                                                            <div class="card mb-4 shadow-sm">
+                                                                                <div class="card-header">Pendente</div>
+                                                                                <div class="card-body">
+                                                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                                        <div class="btn-group"></div>
+                                                                                        <small class="text-muted">9 mins</small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-3 p-1">
+                                                                            <div class="card mb-4 shadow-sm">
+                                                                                <div class="card-header">Pendente</div>
+                                                                                <div class="card-body">
+                                                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                                        <div class="btn-group"></div>
+                                                                                        <small class="text-muted">9 mins</small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-3 p-1">
+                                                                            <div class="card mb-4 shadow-sm">
+                                                                                <div class="card-header">Pendente</div>
+                                                                                <div class="card-body">
+                                                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                                        <div class="btn-group"></div>
+                                                                                        <small class="text-muted">9 mins</small>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                              
+                                                                        
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                            `);
                 });
-                html += (`                          </tr>
+                html += (`                         
                                                 </tbody>
                                             </table>                        
                                         </div>
@@ -1047,12 +1106,15 @@ function retDashboard() {
             $('#viewDashboar').append(html);
         }
     });
-
 }
 
 
 
+
+
+
 function dashboardDeptos(value) {
+
     var deptos = [];
     var jsonDepto = JSON.stringify(value);
     $.each(JSON.parse(jsonDepto), function(idx, obj) {
@@ -1063,13 +1125,19 @@ function dashboardDeptos(value) {
     return deptos;
 };
 
+
+
+
+
 function dashboardProjetos(depto, result) {
-    var res = [];
+    var projeto = [];
     var jsonProjeto = JSON.stringify(result);
-    $.each(JSON.parse(jsonProjeto), function(idx, obj) {
-        if (obj.descrDepartamento == depto) {
-            res.push(obj);
+    $.each(JSON.parse(jsonProjeto), function(idx, obj1) {
+        if (obj1.descrDepartamento == depto) {
+            if (projeto.indexOf(obj1.descrPropjeto) > -1) {} else {
+                projeto.push(obj1.descrPropjeto);
+            }
         }
     });
-    return res;
+    return projeto;
 }
