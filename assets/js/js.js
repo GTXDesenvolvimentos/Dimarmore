@@ -1028,65 +1028,50 @@ function retDashboard() {
                                                         </td>
                                                             <td class = "col-10">
                                                                 <strong> Etapas:<br></strong> 
-                                                                <div class="container-fluid p-1">
-                                                                <div class="col-12">
-                                                                    <div class="row">
+                                                                <div class="album bg-light">
+                    <div class="container-fluid p-1">
+                        <div class="row">
+                            
+                            <div class="col-md-3 p-2">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-header bg-dark text-white" scope="col">Aguardando</div>
+                                    <div class="card-body">
+                                        <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                                                                        <div class="col-3 p-1">
-                                                                            <div class="card mb-4 shadow-sm">
-                                                                                <div class="card-header">Pendente</div>
-                                                                                <div class="card-body">
-                                                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                                                    <div class="d-flex justify-content-between align-items-center">
-                                                                                        <div class="btn-group"></div>
-                                                                                        <small class="text-muted">9 mins</small>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                            <div class="col-md-3 p-2">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-header bg-warning text-dark" scope="col">Pendente</div>
+                                    <div class="card-body">
+                                        <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
+                                    </div>
+                                </div>
+                            </div>
+                    
 
-                                                                        <div class="col-3 p-1">
-                                                                            <div class="card mb-4 shadow-sm">
-                                                                                <div class="card-header">Pendente</div>
-                                                                                <div class="card-body">
-                                                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                                                    <div class="d-flex justify-content-between align-items-center">
-                                                                                        <div class="btn-group"></div>
-                                                                                        <small class="text-muted">9 mins</small>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                            <div class="col-md-3 p-2">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-header bg-info  text-dark" scope="col">Executando</div>
+                                    <div class="card-body">
+                                        <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
+                                    </div>
+                                </div>
+                            </div>
+                    
 
-                                                                        <div class="col-3 p-1">
-                                                                            <div class="card mb-4 shadow-sm">
-                                                                                <div class="card-header">Pendente</div>
-                                                                                <div class="card-body">
-                                                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                                                    <div class="d-flex justify-content-between align-items-center">
-                                                                                        <div class="btn-group"></div>
-                                                                                        <small class="text-muted">9 mins</small>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
+                            <div class="col-md-3 p-2">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-header bg-success  text-dark" scope="col">Concluido</div>
+                                    <div class="card-body">
+                                        <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
+                                    </div>
+                                </div>
+                            </div>
 
-                                                                        <div class="col-3 p-1">
-                                                                            <div class="card mb-4 shadow-sm">
-                                                                                <div class="card-header">Pendente</div>
-                                                                                <div class="card-body">
-                                                                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                                                                    <div class="d-flex justify-content-between align-items-center">
-                                                                                        <div class="btn-group"></div>
-                                                                                        <small class="text-muted">9 mins</small>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                              
-                                                                        
-                                                                    </div>
-                                                                </div>
+                    </div>
+                </div>
                                                             </td>
                                                         </tr>
                             `);
