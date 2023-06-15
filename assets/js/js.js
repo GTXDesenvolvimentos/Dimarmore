@@ -1004,11 +1004,11 @@ function retDashboard() {
 
             var deptos = JSON.stringify(arrayDeptos);
             $('#viewDashboar').html('');
-            $.each(JSON.parse(deptos), function(idx, obj) {
+            $.each(JSON.parse(deptos), function(idx, departamento) {
                 html += (`
                 <div id="accordion">
                     <div class="card my-1">
-                    <div class="card-header bg-dark"><a class="card-link" data-toggle="collapse" href="#collapseOne"><span class="text-white">${obj}</span></a></div>
+                    <div class="card-header bg-dark"><a class="card-link" data-toggle="collapse" href="#collapseOne"><span class="text-white">${departamento}</span></a></div>
                         <div id="collapseOne" class="collapse show" data-parent="#accordion">
                             <div class="card-body p-1">
                                 <div class="row mt-1">
@@ -1018,60 +1018,29 @@ function retDashboard() {
                                                 <tbody>
                                                     
                                                         `);
-                arrayProjetos = dashboardProjetos(obj, result);
-                $.each(arrayProjetos, function(index, obj1) {
-                    console.log(obj1);
-
+                arrayProjetos = dashboardProjetos(departamento, result);
+                $.each(arrayProjetos, function(index, projeto) {
                     html += (`    
                     <tr>                      <td class = "col-2" >
-                                                            <strong>Projeto:<br></strong> ${obj1}
+                                                            <strong>Projeto:<br></strong> ${projeto}
                                                         </td>
                                                             <td class = "col-10">
                                                                 <strong> Etapas:<br></strong> 
                                                                 <div class="album bg-light">
-                    <div class="container-fluid p-1">
-                        <div class="row">
-                            
-                            <div class="col-md-3 p-2">
-                                <div class="card mb-4 shadow-sm">
-                                    <div class="card-header bg-dark text-white" scope="col">Aguardando</div>
-                                    <div class="card-body">
-                                        <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
-                                    </div>
-                                </div>
-                            </div>
+                                                                    <div class="container-fluid p-1">
+                                                                        <div class="row">
+                    `);
+                    arrayEtapas = dashboardEtapas(departamento, projeto, result);
+                    $.each(arrayEtapas, function(index, etapas) {
+                        html += (`${etapas}<br>`);
+                    });
 
-                            <div class="col-md-3 p-2">
-                                <div class="card mb-4 shadow-sm">
-                                    <div class="card-header bg-warning text-dark" scope="col">Pendente</div>
-                                    <div class="card-body">
-                                        <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
-                                    </div>
-                                </div>
-                            </div>
-                    
 
-                            <div class="col-md-3 p-2">
-                                <div class="card mb-4 shadow-sm">
-                                    <div class="card-header bg-info  text-dark" scope="col">Executando</div>
-                                    <div class="card-body">
-                                        <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
-                                    </div>
-                                </div>
-                            </div>
-                    
 
-                            <div class="col-md-3 p-2">
-                                <div class="card mb-4 shadow-sm">
-                                    <div class="card-header bg-success  text-dark" scope="col">Concluido</div>
-                                    <div class="card-body">
-                                        <p class="card-text">Este é um card maior e que suporta texto abaixo, como uma introdução mais natural ao conteúdo adicional.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                    </div>
-                </div>
+                    html += (` 
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </td>
                                                         </tr>
                             `);
@@ -1125,4 +1094,60 @@ function dashboardProjetos(depto, result) {
         }
     });
     return projeto;
+}
+
+function dashboardEtapas(depto, projeto, result) {
+
+    var etapas = [];
+    var jsonEtapas = JSON.stringify(result);
+
+    $.each(JSON.parse(jsonEtapas), function(idx, objEtapas) {
+
+        if (etapas.indexOf(objEtapas.descrEtapa) > -1) {} else {
+            if (objEtapas.descrDepartamento == depto) {
+                if (objEtapas.descrPropjeto == projeto) {
+
+                    html = `   
+                        <div class="col-md-3 p-2">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-header bg-dark text-white  text-center" scope="col">Aguardando</div>
+                                <div class="card-body">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 p-2">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-header bg-warning text-dark  text-center" scope="col">Pendente</div>
+                                <div class="card-body">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 p-2">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-header bg-info  text-dark  text-center" scope="col">Executando</div>
+                                <div class="card-body">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3 p-2">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-header bg-success  text-dark  text-center" scope="col">Concluido</div>
+                                <div class="card-body">
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+                }
+            }
+        }
+    });
+    return html;
 }
