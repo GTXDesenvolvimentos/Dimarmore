@@ -1,3 +1,3 @@
-<div id="viewDashboar"></div>
+<div id="viewDashboard"></div>
 
 
