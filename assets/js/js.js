@@ -991,7 +991,6 @@ function retDashboard() {
             });
         },
         success: function(result) {
-            console.log(result);
             swal.fire({
                 timer: 100,
                 title: "Aguarde!",
@@ -1008,46 +1007,49 @@ function retDashboard() {
                 html += (`
                 <div id="accordion">
                     <div class="card my-1">
-                    <div class="card-header bg-dark"><a class="card-link" data-toggle="collapse" href="#collapseOne"><span class="text-white">${departamento}</span></a></div>
+                    <div class="card-header bg-dark"><a class="card-link" data-toggle="collapse" href="#collapseOne"><span class="text-white">${departamento.descrDepartamento}</span></a></div>
                         <div id="collapseOne" class="collapse show" data-parent="#accordion">
                             <div class="card-body p-1">
                                 <div class="row mt-1">
                                     <div class="col-12 p-0">
                                         <div class="col-12">
-                                            <table class = "table table-bordered" >
-                                                <tbody>
-                                                    
-                                                        `);
-                arrayProjetos = dashboardProjetos(departamento, result);
-                $.each(arrayProjetos, function(index, projeto) {
-                    html += (`    
-                    <tr>                      <td class = "col-2" >
-                                                            <strong>Projeto:<br></strong> ${projeto}
-                                                        </td>
-                                                            <td class = "col-10">
-                                                                <strong> Etapas:<br></strong> 
-                                                                <div class="album bg-light">
-                                                                    <div class="container-fluid p-1">
-                                                                        <div class="row">
-                    `);
-                    arrayEtapas = dashboardEtapas(departamento, projeto, result);
-                    $.each(arrayEtapas, function(index, etapas) {
-                        html += (`${etapas}<br>`);
-                    });
-
-
-
-                    html += (` 
+                                            <table class = "table table-bordered">
+                                                <tbody>`);
+                var arrayDeptos = dashboardDeptos(result);
+                var projeto = JSON.stringify(departamento);
+                $.each(JSON.parse(projeto), function(idx, projetos) {
+                    html += (`
+                                                <tr>
+                                                    <td class = "col-2" >
+                                                        <strong>Projeto:<br></strong>
+                                                    </td> 
+                                                    <td class = "col-10">
+                                                        <strong> Etapas:<br></strong> 
+                                                        <div class="album bg-light">
+                                                            <div class="container-fluid p-1">
+                                                                <div class="row">
+                                                                    <div class="col-md-3 p-2">
+                                                                        <div class="card mb-4 shadow-sm">
+                                                                            <div class="card-header bg-warning text-dark  text-center" scope="col">Pendente</div>
+                                                                                <div class="card-body">
+                                                                                    <p>
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </td>
-                                                        </tr>
-                            `);
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>`);
+
+
+
                 });
-                html += (`                         
+                html += (` 
                                                 </tbody>
-                                            </table>                        
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -1063,91 +1065,15 @@ function retDashboard() {
 }
 
 
-
-
-
-
 function dashboardDeptos(value) {
-
     var deptos = [];
+    var departamentos = [];
     var jsonDepto = JSON.stringify(value);
     $.each(JSON.parse(jsonDepto), function(idx, obj) {
         if (deptos.indexOf(obj.descrDepartamento) > -1) {} else {
             deptos.push(obj.descrDepartamento);
+            departamentos.push(obj);
         }
     });
-    return deptos;
+    return departamentos;
 };
-
-
-
-
-
-function dashboardProjetos(depto, result) {
-    var projeto = [];
-    var jsonProjeto = JSON.stringify(result);
-    $.each(JSON.parse(jsonProjeto), function(idx, obj1) {
-        if (obj1.descrDepartamento == depto) {
-            if (projeto.indexOf(obj1.descrPropjeto) > -1) {} else {
-                projeto.push(obj1.descrPropjeto);
-            }
-        }
-    });
-    return projeto;
-}
-
-function dashboardEtapas(depto, projeto, result) {
-
-    var etapas = [];
-    var jsonEtapas = JSON.stringify(result);
-
-    $.each(JSON.parse(jsonEtapas), function(idx, objEtapas) {
-
-        if (etapas.indexOf(objEtapas.descrEtapa) > -1) {} else {
-            if (objEtapas.descrDepartamento == depto) {
-                if (objEtapas.descrPropjeto == projeto) {
-
-                    html = `   
-                        <div class="col-md-3 p-2">
-                            <div class="card mb-4 shadow-sm">
-                                <div class="card-header bg-dark text-white  text-center" scope="col">Aguardando</div>
-                                <div class="card-body">
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 p-2">
-                            <div class="card mb-4 shadow-sm">
-                                <div class="card-header bg-warning text-dark  text-center" scope="col">Pendente</div>
-                                <div class="card-body">
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 p-2">
-                            <div class="card mb-4 shadow-sm">
-                                <div class="card-header bg-info  text-dark  text-center" scope="col">Executando</div>
-                                <div class="card-body">
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3 p-2">
-                            <div class="card mb-4 shadow-sm">
-                                <div class="card-header bg-success  text-dark  text-center" scope="col">Concluido</div>
-                                <div class="card-body">
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-
-                }
-            }
-        }
-    });
-    return html;
-}
