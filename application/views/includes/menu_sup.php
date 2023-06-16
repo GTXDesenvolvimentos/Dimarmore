@@ -8,7 +8,7 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item"><a class="nav-link btn btn-outline-success" href="#">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-success" href="<?=base_url()?>">Dashboard</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('deptos')?>">Departamentos</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('projetos')?>">Projetos</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('etapas')?>">Etapas</a></li>

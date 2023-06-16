@@ -869,7 +869,6 @@ function situacao(value) {
 //Loading the variable
 var subURL = window.location.href;
 var myarr = subURL.split("/");
-
 if (myarr[4] == 'projetos') {
     selectDepto();
     selectUsers();
@@ -879,6 +878,8 @@ if (myarr[4] == 'projetos') {
 } else if (myarr[4] == 'atividades') {
     selectDepto();
     selectUsers();
+} else if (myarr[4] == '') {
+    retDashboard();
 }
 
 function altsituacao(id_atividade) {
@@ -994,3 +995,250 @@ $("#tableHistorico").on("click-cell.bs.table", function (field, value, row, $el)
         reabre_modal = 1;
     }
 });
+
+
+function retDashboard() {
+    var html = ``;
+    $.ajax({
+        url: base_url + "home/retDash",
+        type: 'POST',
+        dataType: "json",
+        cache: false,
+        error: function() {
+            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
+        },
+        beforeSend: function() {
+            swal.fire({
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+        },
+        success: function(result) {
+            swal.fire({
+                timer: 100,
+                title: "Aguarde!",
+                text: "Validando os dados...",
+                imageUrl: base_url + "/assets/img/gifs/loader.gif",
+                showConfirmButton: false
+            });
+            var arrayDeptos = dashboardDeptos(result);
+
+            var deptos = JSON.stringify(arrayDeptos);
+            $('#viewDashboard').html('');
+            $.each(JSON.parse(deptos), function(idx, departamento) {
+                html += (`
+                <div id="accordion">
+                    <div class="card my-1">
+                        <div class="card-header bg-dark"><a class="card-link" data-toggle="collapse" href="#collapseOne"><span class="text-white">${departamento}</span></a></div>
+                            <div id="collapseOne" class="collapse show" data-parent="#accordion">
+                                <div class="card-body p-1">
+                                    <div class="row mt-1">
+                                        <div class="col-12 p-0">
+                                            <div class="col-12">
+                                                <table class = "table table-bordered">
+                                                    <tbody>`);
+                var arrayProjetos = dashboardProjetos(departamento, result);
+                var projeto = JSON.stringify(arrayProjetos);
+                $.each(JSON.parse(projeto), function(idx, Projetos) {
+                    html += (`                          <tr>
+                                                            <td class = "col-2" >
+                                                                <strong>Projeto:<br>${Projetos}<br></strong>
+                                                            </td> 
+                                                            <td class = "col-10">
+                                                                <strong> Etapas:<br></strong> 
+                                                                <div class="album bg-light">
+                                                                    <div class="container-fluid p-1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-3 p-2">
+                                                                                <div class="card mb-4 shadow-sm">
+                                                                                        <div class="card-header bg-dark text-white  text-center" scope="col">Aguardando</div>
+                                                                                        <div class="card-body p-1">
+                                                                                        `);
+                    var arrayEtapas = dashboardEtapas(departamento, Projetos, result);
+                    var Etapas = JSON.stringify(arrayEtapas);
+                    $.each(JSON.parse(Etapas), function(idx, etapas) {
+                        if (etapas.sitEtapa == 'A') {
+                            html += (`                                                      
+                                                                                            <div class="alert bg-dark p-1  my-1" role="alert">
+                                                                                                <h6 class="alert-heading p-0  m-0 text-white" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
+                                                                                                <p class=" text-white" style="font-size: 10px;">${etapas.descrEtapa}</p>
+                                                                                                <div class="alert p-1 bg-light  my-1" role="alert">
+                                                                                                    <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">Nome da atividade 1</h6>
+                                                                                                    <p style="font-size: 10px;">Descrição da atividade 1</p>
+                                                                                                </div>
+                                                                                                <div class="alert p-1 bg-light  my-1" role="alert">
+                                                                                                    <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">Nome da atividade 2</h6>
+                                                                                                    <p style="font-size: 10px;">Descrição da atividade 2</p>
+                                                                                                </div>
+                                                                                            </div>
+                            `);
+                        }
+                    });
+                    html += (` 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-3 p-2">
+                                                                                    <div class="card mb-4 shadow-sm">
+                                                                                        <div class="card-header bg-warning text-dark  text-center" scope="col">Pendente</div>
+                                                                                        <div class="card-body p-1">
+                    `);
+                    var arrayEtapas = dashboardEtapas(departamento, Projetos, result);
+                    var Etapas = JSON.stringify(arrayEtapas);
+                    $.each(JSON.parse(Etapas), function(idx, etapas) {
+                        if (etapas.sitEtapa == 'P') {
+                            html += (` 
+                                                                                            <div class="alert bg-warning p-1  my-1" role="alert">
+                                                                                                <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
+                                                                                                <p class=" text-dark" style="font-size: 10px;">${etapas.descrEtapa}</p>
+                                                                                                <div class="alert p-1 bg-light  my-1" role="alert">
+                                                                                                    <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">Nome da atividade 3</h6>
+                                                                                                    <p style="font-size: 10px;">Descrição da atividade 3</p>
+                                                                                                </div>
+                                                                                            </div>
+                                `);
+                        }
+                    });
+                    html += (` 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-3 p-2">
+                                                                                    <div class="card mb-4 shadow-sm">
+                                                                                        <div class="card-header bg-info  text-dark  text-center" scope="col">Executando</div>
+                                                                                        <div class="card-body p-1">
+                                                                                        `);
+                    var arrayEtapas = dashboardEtapas(departamento, Projetos, result);
+                    var Etapas = JSON.stringify(arrayEtapas);
+                    $.each(JSON.parse(Etapas), function(idx, etapas) {
+                        if (etapas.sitEtapa == 'E') {
+
+
+                            html += (` 
+                                                                                            <div class="alert bg-info p-1  my-1" role="alert">
+                                                                                                <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
+                                                                                                <p class=" text-dark" style="font-size: 10px;">${etapas.descrEtapa}</p>
+                                                                                            </div>
+                                `);
+                        }
+                    });
+                    html += (` 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="col-md-3 p-2">
+                                                                                    <div class="card mb-4 shadow-sm">
+                                                                                        <div class="card-header bg-success  text-dark  text-center" scope="col">Concluido</div>
+                                                                                        <div class="card-body p-1">
+                                                                                        `);
+                    var arrayEtapas = dashboardEtapas(departamento, Projetos, result);
+                    var Etapas = JSON.stringify(arrayEtapas);
+                    $.each(JSON.parse(Etapas), function(idx, etapas) {
+                        if (etapas.sitEtapa == 'C') {
+                            html += (` 
+                                                                                            <div class="alert bg-success p-1  my-1" role="alert">
+                                                                                                <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
+                                                                                                <p class=" text-dark" style="font-size: 10px;">${etapas.descrEtapa}</p>
+                                                                                            </div>
+                                `);
+                        }
+                    });
+                    html += (` 
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                       
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                            `);
+                });
+                html += (` 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `);
+            });
+            $('#viewDashboard').append(html);
+        }
+    });
+}
+
+
+
+
+function dashboardDeptos(value) {
+    var deptos = [];
+    var jsonDepto = JSON.stringify(value);
+    $.each(JSON.parse(jsonDepto), function(idx, obj) {
+        if (deptos.indexOf(obj.descrDepartamento) > -1) {} else {
+            deptos.push(obj.descrDepartamento);
+        }
+    });
+    return deptos;
+};
+
+
+
+
+
+
+function dashboardProjetos(depto, result) {
+    var projetos = [];
+    var jsonProjetos = JSON.stringify(result);
+    $.each(JSON.parse(jsonProjetos), function(idx, obj) {
+        if (projetos.indexOf(obj.descrPropjeto) > -1) {} else {
+            if (obj.descrDepartamento == depto) {
+                projetos.push(obj.descrPropjeto);
+            }
+        }
+    });
+    return projetos;
+};
+
+
+
+
+
+function dashboardEtapas(depto, projetos, result) {
+    var etapas = [];
+    var etapa = [];
+    var jsonEtapas = JSON.stringify(result);
+    $.each(JSON.parse(jsonEtapas), function(idx, obj) {
+        if (etapas.indexOf(obj.descrEtapa) > -1) {} else {
+            if (obj.descrDepartamento == depto) {
+                if (obj.descrPropjeto == projetos) {
+                    etapas.push(obj.descrEtapa);
+                    etapa.push(obj);
+                }
+            }
+        }
+    });
+    return etapa;
+};
+
+
+function dashboardAtividades(value) {
+    var Atividades = [];
+    var jsonAtividades = JSON.stringify(value);
+    $.each(JSON.parse(jsonAtividades), function(idx, Atividade) {
+
+        Atividades.push(Atividade.descrAtividade);
+    });
+    return Atividades;
+};
+

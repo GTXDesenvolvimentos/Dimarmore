@@ -13,6 +13,7 @@
                                 <!-- <th data-field="nomeAtividade" data-halign="center" data-align="left" data-sortable="true">Atividade</th>
                                 <th data-field="descrAtividade" data-halign="center" data-align="left" data-sortable="true">Descrição</th> -->
                                 <th data-field="atividade" data-halign="center" data-align="left" data-sortable="true">Atividade</th>
+                                <th data-field="nomeResponsavel" data-halign="center" data-align="left" data-sortable="true">Responsável</th>
                                 <th data-field="etapa" data-halign="center" data-align="left" data-sortable="true">Etapa</th>
                                 <th data-field="projeto" data-halign="center" data-align="left" data-sortable="true">Projeto</th>
                                 <th data-field="sitAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="situation">Situação</th>
