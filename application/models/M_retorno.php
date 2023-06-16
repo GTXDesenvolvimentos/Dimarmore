@@ -247,6 +247,7 @@ class M_retorno extends CI_Model
 
         $this->db->order_by('seq desc');
         $this->db->where('id_atividade', $dados['id_atividade']);
+        $this->db->select('*, DATE_FORMAT(data, "%d/%m/%Y") as reg_data');
         $retorno = $this->db->get('tbl_status_atividades');
         $retorno = $retorno->result();
 
