@@ -31,7 +31,7 @@
                                 <tr>
                                     <th data-field="nomeEtapa" data-halign="center" data-align="left" data-sortable="true">Etapa</th>
                                     <th data-field="descrEtapa" data-halign="center" data-align="left" data-sortable="true">Descrição</th>
-                                    <th data-field="priorEtapa" data-halign="center" data-align="center" data-sortable="true" data-formatter="prioridade">Prioridade</th>
+                                    <th data-field="priorEtapa" data-halign="center" data-align="center" data-sortable="true" data-formatter="sequencia">Sequência</th>
                                     <th data-field="sitEtapa" data-halign="center" data-align="center" data-sortable="true" data-formatter="situacao">Situação</th>
                                     <th data-field="nomeProjeto" data-halign="center" data-align="left" data-sortable="true">Projeto</th>
                                     <th data-field="descrDepartamento" data-halign="center" data-align="left" data-sortable="true">depto</th>
@@ -51,7 +51,6 @@
         function opcoesEtapas(index, row) {
             return ` <button type="button" class="btn btn-outline-success btn-sm" onclick='altEtapas(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delEtapas(` + row.id_etapa + `);"><i class="fas fa-trash-alt"></i></button>`;
         }
-
         function altEtapas(value) {
             $('#txtIdEtapa').val(value.id_etapa);
             $('#txtNomeEtapa').val(value.nomeEtapa);
