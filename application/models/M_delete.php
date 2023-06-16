@@ -8,6 +8,35 @@ class M_delete extends CI_Model
 {
 
     ////////////////////////////////////////
+    // DELETAR USUARIOS           
+    // CRIADO POR MARCIO SILVA          
+    // DATA: 31/05/2019                  
+    ////////////////////////////////////////
+    public function delUser($id_user)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_users', $id_user);
+        $dados = array('status' => 'D');
+        $this->db->update('tbl_users', $dados);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $return = array(
+                'code' => 0,
+                'message' => "Erro ao deletar o Usuario!"
+            );
+        } else {
+            $this->db->trans_commit();
+            $return = array(
+                'code' => 1,
+                'message' => "Usuario deletado com sucesso!"
+            );
+        }
+        
+        return $return;
+    }
+
+    ////////////////////////////////////////
     // DELETAR DEPARTAMENTO               
     // CRIADO POR MARCIO SILVA          
     // DATA: 31/05/2019                  

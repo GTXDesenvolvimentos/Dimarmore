@@ -16,4 +16,16 @@ class Home extends MY_Controller {
        $this->load->view('includes/footer');
     }
 
+    ////////////////////////////////////////
+    // RETORNA ETAPAS                
+    // CRIADO POR MARCIO SILVA            
+    // DATA: 08/02/2023                   
+    ////////////////////////////////////////
+    public function retDash()
+    {
+        $this->load->model('M_retorno');
+        $retorno = $this->M_retorno->retDash();
+        echo json_encode($retorno);
+    }
+
 }

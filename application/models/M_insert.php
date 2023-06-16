@@ -33,8 +33,8 @@ class M_insert extends CI_Model
                 );
             }
         } else {
-            $this->db->where('id_user', $this->input->post("txtIdUser"));
-            $this->db->update('tbl_departamentos', $dados);
+            $this->db->where('id_users', $this->input->post("txtIdUser"));
+            $this->db->update('tbl_users', $dados);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
                 $return = array(
