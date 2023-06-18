@@ -18,8 +18,8 @@
                                 <th data-field="projeto" data-halign="center" data-align="left" data-sortable="true">Projeto</th>
                                 <th data-field="sitAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="situation">Situação</th>
                                 <th data-field="dtEntregaAtividade" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
-                                <th data-field="anexoAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewHistoric">Histórico</th>
-                                <th data-field="anexo" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
+                                <th data-field="" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewHistoric">Histórico</th>
+                                <th data-field="anexoAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
                                 <th data-halign="center" data-align="center" data-formatter="optAtividade">Opções</th>
                             </tr>
                         </thead>

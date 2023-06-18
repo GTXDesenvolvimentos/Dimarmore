@@ -14,6 +14,7 @@ class Home extends MY_Controller {
        $this->load->view('includes/menu_sup');
        $this->load->view('v_home');
        $this->load->view('includes/footer');
+       $this->load->view('includes/modal');
     }
 
     ////////////////////////////////////////
