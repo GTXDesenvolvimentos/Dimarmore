@@ -825,7 +825,6 @@ function selectEtapas(value, etapa) {
 }
 
 function viewAnexo(value) {
-    alert(value);
     if (value != '') {
         return '<buttom class="btn btn-outline-primary btn-sm" onclick="modalAnexo(\'' + value + '\');"><i class="fa-regular fa-images"></i></button';
     }
@@ -1051,7 +1050,7 @@ function retDashboard() {
                                                                         <strong>Projeto: </strong><br><span>${Projetos.nomeProjeto}</span>
                                                                     </div>
                                                                     <div class="col-3">
-                                                                        <div onclick='altProjeto(` + JSON.stringify(Projetos) + `);'<i class="fa-solid fa-list fa-3x" style="color: #337566;"></i></div>
+                                                                        <div onclick='altProjeto(` + JSON.stringify(Projetos) + `);'<i class="fa-solid fa-list fa-2x" style="color: #337566;"></i></div>
                                                                     </div>
                                                                 </div><hr class="py-0 my-0 shadow">    
                                                                 <strong>Descrição: </strong><br><span>${Projetos.descrPropjeto}</span><hr class="py-0 my-0 shadow">
@@ -1079,11 +1078,12 @@ function retDashboard() {
                             html += (`                                                      
                                                                                         <div class="alert bg-dark p-1  my-1" role="alert">
                                                                                             <div class="row">
-                                                                                                <div class="col-10">
+                                                                                                <div class="col-8">
                                                                                                     <h6 class="alert-heading p-0  m-0 text-white" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
-                                                                                                    <p class=" text-white m-0" style="font-size: 10px;">${etapas.descrEtapa}</p>
+                                                                                                    
                                                                                                 </div>
-                                                                                                <div class="col-2 text-right">
+                                                                                                <div class="col-4 text-right">
+                                                                                                    <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
                                                                                                     <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                 </div>
                                                                                             </div>
@@ -1091,7 +1091,8 @@ function retDashboard() {
                             var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
                             var Atividades = JSON.stringify(arrayAtividade);
                             $.each(JSON.parse(Atividades), function(idx, atividades) {
-                                html += (`                                                 
+                                if (atividades.nomeAtividade != null) {
+                                    html += (`                                                 
                                                                                             <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                 <div class="row">
                                                                                                     <div class="col-10">
@@ -1107,6 +1108,7 @@ function retDashboard() {
                                                                                                 </div>
                                                                                             </div>
                             `);
+                                }
 
                             });
                             html += (` 
@@ -1127,7 +1129,9 @@ function retDashboard() {
                     var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
                     var Etapas = JSON.stringify(arrayEtapas);
                     $.each(JSON.parse(Etapas), function(idx, etapas) {
+
                         if (etapas.sitEtapa == 'P') {
+
                             html += (` 
                                                                                             <div class="alert bg-warning p-1  my-1 shadow" role="alert">
                                                                                             <div class="row">
@@ -1143,8 +1147,8 @@ function retDashboard() {
                             var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
                             var Atividades = JSON.stringify(arrayAtividade);
                             $.each(JSON.parse(Atividades), function(idx, atividades) {
-                                console.log(atividades);
-                                html += (`                                                 
+                                if (atividades.nomeAtividade != null) {
+                                    html += (`                                                 
                                                                                                 <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                     <div class="row">
                                                                                                         <div class="col-10">
@@ -1159,6 +1163,7 @@ function retDashboard() {
                                                                                                     </div>
                                                                                                 </div>
                             `);
+                                }
 
                             });
                             html += (`
@@ -1199,8 +1204,8 @@ function retDashboard() {
                             var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
                             var Atividades = JSON.stringify(arrayAtividade);
                             $.each(JSON.parse(Atividades), function(idx, atividades) {
-                                console.log(atividades);
-                                html += (`                                                 
+                                if (atividades.nomeAtividade != null) {
+                                    html += (`                                                 
                                                                                                     <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                         <div class="row">
                                                                                                             <div class="col-10">
@@ -1215,6 +1220,7 @@ function retDashboard() {
                                                                                                         </div>
                                                                                                     </div>
                             `);
+                                }
 
                             });
                             html += (`
@@ -1251,7 +1257,8 @@ function retDashboard() {
                             var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
                             var Atividades = JSON.stringify(arrayAtividade);
                             $.each(JSON.parse(Atividades), function(idx, atividades) {
-                                html += (`                                                 
+                                if (atividades.nomeAtividade != null) {
+                                    html += (`                                                 
                                                                                                 <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                     <div class="row">
                                                                                                         <div class="col-10">
@@ -1266,6 +1273,7 @@ function retDashboard() {
                                                                                                     </div>
                                                                                                 </div>
                             `);
+                                }
 
                             });
                             html += (`    </div>                             `);
@@ -1320,8 +1328,6 @@ function dashboardDeptos(value) {
 
 
 
-
-
 function dashboardProjetos(depto, result) {
     var projetos = [];
     var countProjeto = [];
@@ -1336,7 +1342,6 @@ function dashboardProjetos(depto, result) {
     });
     return projetos;
 };
-
 
 
 
@@ -1378,7 +1383,11 @@ function dashboardAtividades(depto, projetos, etapa, value) {
 
 
 
+
+
+
 function altAtividade(value) {
+    console.log(value);
     $('#txtIdAtividade').val(value.id_atividade);
     $('#slAtivDepto').selectpicker('val', value.id_departamento);
 
@@ -1396,6 +1405,21 @@ function altAtividade(value) {
     }
     $('#ModalAtividades').modal('show');
 }
+
+
+function cadAtividadeDash(value) {
+    $('#slAtivDepto').selectpicker('val', value.id_departamento);
+    $('#slAtivProjeto').selectpicker('val', value.id_projeto);
+
+    $('#slAtivEtapas').selectpicker('refresh');
+    $('#slAtivEtapas').html('');
+    $('#slAtivEtapas').append('<option value="' + value.id_etapa + '">' + value.nomeEtapa + '</option>').selectpicker('refresh');
+    $('#ModalAtividades').modal('show');
+}
+
+
+
+
 
 function situation(value, row) {
     if (value == 'A') {

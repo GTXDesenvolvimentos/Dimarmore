@@ -16,7 +16,7 @@
                                 <th data-field="nomeResponsavel" data-halign="center" data-align="left" data-sortable="true">Responsável</th>
                                 <th data-field="etapa" data-halign="center" data-align="left" data-sortable="true">Etapa</th>
                                 <th data-field="projeto" data-halign="center" data-align="left" data-sortable="true">Projeto</th>
-                                <th data-field="sitAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="situation">Situação</th>
+                                <th data-field="sitAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="situation1">Situação</th>
                                 <th data-field="dtEntregaAtividade" data-halign="center" data-align="center" data-sortable="true">Data prevista</th>
                                 <th data-field="" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewHistoric">Histórico</th>
                                 <th data-field="anexoAtividade" data-halign="center" data-align="center" data-sortable="true" data-formatter="viewAnexo">Anexo</th>
@@ -62,18 +62,19 @@
             $('#ModalAtividades').modal('show');
         }
 
-        function situation(value, row) {
-            // console.log(row)
+        function situation1(value, row) {
             if (value == 'A') {
                 return `<button class="btn btn-sm btn-outline-dark btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Aguardando</button>`;
             } else if (value == `P`) {
                 return `<button class="btn btn-sm btn-outline-danger btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Pendente</button>`;
             } else if (value == `E`) {
-                return `<button class="btn btn-sm btn-outline-warning btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Executando</button>`;
+                return `<button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Iniciada</button>`;
             } else if (value == `C`) {
                 return `<button class="btn btn-sm btn-outline-success btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Concluída</button>`;
             } else if (value == `I`) {
-                return `<button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Iniciada</button>`;
+                return `<button class="btn btn-sm btn-outline-warning btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Executando</button>`;
+            } else if (value == `R`) {
+                return `<button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Revisada</button>`;
             }
         }
 

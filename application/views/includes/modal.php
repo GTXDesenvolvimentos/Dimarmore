@@ -105,22 +105,12 @@
                     </div>
                     <div class="col-12">
                         <div class="row">
+
                             <div class="form-group col-6">
-                                <label class="m-0">Prioridade:</label>
-                                <select id="SlEtaPrioridade" name="SlEtaPrioridade" class="selectpicker form-control" data-style="btn-success">
-                                    <option value="">Sequência</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                </select>
+                                <label class="m-0">Sequencia:</label>
+                                <input type="text" class="form-control" name="SlEtaPrioridade" id="SlEtaPrioridade" placeholder="Sequencia">
                             </div>
+
                             <div class="form-group col-6">
                                 <label class="m-0">Situação:</label>
                                 <select id="SlEtapaStatus" name="SlEtapaStatus" class="selectpicker form-control" data-style="btn-success">
@@ -138,12 +128,12 @@
                             <option value="">Projeto</option>
                         </select>
                     </div>
-                    <div class="form-group col-12">
+                    <!-- <div class="form-group col-12">
                         <label class="m-0">Responsável:</label>
                         <select id="slEtapResponsavel" name="slEtapResponsavel" class="form-control selectpicker" data-style="btn-success">
                             <option value="">Responsável</option>
                         </select>
-                    </div>
+                    </div> -->
 
                     <div class="form-group col-12 d-none">
                         <label class="form-label">Anexo</label>
@@ -218,6 +208,7 @@
                             <option value="I">Iniciada</option>
                             <option value="E">Executando</option>
                             <option value="C">Concluída</option>
+                            <option value="R">Revisada</option>
                         </select>
                     </div>
 
@@ -241,6 +232,7 @@
     </div>
 
 </div>
+
 
 
 

@@ -18,7 +18,7 @@ class Home extends MY_Controller {
     }
 
     ////////////////////////////////////////
-    // RETORNA ETAPAS                
+    // RETORNA DE DASHBOARD                
     // CRIADO POR MARCIO SILVA            
     // DATA: 08/02/2023                   
     ////////////////////////////////////////
@@ -28,5 +28,7 @@ class Home extends MY_Controller {
         $retorno = $this->M_retorno->retDash();
         echo json_encode($retorno);
     }
+
+
 
 }

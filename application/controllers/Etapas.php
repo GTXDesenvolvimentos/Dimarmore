@@ -68,7 +68,7 @@ class Etapas extends MY_Controller
             $this->form_validation->set_rules('txtNomeEtapa', 'Nome da etapa', 'required|is_unique[tbl_etapas.etapa]');
             $this->form_validation->set_rules('txtDescEtapa', 'Descrição', 'required');
             $this->form_validation->set_rules('SlEtaPrioridade', 'Responsável', 'required');
-            $this->form_validation->set_rules('slEtapResponsavel', 'Responsável', 'required');
+            // $this->form_validation->set_rules('slEtapResponsavel', 'Responsável', 'required');
             $this->form_validation->set_rules('slEtapProjeto', 'Departamento', 'required');
             $this->form_validation->set_rules('txtEtaDtLimit', 'Data', 'required');
         }
@@ -86,7 +86,7 @@ class Etapas extends MY_Controller
                         "etapa" => $this->input->post("txtNomeEtapa"),
                         "descricao" => $this->input->post("txtDescEtapa"),
                         "prioridade" => $this->input->post("SlEtaPrioridade"),
-                        "responsavel" => $this->input->post("slEtapResponsavel"),
+                        "responsavel" => '',
                         "situacao" => $this->input->post("SlEtapaStatus"),
                         "data_fim" => $this->input->post("txtEtaDtLimit"),
                         "anexo" => $anexo,
@@ -98,7 +98,7 @@ class Etapas extends MY_Controller
                         "etapa" => $this->input->post("txtNomeEtapa"),
                         "descricao" => $this->input->post("txtDescEtapa"),
                         "prioridade" => $this->input->post("SlEtaPrioridade"),
-                        "responsavel" => $this->input->post("slEtapResponsavel"),
+                        "responsavel" => '',
                         "situacao" => $this->input->post("SlEtapaStatus"),
                         "data_fim" => $this->input->post("txtEtaDtLimit"),
                         "usucria" => $this->session->userdata('id_users')
@@ -111,7 +111,7 @@ class Etapas extends MY_Controller
                     "etapa" => $this->input->post("txtNomeEtapa"),
                     "descricao" => $this->input->post("txtDescEtapa"),
                     "prioridade" => $this->input->post("SlEtaPrioridade"),
-                    "responsavel" => $this->input->post("slEtapResponsavel"),
+                    "responsavel" => '',
                     "situacao" => $this->input->post("SlEtapaStatus"),
                     "data_fim" => $this->input->post("txtEtaDtLimit"),
                     "anexo" => $anexo,
