@@ -23,6 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+// URL oficial
+//https://gtxsoftware.com.br/projetos/dimarmore/ 
 $config['base_url'] = 'http://localhost/dimarmore/';
 /*
 |--------------------------------------------------------------------------
