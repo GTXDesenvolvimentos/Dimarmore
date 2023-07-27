@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"><img class="" src="<?= base_url('/assets/img/logo.png');?>" width="150"></a>
+    <a class="navbar-brand" href="#"><img class="" src="<?= base_url('/assets/img/logo999.png');?>" width="150"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -14,6 +14,7 @@
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('etapas')?>">Etapas</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('atividades')?>">Atividades</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('usuarios')?>">Usuários</a></li>
+            <li class="nav-item active"><a class="nav-link" href="<?=base_url('tarefas')?>">Tarefas</a></li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             <ul class="navbar-nav mr-auto">

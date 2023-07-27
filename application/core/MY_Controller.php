@@ -7,7 +7,7 @@ class MY_Controller extends CI_Controller {
 
         $logado = $this->session->userdata("logado");
 
-        if ($logado != 1) {
+        if ($logado != 1 && false) {
              redirect(base_url('login'));
         }
     }
