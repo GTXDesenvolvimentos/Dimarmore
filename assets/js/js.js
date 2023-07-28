@@ -1374,17 +1374,17 @@ function retTarefas() {
 
             // var deptos = JSON.stringify(arrayDeptos);
 
-            
+
 
             $('#viewDashboard').html('');
             // $.each(JSON.parse(deptos), function (idx, departamento) {
-                html += (`
+            html += (`
                 <div id="accordion">
                     <div class="card my-1">
                         <div class="card-header bg-dark">
                             <div class="row">
                                 
-                                <div class="col-10">
+                                <div class="col-12">
                                     <div class="row">
                                         <div class="col-3 text-center">
                                             <a class="card-link btn btn-outline-dark btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Aguardando</span></a>
@@ -1409,11 +1409,11 @@ function retTarefas() {
                                             <div class="col-12">
                                                 <table class = "table table-bordered">
                                                     <tbody>`);
-                // var arrayProjetos = dashboardProjetos(departamento.descrDepartamento, result);
-                // var projeto = JSON.stringify(arrayProjetos);
-                // $.each(JSON.parse(projeto), function (idx, departamento) {
-                    html += (`                          <tr>
-                                                            <td class = "col-10">
+            // var arrayProjetos = dashboardProjetos(departamento.descrDepartamento, result);
+            // var projeto = JSON.stringify(arrayProjetos);
+            // $.each(JSON.parse(projeto), function (idx, departamento) {
+            html += (`                          <tr>
+                                                            <td class = "col-12">
                                                                 <div class="album bg-light">
                                                                     <div class="container-fluid p-1">
                                                                         <div class="row">
@@ -1421,48 +1421,50 @@ function retTarefas() {
                                                                                
                                                                                        
                                                                                         `);
-                    
-                    $.each((result), function (idx, tarefas) {
-                        if (tarefas.sitaucao == 'A') {
-                            html += (`                                                      
+
+            // DADOS = INFO DO CABEÇALHO 
+            // DADOS.TAREFAS = INFO TAREFAS  
+            $.each((result), function (idx, dados) {
+                if (dados.situacao == 'A') {
+                    html += (`                                                      
                                                                                         <div class="alert bg-dark p-1 mb-1">
                                                                                             <div class="row px-2">
                                                                                                 <div class="col-8 pt-1">
-                                                                                                    <h6 class="alert-heading p-0  m-0 text-white" style="font-size: 12px;">${tarefas.cabec_tarefa}</h6>
+                                                                                                    <h6 class="alert-heading p-0  m-0 text-white" style="font-size: 12px;">${dados.cabec_titulo}</h6>
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
-                                                                                                    <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(tarefas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                    <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(dados) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
+                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(dados) + `);'><i class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                 </div>
                                                                                             </div>
                                                                                                 `);
-                            var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
-                            var Atividades = JSON.stringify(arrayAtividade);
-                            $.each(JSON.parse(Atividades), function (idx, atividades) {
-                                if (atividades.nomeAtividade != null) {
-                                    html += (`                                                 
+                    // var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
+                    // var Atividades = JSON.stringify(arrayAtividade);
+                    $.each(dados.tarefas, function (idx, tarefas) {
+                        if (tarefas.nome_tarefa != null) {
+                            html += (`                                                 
                                                                                             <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                 <div class="row">
                                                                                                     <div class="col-6">
-                                                                                                        <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${atividades.nomeAtividade}</h6>
+                                                                                                        <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${tarefas.nome_tarefa}</h6>
                                                                                                     </div>
                                                                                                     <div class="col-6 text-right">
-                                                                                                        ${situation(atividades.sitAtividade, result)}
-                                                                                                        <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
-                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                        ${situation(tarefas.situacao)}
+                                                                                                        <buttom  onclick="modalAnexo('${tarefas.anexo}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
                             `);
-                                }
-
-                            });
-                            html += (` 
-                                                                                            </div>
-                            `);
                         }
+
                     });
                     html += (` 
+                                                                                            </div>
+                            `);
+                }
+            });
+            html += (` 
                                                                                        
                                                                                     </div>
                                                                                
@@ -1471,54 +1473,54 @@ function retTarefas() {
                                                                                     
                                                                                        
                     `);
-                    var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
-                    var Etapas = JSON.stringify(arrayEtapas);
-                    $.each(JSON.parse(Etapas), function (idx, etapas) {
+            
+            // REPETE FOREACH NO ARRAY DADOS PARA GERAR AS TAREFAS EM "SITUAÇÃO PENDENTE"
+            $.each(result, function (idx, dados) {
 
-                        if (etapas.sitEtapa == 'P') {
+                if (dados.situacao == 'P') {
 
-                            html += (` 
+                    html += (` 
                                                                                             <div class="alert bg-warning p-1 mb-1">
                                                                                             <div class="row px-2">
                                                                                                 <div class="col-8 pt-1">
-                                                                                                    <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
+                                                                                                    <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.cabec_titulo}</h6>
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
-                                                                                                    <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                    <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(dados) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
+                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(dados) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     
                                                                                                 </div>
                                                                                             </div>
                                                                                                 `);
-                            var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
-                            var Atividades = JSON.stringify(arrayAtividade);
-                            $.each(JSON.parse(Atividades), function (idx, atividades) {
-                                if (atividades.nomeAtividade != null) {
-                                    html += (`                                                 
+                    // var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
+                    // var Atividades = JSON.stringify(arrayAtividade);
+                    $.each(dados.tarefas, function (idx, tarefas) {
+                        if (tarefas.nome_tarefa != null) {
+                            html += (`                                                 
                                                                                                 <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                     <div class="row">
                                                                                                    
                                                                                                         <div class="col-6">
-                                                                                                            <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${atividades.nomeAtividade}</h6>
+                                                                                                            <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${tarefas.nome_tarefa}</h6>
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
-                                                                                                            ${situation(atividades.sitAtividade, result)}
-                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
-                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                            ${situation(tarefas.situacao)}
+                                                                                                            <buttom  onclick="modalAnexo('${tarefas.anexo}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                
                                                                                                     </div>
                                                                                                 </div>
                             `);
-                                }
+                        }
 
-                            });
-                            html += (`
+                    });
+                    html += (`
                                                                                             </div>
                                 `);
-                        }
-                    });
-                    html += (` 
+                }
+            });
+            html += (` 
                                                                                      
                                                                                     </div>
                                                                                
@@ -1526,53 +1528,53 @@ function retTarefas() {
                                                                                 <div class="col-md-3 py-0 px-0">
                                                                                   
                                                                                         `);
-                    var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
-                    var Etapas = JSON.stringify(arrayEtapas);
-                    $.each(JSON.parse(Etapas), function (idx, etapas) {
-                        if (etapas.sitEtapa == 'E') {
+            // var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
+            // var Etapas = JSON.stringify(arrayEtapas);
+            $.each(result, function (idx, dados) {
+                if (dados.situacao == 'E') {
 
 
-                            html += (` 
+                    html += (` 
                                                                                             <div class="alert bg-info p-1 mb-1">
                                                                                                 <div class="row px-2">
                                                                                                     <div class="col-8 pt-1">
-                                                                                                        <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
+                                                                                                        <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.nome_tarefa}</h6>
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
-                                                                                                        <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                        <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(dados) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
+                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(dados) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                            
 
                                                                                             `);
-                            var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
-                            var Atividades = JSON.stringify(arrayAtividade);
-                            $.each(JSON.parse(Atividades), function (idx, atividades) {
-                                if (atividades.nomeAtividade != null) {
-                                    html += (`                                                 
+                    // var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
+                    // var Atividades = JSON.stringify(arrayAtividade);
+                    $.each(dados.tarefas, function (idx, tarefas) {
+                        if (tarefas.nome_tarefa != null) {
+                            html += (`                                                 
                                                                                                     <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                         <div class="row">
                                                                                                             <div class="col-6">
-                                                                                                                <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${atividades.nomeAtividade}</h6>
+                                                                                                                <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${tarefas.nome_tarefa}</h6>
                                                                                                             </div>
                                                                                                             <div class="col-6 text-right">
-                                                                                                                ${situation(atividades.sitAtividade, result)}
-                                                                                                                <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
-                                                                                                                <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                                ${situation(tarefas.situacao)}
+                                                                                                                <buttom  onclick="modalAnexo('${tarefas.anexo}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                                <a href="#" onclick='altAtividade(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
                             `);
-                                }
+                        }
 
-                            });
-                            html += (`
+                    });
+                    html += (`
                             </div>
                                 `);
-                        }
-                    });
-                    html += (` 
+                }
+            });
+            html += (` 
                                                                                         </div>
                                                                                    
                                                                               
@@ -1581,47 +1583,47 @@ function retTarefas() {
                                                                                    
                                                                                       
                                                                                         `);
-                    var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
-                    var Etapas = JSON.stringify(arrayEtapas);
-                    $.each(JSON.parse(Etapas), function (idx, etapas) {
-                        if (etapas.sitEtapa == 'C') {
-                            html += (` 
+            // var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
+            // var Etapas = JSON.stringify(arrayEtapas);
+            $.each(result, function (idx, dados) {
+                if (dados.situacao == 'C') {
+                    html += (` 
                                                                                             <div class="alert bg-success p-1 mb-1 mr-1">
                                                                                                 <div class="row px-2">
                                                                                                     <div class="col-8 pt-1">
-                                                                                                        <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
+                                                                                                        <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.cabec_titulo}</h6>
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
-                                                                                                        <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                        <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(dados) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
+                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(dados) + `);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             `);
-                            var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
-                            var Atividades = JSON.stringify(arrayAtividade);
-                            $.each(JSON.parse(Atividades), function (idx, atividades) {
-                                if (atividades.nomeAtividade != null) {
-                                    html += (`                                                 
+                    // var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
+                    // var Atividades = JSON.stringify(arrayAtividade);
+                    $.each(dados.tarefas, function (idx, tarefas) {
+                        if (tarefas.nome_tarefa != null) {
+                            html += (`                                                 
                                                                                                 <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                     <div class="row">
                                                                                                         <div class="col-6">
-                                                                                                            <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${atividades.nomeAtividade}</h6>
+                                                                                                            <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${tarefas.nome_tarefa}</h6>
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
-                                                                                                            ${situation(atividades.sitAtividade, result)}
-                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
-                                                                                                            <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                            ${situation(tarefas.situacao)}
+                                                                                                            <buttom  onclick="modalAnexo('${tarefas.anexo}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                            <a href="#" onclick='altAtividade(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
                             `);
-                                }
-
-                            });
-                            html += (`    </div>                             `);
                         }
+
                     });
-                    html += (` 
+                    html += (`    </div>                             `);
+                }
+            });
+            html += (` 
                                                                                         </div>
                                                                                     </div>
                                                                                
@@ -1633,8 +1635,8 @@ function retTarefas() {
                                                             </td>
                                                         </tr>
                             `);
-                // });
-                html += (` 
+            // });
+            html += (` 
                                                 </tbody>
                                             </table>
                                         </div>

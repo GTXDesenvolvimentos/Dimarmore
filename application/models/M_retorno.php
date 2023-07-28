@@ -292,15 +292,14 @@ class M_retorno extends CI_Model
     ////////////////////////////////////////
     public function retTarefas()
     {
-        $this->db->select('nro_cabec, cabec_titulo');
+        // $this->db->select('id_cabec, cabec_titulo, situacao');
         $this->db->where('status !=', 'D');
-        $this->db->group_by('nro_cabec, cabec_titulo');
-        $cabec_tarefas = $this->db->get('tbl_user_tarefas');
+        $cabec_tarefas = $this->db->get('tbl_cabec_tarefas');
         $cabec_tarefas = $cabec_tarefas->result();
 
         foreach($cabec_tarefas as $cabec){
 
-            $this->db->where('nro_cabec =', $cabec->nro_cabec);
+            $this->db->where('id_cabec =', $cabec->id_cabec);
             $this->db->where('status !=', 'D');
             $this->db->order_by('id_tarefa');
             $tarefas = $this->db->get('tbl_user_tarefas');
