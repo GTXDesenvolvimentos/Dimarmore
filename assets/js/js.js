@@ -1,3 +1,6 @@
+// SINALIZA SE É UMA EDIÇÃO DE CABEÇALHO DE TAREFA (PAINEL)
+flagEditCabec = false;
+
 // FUNÇÃO arrayColumn DO PHP PARA JAVASCRIPT
 const arrayColumn = (array, column) => {
     return array.map(item => parseInt(item[column]));
@@ -385,11 +388,15 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#formTarefa').submit(function (e) {
         e.preventDefault()
+
+        form = new FormData(this);
+        form.append('flagEditCabec', flagEditCabec);
+
         $.ajax({
             url: base_url + 'tarefas/cadTarefas',
             dataType: 'json',
             type: 'POST',
-            data: new FormData(this),
+            data: form,
             processData: false,
             contentType: false,
             beforeSend: function () {
@@ -899,6 +906,9 @@ function viewAnexo(value) {
 }
 
 function modalAnexo(value) {
+    if (myarr[4] == 'tarefas') {
+        $('#anexo_titulo').text('Tarefa');
+    }
     $('#docAnexoView').html('<embed id="docAnexoView" src="' + base_url + '/assets/uploads/' + value + '" frameborder="0" width="100%" height="400px">');
     $('#modalAnexo').modal('show');
 }
@@ -1500,7 +1510,7 @@ function retTarefas() {
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
                                                                                                     <a onclick='cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                    <a onclick='altCabec(` + JSON.stringify(dados) + `);'><i data-tooltip="EDITAR CABEÇALHO" class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                    <a onclick='altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'><i data-tooltip="EDITAR CABEÇALHO" class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                 </div>
                                                                                             </div>
                                                                                                 `);
@@ -1516,8 +1526,8 @@ function retTarefas() {
                                                                                                     </div>
                                                                                                     <div class="col-6 text-right">
                                                                                                         ${situation(tarefas.situacao)}
-                                                                                                        <buttom  onclick="modalAnexo('${tarefas.anexo}');"><i class="fa-regular fa-images"  data-tooltip="VISUALIZAR ANEXO"  class="bg-success"></i></button>
-                                                                                                        <a  onclick='altAtividade(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
+                                                                                                        <buttom><i class="fa-regular fa-images"  `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"` ) +`  class="bg-success"></i></buttom>
+                                                                                                        <a  onclick='altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -1553,7 +1563,7 @@ function retTarefas() {
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
                                                                                                     <a   onclick='cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                    <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                    <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     
                                                                                                 </div>
                                                                                             </div>
@@ -1571,8 +1581,8 @@ function retTarefas() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(tarefas.situacao)}
-                                                                                                            <buttom  onclick="modalAnexo('${tarefas.anexo}');"><i class="fa-regular fa-images" data-tooltip="VISUALIZAR ANEXO" class="bg-success"></i></button>
-                                                                                                        <a  onclick='altAtividade(` + JSON.stringify(tarefas) + `);>'<i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
+                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"` ) +` class="bg-success"></i></buttom>
+                                                                                                        <a  onclick='altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                
                                                                                                     </div>
@@ -1608,7 +1618,7 @@ function retTarefas() {
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
                                                                                                         <a   onclick='cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                            
@@ -1626,8 +1636,8 @@ function retTarefas() {
                                                                                                             </div>
                                                                                                             <div class="col-6 text-right">
                                                                                                                 ${situation(tarefas.situacao)}
-                                                                                                                <buttom  onclick="modalAnexo('${tarefas.anexo}');"><i class="fa-regular fa-images" data-tooltip="VISUALIZAR ANEXO" class="bg-success"></i></button>
-                                                                                                                <a  onclick='altAtividade(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA"  style="color: #ea3434;"></i></a>
+                                                                                                                <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"` ) +` class="bg-success"></i></buttom>
+                                                                                                                <a  onclick='altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA"  style="color: #ea3434;"></i></a>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
@@ -1661,7 +1671,7 @@ function retTarefas() {
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
                                                                                                         <a   onclick='cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             `);
@@ -1677,8 +1687,8 @@ function retTarefas() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(tarefas.situacao)}
-                                                                                                            <buttom  onclick="modalAnexo('${tarefas.anexo}');"><i class="fa-regular fa-images" data-tooltip="VISUALIZAR ANEXO" class="bg-success"></i></button>
-                                                                                                            <a  onclick='altAtividade(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
+                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"` ) +` class="bg-success"></i></buttom>
+                                                                                                            <a  onclick='altCabec(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -1799,9 +1809,41 @@ function dashboardAtividades(depto, projetos, etapa, value) {
 };
 
 
+/////////////////////////////////////////////////////////////////
+// COLOCA DADOS NO FORMULÁRIO PARA EDIÇÃO DE CABEÇALHO OU TAREFA
+// CRIADO POR ELIEL FELIX
+// DATA: 30/07/2023                   
+/////////////////////////////////////////////////////////////////
+function altCabec(value) {
+
+    console.log(value);
+
+    $('#txtIdCabec').val(value.id_cabec);
+
+    if (typeof (value.id_tarefa) != 'undefined') {
+        $('#txtIdTarefa').val(value.id_tarefa);
+        $('#txtNomeTarefa').val(value.nome_tarefa);
+    } else {
+        $('#txtNomeTarefa').val(value.cabec_titulo);
+    }
+
+    // $('#slAtivDepto').selectpicker('val', value.id_departamento); 
+
+    // selectProjetos(value.id_departamento, {
+    //     projeto: value.id_projeto,
+    //     etapa: value.id_etapa
+    // })
 
 
-
+    $('#txtDescTarefa').val(value.descricao);
+    $('#slRespTarefa').selectpicker('val', value.responsavel);
+    $('#slTarefaStatus').selectpicker('val', value.situacao);
+    // if (typeof (value.data_fim) == 'string') {
+    //     $('#txtDataFimTarefa').val((value.data_fim).split('/').reverse().join('-'));
+    // }
+    $('#txtDataFimTarefa').val(value.data_fim);
+    $('#ModalTarefas').modal('show');
+}
 
 function altAtividade(value) {
     $('#txtIdAtividade').val(value.id_atividade);
@@ -1824,7 +1866,7 @@ function altAtividade(value) {
 
 function cadTarefaDash(value) {
     // SE FOR O CADASTRO DE UM CARD, VALUE SERÁ NULO
-    if ($.isEmptyObject(value)) {
+    if (!$.isEmptyObject(value)) {
         $('#txtIdCabec').val(value.id_cabec);
     }
     $('#ModalTarefas').modal('show');

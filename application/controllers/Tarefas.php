@@ -42,6 +42,12 @@ class Tarefas extends MY_Controller
     ////////////////////////////////////////////
     public function cadTarefas()
     {
+
+        // echo '<pre>';
+        // print_r($this->input->post());
+        // echo '</pre>';
+        // exit;
+
         $files = $_FILES['anexoTarefa'];
         if ($_FILES['anexoTarefa']['tmp_name'] !== '') {
             $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
@@ -64,6 +70,9 @@ class Tarefas extends MY_Controller
             }
         }
 
+        $anexo = isset($anexo) ? $anexo : '';
+
+        // VALIDAÇÃO DE DADOS DO FORMULÁRIO
         $this->load->library('form_validation');
         if ($this->input->post('txtIdTarefa') !== '') {
             $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required');
@@ -112,12 +121,12 @@ class Tarefas extends MY_Controller
                         "descricao" => $this->input->post("txtDescTarefa"),
                         "prioridade" => '',
                         "responsavel" => $this->input->post("slRespTarefa"),
-                        "situacao" => $this->input->post("slAtivStatus"),
+                        "situacao" => $this->input->post("slTarefaStatus"),
                         "data_fim" => $this->input->post("txtDataFimTarefa"),
                         "usucria" => $this->session->userdata('id_users')
                     );
                 }
-            } else { // SE ID DE TAREFA NÃO EXISTE É UM CADASTRO DE TAREFA
+            } else { // SE ID DE TAREFA NÃO EXISTE É UM CADASTRO DE TAREFA OU CABEÇALHO
                 $dados = array(
                     // "id_tarefa" => $this->input->post("txtIdTarefa"),
                     "id_cabec" => $this->input->post("txtIdCabec"),
@@ -131,17 +140,27 @@ class Tarefas extends MY_Controller
                     "usucria" => $this->session->userdata('id_users')
                 );
 
-                if ($this->input->post('txtIdCabec') == '') {
+                // SE NÃO HÁ ID CABEC OU SE FLAG FOR TRUE => CADASTRO DE CABEÇALHO 
+                if ($this->input->post('txtIdCabec') == '' || json_decode($this->input->post('flagEditCabec'))) {
                     $dados['cabec_titulo'] = $dados['nome_tarefa'];
                     unset($dados['nome_tarefa']);
                     unset($dados['id_cabec']);
                 }
             }
 
+            if ($anexo == '') {
+                unset($dados['anexo']);
+            }
+
             $this->load->model('M_insert');
-            if ($this->input->post('txtIdCabec') != '') {
-                $return = $this->M_insert->cadTarefas($dados);
-            } else {
+
+            if ($this->input->post('txtIdCabec') != '') { // SE CABEÇALHO EXISTE => CADASTRO/ALTERAÇÃO DE TAREFA OU ALTERAÇÃO DE CABEÇALHO
+                if (json_decode($this->input->post('flagEditCabec'))) { //flagEditCabec(Boolean) SE TRUE => ALTERAÇÃO DE CABEÇALHO, SENÃO => CADASTRO DE TAREFA
+                    $return = $this->M_insert->cadCabecTarefas($dados);
+                } else {
+                    $return = $this->M_insert->cadTarefas($dados);
+                }
+            } else { // SE CABEÇALHO NÃO EXISTE => CADASTRO DE CABEÇALHO
                 $return = $this->M_insert->cadCabecTarefas($dados);
             }
         }

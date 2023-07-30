@@ -293,7 +293,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Atividade</h4>
+                <h4 id="anexo_titulo" class="modal-title">Atividade</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body p-2">
@@ -438,7 +438,7 @@
                         <select id="slTarefaStatus" name="slTarefaStatus" class="selectpicker form-control" data-style="btn-success">
                             <option value="A">Aguardando</option>
                             <option value="P">Pendente</option>
-                            <option value="I">Iniciada</option>
+                            <!-- <option value="I">Iniciada</option> -->
                             <option value="E">Executando</option>
                             <option value="C">Concluída</option>
                             <option value="R">Revisada</option>

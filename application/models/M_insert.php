@@ -272,7 +272,7 @@ class m_insert extends CI_Model
                 $this->db->trans_commit();
                 $return = array(
                     'code' => 1,
-                    'message' => "Atividade atualizada com sucesso!"
+                    'message' => "Tarefa atualizada com sucesso!"
                 );
             }
         }
@@ -287,40 +287,40 @@ class m_insert extends CI_Model
     ////////////////////////////////////////   
     public function cadCabecTarefas($dados)
     {
-        // $this->db->trans_begin();
-        // if ($this->input->post("txtIdTarefa") == '') {
-        //     $this->db->insert('tbl_user_tarefas', $dados);
-        //     if ($this->db->trans_status() === FALSE) {
-        //         $this->db->trans_rollback();
-        //         $return = array(
-        //             'code' => 0,
-        //             'message' => "Erro ao gravar os dados!"
-        //         );
-        //     } else {
-        //         $this->db->trans_commit();
-        //         $return = array(
-        //             'code' => 1,
-        //             'message' => "Tarefa cadastrada com sucesso!"
-        //         );
-        //     }
-        // } else {
-        //     $this->db->where('id_tarefa', $this->input->post("txtIdTarefa"));
-        //     $this->db->update('tbl_user_tarefas', $dados);
-        //     if ($this->db->trans_status() === FALSE) {
-        //         $this->db->trans_rollback();
-        //         $return = array(
-        //             'code' => 0,
-        //             'message' => "Erro ao atualizar os dados!"
-        //         );
-        //     } else {
-        //         $this->db->trans_commit();
-        //         $return = array(
-        //             'code' => 1,
-        //             'message' => "Atividade atualizada com sucesso!"
-        //         );
-        //     }
-        // }
-        // return $return;
+        $this->db->trans_begin();
+        if ($this->input->post("txtIdCabec") == '') {
+            $this->db->insert('tbl_cabec_tarefas', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao gravar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Tarefa cadastrada com sucesso!"
+                );
+            }
+        } else {
+            $this->db->where('id_cabec', $this->input->post("txtIdCabec"));
+            $this->db->update('tbl_cabec_tarefas', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao atualizar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Tarefa atualizada com sucesso!"
+                );
+            }
+        }
+        return $return;
     }
     ////////////////////////////////////////
     // CADASTRO DE STATUS ATIVIDADE
