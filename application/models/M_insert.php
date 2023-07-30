@@ -237,6 +237,92 @@ class m_insert extends CI_Model
     }
 
     ////////////////////////////////////////
+    // CADASTRO DE TAREFA
+    // CRIADO POR ELIEL FELIX            
+    // DATA: 29/07/2023
+    ////////////////////////////////////////   
+    public function cadTarefas($dados)
+    {
+        $this->db->trans_begin();
+        if ($this->input->post("txtIdTarefa") == '') {
+            $this->db->insert('tbl_user_tarefas', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao gravar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Tarefa cadastrada com sucesso!"
+                );
+            }
+        } else {
+            $this->db->where('id_tarefa', $this->input->post("txtIdTarefa"));
+            $this->db->update('tbl_user_tarefas', $dados);
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Erro ao atualizar os dados!"
+                );
+            } else {
+                $this->db->trans_commit();
+                $return = array(
+                    'code' => 1,
+                    'message' => "Atividade atualizada com sucesso!"
+                );
+            }
+        }
+        return $return;
+    }
+    
+
+    ////////////////////////////////////////
+    // CADASTRO CARD DE TAREFA
+    // CRIADO POR ELIEL FELIX            
+    // DATA: 30/07/2023
+    ////////////////////////////////////////   
+    public function cadCabecTarefas($dados)
+    {
+        // $this->db->trans_begin();
+        // if ($this->input->post("txtIdTarefa") == '') {
+        //     $this->db->insert('tbl_user_tarefas', $dados);
+        //     if ($this->db->trans_status() === FALSE) {
+        //         $this->db->trans_rollback();
+        //         $return = array(
+        //             'code' => 0,
+        //             'message' => "Erro ao gravar os dados!"
+        //         );
+        //     } else {
+        //         $this->db->trans_commit();
+        //         $return = array(
+        //             'code' => 1,
+        //             'message' => "Tarefa cadastrada com sucesso!"
+        //         );
+        //     }
+        // } else {
+        //     $this->db->where('id_tarefa', $this->input->post("txtIdTarefa"));
+        //     $this->db->update('tbl_user_tarefas', $dados);
+        //     if ($this->db->trans_status() === FALSE) {
+        //         $this->db->trans_rollback();
+        //         $return = array(
+        //             'code' => 0,
+        //             'message' => "Erro ao atualizar os dados!"
+        //         );
+        //     } else {
+        //         $this->db->trans_commit();
+        //         $return = array(
+        //             'code' => 1,
+        //             'message' => "Atividade atualizada com sucesso!"
+        //         );
+        //     }
+        // }
+        // return $return;
+    }
+    ////////////////////////////////////////
     // CADASTRO DE STATUS ATIVIDADE
     // CRIADO POR ELIEL AMORIM            
     // DATA: 31/05/2023
@@ -249,7 +335,7 @@ class m_insert extends CI_Model
         $dados['seq'] = $seq->row()->sequencia + 1;
 
         $this->db->trans_begin();
-        
+
         $this->db->insert('tbl_status_atividades', $dados);
 
         if ($this->db->trans_status() === FALSE) {
@@ -259,7 +345,7 @@ class m_insert extends CI_Model
                 'message' => "Erro ao gravar os dados!"
             );
             return $return;
-        } 
+        }
 
         $this->db->where('id_atividade', $dados['id_atividade']);
         $this->db->update('tbl_atividades', ['situacao' => $dados['status_mov']]);

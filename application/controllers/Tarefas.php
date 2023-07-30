@@ -20,66 +20,131 @@ class Tarefas extends MY_Controller
         $this->load->view('includes/footer');
     }
 
-    
+
     ////////////////////////////////////////
     // RETORNA DASHBOARD DE TAREFAS                 
     // CRIADO POR ELIEL FELIX 
     // DATA: 27/07/2023                   
     ////////////////////////////////////////
-    
+
     public function retTarefas()
     {
-        // $dados = [[
-        //     'anexoAtividade' => "8da5c3ebae5f1f3fb14cac9606625e2d.jpg",
-        //     'anexoEtapa' => null,
-        //     'anexoProjeto' => "fb249c2cd7add04d305527baec71a03e.jpg",
-        //     'atividade' => "Atividade teste 01 - Descrião da atividade teste 01",
-        //     'codDepartamento' => "0001",
-        //     'descrAtividade' => "Descrião da atividade teste 01",
-        //     'descrDepartamento' => "Dep. teste 01",
-        //     'descrEtapa' => "Descrição da etapa teste 01",
-        //     'descrPropjeto' => "Descrição do projeto teste 01",
-        //     'dtEntregaAtividade' => "18/06/2023",
-        //     'dtEntregaAtividadeE' => "2023-06-18",
-        //     'dtEntregaEtapa' => "30/06/2023",
-        //     'dtEntregaEtapaE' => "2023-06-30",
-        //     'dtEntregaProjeto' => "28/07/2023",
-        //     'dtEntregaProjetoE' => "2023-07-28",
-        //     'dtcria' => "18/06/2023",
-        //     'dtcriaAtividade' => "2023-06-18 15:47:33",
-        //     'dtcriaEtapa' => "2023-06-18 15:46:43",
-        //     'dtfimProjeto' => null,
-        //     'etapa' => "Etapa teste 01 - Descrição da etapa teste 01",
-        //     'idResponsavel' => "39",
-        //     'id_atividade' => "123",
-        //     'id_departamento' => "78",
-        //     'id_etapa' => "134",
-        //     'id_projeto' => "195",
-        //     'id_responsavel' => "44",
-        //     'nomeAtividade' => "Atividade teste 01",
-        //     'nomeEtapa' => "Etapa teste 01",
-        //     'nomeProjeto' => "Projeto teste 01",
-        //     'nomeResponsavel' => "Marcio Batista da Silva",
-        //     'priorAtividade' => "",
-        //     'priorEtapa' => "10",
-        //     'projeto' => "Projeto teste 01 - Descrição do projeto teste 01",
-        //     'respAtividade' => "39",
-        //     'respEtapa' => "0",
-        //     'sitAtividade' => "R",
-        //     'sitEtapa' => "P",
-        //     'situacaoPropjeto' => "P",
-        //     'statusAtividade' => "",
-        //     'statusEtapa' => "",
-        //     'statusPropjeto' => "",
-        //     'usucriaAtividade' => "39",
-        //     'usucriaEtapa' => "44",
-        //     'usucriaPropjeto' => "39"
-        // ]];
-
-        // echo json_encode($dados);
-
         $this->load->model('M_retorno');
         $retorno = $this->M_retorno->retTarefas();
         echo json_encode($retorno);
+    }
+
+
+    ////////////////////////////////////////////
+    // CADASTRA TAREFAS OU CABEÇALHO DE TAREFA                 
+    // CRIADO POR ELIEL FELIX 
+    // DATA: 30/07/2023                   
+    ////////////////////////////////////////////
+    public function cadTarefas()
+    {
+        $files = $_FILES['anexoTarefa'];
+        if ($_FILES['anexoTarefa']['tmp_name'] !== '') {
+            $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+            $configuracao = array(
+                "upload_path"   => "./assets/uploads/",
+                'allowed_types' => 'jpg|png|gif|pdf|jpeg',
+                'file_name'     => $anexo,
+                'max_size'      => '500'
+            );
+            $this->load->library('upload');
+            $this->upload->initialize($configuracao);
+            if ($this->upload->do_upload('anexoTarefa')) {
+            } else {
+                $return = array(
+                    'code' => 2,
+                    'message' =>  trim($this->upload->display_errors())
+                );
+                echo json_encode($return);
+                exit();
+            }
+        }
+
+        $this->load->library('form_validation');
+        if ($this->input->post('txtIdTarefa') !== '') {
+            $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required');
+            $this->form_validation->set_rules('txtDescTarefa', 'Descrição', 'required');
+            $this->form_validation->set_rules('slRespTarefa', 'Responsável', 'required');
+            $this->form_validation->set_rules('txtDataFimTarefa', 'Data', 'required');
+            // $this->form_validation->set_rules('slAtivDepto', 'Departamento', 'required');
+            // $this->form_validation->set_rules('slAtivProjeto', 'Projeto', 'required');
+            // $this->form_validation->set_rules('slAtivEtapas', 'Etapa', 'required');
+        } else {
+            $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required|is_unique[tbl_user_tarefas.nome_tarefa]');
+            $this->form_validation->set_rules('txtDescTarefa', 'Descrição', 'required');
+            $this->form_validation->set_rules('slRespTarefa', 'Responsável', 'required');
+            // $this->form_validation->set_rules('slAtivDepto', 'Departamento', 'required');
+            // $this->form_validation->set_rules('slAtivProjeto', 'Projeto', 'required');
+            // $this->form_validation->set_rules('slAtivEtapas', 'Etapa', 'required');
+            $this->form_validation->set_rules('txtDataFimTarefa', 'Data', 'required');
+        }
+
+        if ($this->form_validation->run() == FALSE) {
+            $return = array(
+                'code' => 2,
+                'message' => validation_errors()
+            );
+        } else {
+
+            if ($this->input->post("txtIdTarefa") != '') { // SE ID DE TAREFA EXISTE É UMA EDIÇÃO DE TAREFA
+                if ($_FILES['anexoTarefa']['tmp_name'] !== '') { // SE NOME TEMPORÁRIO EXISTE, HÁ ANEXO
+                    $dados = array(
+                        "id_tarefa" => $this->input->post("txtIdTarefa"),
+                        "id_cabec" => $this->input->post("txtIdCabec"),
+                        "nome_tarefa" => $this->input->post("txtNomeTarefa"),
+                        "descricao" => $this->input->post("txtDescTarefa"),
+                        "prioridade" => '',
+                        "responsavel" => $this->input->post("slRespTarefa"),
+                        "situacao" => $this->input->post("slTarefaStatus"),
+                        "data_fim" => $this->input->post("txtDataFimTarefa"),
+                        "anexo" => $anexo,
+                        "usucria" => $this->session->userdata('id_users')
+                    );
+                } else {  // SE NOME TEMPORÁRIO NÃO EXISTE, NÃO HÁ ANEXO
+                    $dados = array(
+                        "id_tarefa" => $this->input->post("txtIdTarefa"),
+                        "id_cabec" => $this->input->post("txtIdCabec"),
+                        "nome_tarefa" => $this->input->post("txtNomeTarefa"),
+                        "descricao" => $this->input->post("txtDescTarefa"),
+                        "prioridade" => '',
+                        "responsavel" => $this->input->post("slRespTarefa"),
+                        "situacao" => $this->input->post("slAtivStatus"),
+                        "data_fim" => $this->input->post("txtDataFimTarefa"),
+                        "usucria" => $this->session->userdata('id_users')
+                    );
+                }
+            } else { // SE ID DE TAREFA NÃO EXISTE É UM CADASTRO DE TAREFA
+                $dados = array(
+                    // "id_tarefa" => $this->input->post("txtIdTarefa"),
+                    "id_cabec" => $this->input->post("txtIdCabec"),
+                    "nome_tarefa" => $this->input->post("txtNomeTarefa"),
+                    "descricao" => $this->input->post("txtDescTarefa"),
+                    "prioridade" => '',
+                    "responsavel" => $this->input->post("slRespTarefa"),
+                    "situacao" => $this->input->post("slTarefaStatus"),
+                    "data_fim" => $this->input->post("txtDataFimTarefa"),
+                    "anexo" => $anexo,
+                    "usucria" => $this->session->userdata('id_users')
+                );
+
+                if ($this->input->post('txtIdCabec') == '') {
+                    $dados['cabec_titulo'] = $dados['nome_tarefa'];
+                    unset($dados['nome_tarefa']);
+                    unset($dados['id_cabec']);
+                }
+            }
+
+            $this->load->model('M_insert');
+            if ($this->input->post('txtIdCabec') != '') {
+                $return = $this->M_insert->cadTarefas($dados);
+            } else {
+                $return = $this->M_insert->cadCabecTarefas($dados);
+            }
+        }
+        echo json_encode($return);
     }
 }

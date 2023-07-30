@@ -294,17 +294,18 @@ class M_retorno extends CI_Model
     {
         // $this->db->select('id_cabec, cabec_titulo, situacao');
         $this->db->where('status !=', 'D');
+        $this->db->where("situacao !=", 'R');
         $cabec_tarefas = $this->db->get('tbl_cabec_tarefas');
         $cabec_tarefas = $cabec_tarefas->result();
 
-        foreach($cabec_tarefas as $cabec){
+        foreach ($cabec_tarefas as $cabec) {
 
             $this->db->where('id_cabec =', $cabec->id_cabec);
             $this->db->where('status !=', 'D');
+            $this->db->where("situacao !=", 'R');
             $this->db->order_by('id_tarefa');
             $tarefas = $this->db->get('tbl_user_tarefas');
             $cabec->tarefas = $tarefas->result();
-
         }
 
         return $cabec_tarefas;
