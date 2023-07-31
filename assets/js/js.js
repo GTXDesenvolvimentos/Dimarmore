@@ -38,6 +38,10 @@ function clearForm() {
     $('#ModalUser').modal('hide');
     $('#ModalTarefas').modal('hide');
 
+    if (typeof (flagEditCabec) != 'undefined') {
+        flagEditCabec = false;
+    }
+
     // SE ESTIVER NA DASH DE ATIVIDADES ATUALIZA O PAINEL
     if (myarr[myarr.length - 1] == 'dash') {
         retDashboard();
@@ -408,7 +412,6 @@ $(document).ready(function () {
                 });
             },
             success: function (data) {
-                flagEditCabec = false;
                 // console.log(data);
                 if (data.code == 2) {
                     swal.fire({
@@ -429,7 +432,7 @@ $(document).ready(function () {
                         icon: 'success',
                         confirmButtonColor: '#268917',
                         confirmButtonText: 'Sair',
-                        closeOnConfirm: false,
+                        preConfirm: false,
                         allowOutsideClick: false,
                         allowEscapeKey: false
                     }).then((result) => {
@@ -1211,7 +1214,7 @@ function retDashboard() {
                                                                                                     </div>
                                                                                                     <div class="col-6 text-right">
                                                                                                         ${situation(atividades.sitAtividade, result)}
-                                                                                                        <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                        <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></buttom>
                                                                                                         <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
@@ -1266,7 +1269,7 @@ function retDashboard() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(atividades.sitAtividade, result)}
-                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></buttom>
                                                                                                         <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                
@@ -1321,7 +1324,7 @@ function retDashboard() {
                                                                                                             </div>
                                                                                                             <div class="col-6 text-right">
                                                                                                                 ${situation(atividades.sitAtividade, result)}
-                                                                                                                <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                                <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></buttom>
                                                                                                                 <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                             </div>
                                                                                                         </div>
@@ -1372,7 +1375,7 @@ function retDashboard() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(atividades.sitAtividade, result)}
-                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></buttom>
                                                                                                             <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                     </div>
@@ -1455,24 +1458,28 @@ function retTarefas() {
 
             $('#viewQuadroTarefas').html('');
             // $.each(JSON.parse(deptos), function (idx, departamento) {
-            html += (` <button class="btn btn-success" onclick="cadTarefaDash()"> CRIAR NOVAS TAREFAS </button>
+            html += (` 
                 <div id="accordion">
                     <div class="card my-1">
                         <div class="card-header bg-dark">
                             <div class="row">
                                 
                                 <div class="col-12">
+                                
                                     <div class="row">
-                                        <div class="col-3 text-center">
+                                        <div class="text-center">
+                                             <a><i tooltip="CRIAR TAREFA" onclick="$('#divAnexo').addClass('d-none'); cadTarefaDash()" class="fa-brands fa-creative-commons-nd fa-2x pt-1" style="color: #FFF; position:absolute;"></i></a>
+                                        </div>
+                                        <div class="col text-center">
                                             <a class="card-link btn btn-outline-dark btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Aguardando</span></a>
                                         </div>
-                                        <div class="col-3 text-center">
+                                        <div class="col text-center">
                                             <a class="card-link btn btn-warning btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Pendente</span></a>
                                         </div>
-                                        <div class="col-3 text-center">
+                                        <div class="col text-center">
                                             <a class="card-link btn btn-info btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Executando</span></a>
                                         </div>
-                                        <div class="col-3 text-center">
+                                        <div class="col text-center">
                                             <a class="card-link btn btn-success btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Concluído</span></a>
                                         </div>
                                     </div>
@@ -1480,8 +1487,7 @@ function retTarefas() {
                             </div>
                         </div>
                             <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                                <div class="card-body p-1">
-                                    <div class="row mt-1">
+                                    <div class="row">
                                         <div class="col-12 p-0">
                                             <div class="col-12">
                                                 <table class = "table table-bordered">
@@ -1490,9 +1496,8 @@ function retTarefas() {
             // var projeto = JSON.stringify(arrayProjetos);
             // $.each(JSON.parse(projeto), function (idx, departamento) {
             html += (`                          <tr>
-                                                            <td class = "col-12">
                                                                 <div class="album bg-light">
-                                                                    <div class="container-fluid p-1">
+                                                                    <div class="container-fluid px-1">
                                                                         <div class="row">
                                                                             <div class="col-md-3 pl-2 pr-0">
                                                                                
@@ -1510,8 +1515,8 @@ function retTarefas() {
                                                                                                     <h6 class="alert-heading p-0  m-0 text-white" style="font-size: 12px;">${dados.cabec_titulo}</h6>
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
-                                                                                                    <a onclick='cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                    <a onclick='altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'><i data-tooltip="EDITAR CABEÇALHO" class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                    <a onclick='$("#divAnexo").removeClass("d-none"); cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
+                                                                                                    <a onclick='$("#divAnexo").addClass("d-none"); altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'><i data-tooltip="EDITAR CABEÇALHO" class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                 </div>
                                                                                             </div>
                                                                                                 `);
@@ -1527,8 +1532,8 @@ function retTarefas() {
                                                                                                     </div>
                                                                                                     <div class="col-6 text-right">
                                                                                                         ${situation(tarefas.situacao)}
-                                                                                                        <buttom><i class="fa-regular fa-images"  `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"` ) +`  class="bg-success"></i></buttom>
-                                                                                                        <a  onclick='altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
+                                                                                                        <buttom><i class="fa-regular fa-images"  `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"`) + `  class="bg-success"></i></buttom>
+                                                                                                        <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -1563,8 +1568,8 @@ function retTarefas() {
                                                                                                     <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.cabec_titulo}</h6>
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
-                                                                                                    <a   onclick='cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                    <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                    <a   onclick='$("#divAnexo").removeClass("d-none"); cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
+                                                                                                    <a  data-tooltip="EDITAR CABEÇALHO" onclick='$("#divAnexo").addClass("d-none");altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     
                                                                                                 </div>
                                                                                             </div>
@@ -1582,8 +1587,8 @@ function retTarefas() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(tarefas.situacao)}
-                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"` ) +` class="bg-success"></i></buttom>
-                                                                                                        <a  onclick='altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
+                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
+                                                                                                        <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                
                                                                                                     </div>
@@ -1618,8 +1623,8 @@ function retTarefas() {
                                                                                                         <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.cabec_titulo}</h6>
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
-                                                                                                        <a   onclick='cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                        <a   onclick='$("#divAnexo").removeClass("d-none"); cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
+                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='$("#divAnexo").addClass("d-none"); altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                            
@@ -1637,8 +1642,8 @@ function retTarefas() {
                                                                                                             </div>
                                                                                                             <div class="col-6 text-right">
                                                                                                                 ${situation(tarefas.situacao)}
-                                                                                                                <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"` ) +` class="bg-success"></i></buttom>
-                                                                                                                <a  onclick='altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA"  style="color: #ea3434;"></i></a>
+                                                                                                                <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
+                                                                                                                <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `);'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA"  style="color: #ea3434;"></i></a>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
@@ -1671,8 +1676,8 @@ function retTarefas() {
                                                                                                         <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.cabec_titulo}</h6>
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
-                                                                                                        <a   onclick='cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                        <a   onclick='$("#divAnexo").removeClass("d-none"); cadTarefaDash(` + JSON.stringify(dados) + `);'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
+                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='$("#divAnexo").addClass("d-none"); altCabec(` + JSON.stringify(dados) + `, flagEditCabec = true);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             `);
@@ -1688,8 +1693,8 @@ function retTarefas() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(tarefas.situacao)}
-                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"` ) +` class="bg-success"></i></buttom>
-                                                                                                            <a  onclick='altCabec(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
+                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
+                                                                                                            <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `);'<i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -1709,7 +1714,6 @@ function retTarefas() {
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </td>
                                                         </tr>
                             `);
             // });
@@ -1718,7 +1722,7 @@ function retTarefas() {
                                             </table>
                                         </div>
                                     </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -1817,7 +1821,7 @@ function dashboardAtividades(depto, projetos, etapa, value) {
 /////////////////////////////////////////////////////////////////
 function altCabec(value) {
 
-    console.log(value);
+    // console.log(value);
 
     $('#txtIdCabec').val(value.id_cabec);
 

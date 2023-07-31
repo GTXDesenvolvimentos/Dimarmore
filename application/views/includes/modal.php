@@ -450,7 +450,7 @@
                         <input type="date" class="form-control" name="txtDataFimTarefa" id="txtDataFimTarefa" placeholder="Data limite para a tarefa">
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-12" id="divAnexo">
                         <label class="form-label">Anexo</label>
                         <input class="form-control form-control-lg btn" id="anexoTarefa" name="anexoTarefa" type="file" />
 

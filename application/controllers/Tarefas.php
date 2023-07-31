@@ -74,7 +74,7 @@ class Tarefas extends MY_Controller
 
         // VALIDAÇÃO DE DADOS DO FORMULÁRIO
         $this->load->library('form_validation');
-        if ($this->input->post('txtIdTarefa') !== '') {
+        if ($this->input->post('txtIdTarefa') !== '') { //EDIÇÃO DE TAREFA
             $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required');
             $this->form_validation->set_rules('txtDescTarefa', 'Descrição', 'required');
             $this->form_validation->set_rules('slRespTarefa', 'Responsável', 'required');
@@ -82,8 +82,17 @@ class Tarefas extends MY_Controller
             // $this->form_validation->set_rules('slAtivDepto', 'Departamento', 'required');
             // $this->form_validation->set_rules('slAtivProjeto', 'Projeto', 'required');
             // $this->form_validation->set_rules('slAtivEtapas', 'Etapa', 'required');
-        } else {
-            $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required|is_unique[tbl_user_tarefas.nome_tarefa]');
+        } else { //CADASTRO DE TAREFA OU CABEÇALHO E EDIÇÃO DE CABEÇALHO
+
+            if (json_decode($this->input->post('flagEditCabec'))) { // EDIÇÃO DE CABEÇALHO
+                $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required');
+            } else { // CADASTRO TAREFA OU CABEÇALHO
+                if($this->input->post('txtIdCabec') != ''){ // CADASTRO TAREFA
+                    $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required|is_unique[tbl_user_tarefas.nome_tarefa]');
+                } else { // CADASTRO CABEÇALHO
+                    $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required|is_unique[tbl_cabec_tarefas.cabec_titulo]');
+                }
+            }
             $this->form_validation->set_rules('txtDescTarefa', 'Descrição', 'required');
             $this->form_validation->set_rules('slRespTarefa', 'Responsável', 'required');
             // $this->form_validation->set_rules('slAtivDepto', 'Departamento', 'required');
