@@ -41,7 +41,7 @@ class Atividades extends MY_Controller
     {
         $files = $_FILES['anexoAtividade'];
         if ($_FILES['anexoAtividade']['tmp_name'] !== '') {
-            $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+            $anexo = md5($files['name'] . date('dmYHis')) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
             $configuracao = array(
                 "upload_path"   => "./assets/uploads/",
                 'allowed_types' => 'jpg|png|gif|pdf|jpeg',
@@ -142,7 +142,7 @@ class Atividades extends MY_Controller
 
         $files = $_FILES['anexoLogAtividade'];
         if ($_FILES['anexoLogAtividade']['tmp_name'] !== '') {
-            $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+            $anexo = md5($files['name'] . date('dmYHis')) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
             $configuracao = array(
                 "upload_path"   => "./assets/uploads/",
                 'allowed_types' => 'jpg|png|gif|pdf|jpeg',
@@ -177,7 +177,8 @@ class Atividades extends MY_Controller
         echo json_encode($retorno);
     }
 
-    function buscaHistorico(){
+    function buscaHistorico()
+    {
         $form = $this->input->post();
 
         $this->load->model('M_retorno');
