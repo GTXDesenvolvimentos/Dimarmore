@@ -408,7 +408,8 @@ $(document).ready(function () {
                 });
             },
             success: function (data) {
-                console.log(data);
+                flagEditCabec = false;
+                // console.log(data);
                 if (data.code == 2) {
                     swal.fire({
                         title: "Atenção!",

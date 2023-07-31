@@ -261,6 +261,34 @@ class m_insert extends CI_Model
             }
         } else {
             $this->db->where('id_tarefa', $this->input->post("txtIdTarefa"));
+            $anexoexiste = $this->db->get('tbl_user_tarefas');
+            $anexoexiste = $anexoexiste->result();
+
+            if (trim($anexoexiste[0]->anexo) != '') {
+                if (isset($dados['anexo'])) {
+                    if ($dados['anexo'] == '') {
+                        unset($dados['anexo']);
+                    } else {
+                        if (file_exists('assets/uploads/' . trim($anexoexiste[0]->anexo))) {
+                            if (!unlink('assets/uploads/' . trim($anexoexiste[0]->anexo))) { // APAGA ANEXO ANTIGO E SUBSTUI PELO NOVO
+                                $this->db->trans_rollback();
+                                $return = array(
+                                    'code' => 0,
+                                    'message' => "Não foi possível apagar o antigo anexo!"
+                                );
+                                return $return;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // echo '<pre>';
+            // print_r($anexoexiste->result());
+            // echo '</pre>';
+            // exit;
+
+            $this->db->where('id_tarefa', $this->input->post("txtIdTarefa"));
             $this->db->update('tbl_user_tarefas', $dados);
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -278,7 +306,7 @@ class m_insert extends CI_Model
         }
         return $return;
     }
-    
+
 
     ////////////////////////////////////////
     // CADASTRO CARD DE TAREFA
@@ -304,6 +332,30 @@ class m_insert extends CI_Model
                 );
             }
         } else {
+
+            $this->db->where('id_cabec', $this->input->post("txtIdCabec"));
+            $anexoexiste = $this->db->get('tbl_cabec_tarefas');
+            $anexoexiste = $anexoexiste->result();
+
+            if (trim($anexoexiste[0]->anexo) != '') {
+                if (isset($dados['anexo'])) {
+                    if ($dados['anexo'] == '') {
+                        unset($dados['anexo']);
+                    } else {
+                        if (file_exists('assets/uploads/' . trim($anexoexiste[0]->anexo))) {
+                            if (!unlink('assets/uploads/' . trim($anexoexiste[0]->anexo))) { // APAGA ANEXO ANTIGO E SUBSTUI PELO NOVO
+                                $this->db->trans_rollback();
+                                $return = array(
+                                    'code' => 0,
+                                    'message' => "Não foi possível apagar o antigo anexo!"
+                                );
+                                return $return;
+                            }
+                        }
+                    }
+                }
+            }
+
             $this->db->where('id_cabec', $this->input->post("txtIdCabec"));
             $this->db->update('tbl_cabec_tarefas', $dados);
             if ($this->db->trans_status() === FALSE) {
