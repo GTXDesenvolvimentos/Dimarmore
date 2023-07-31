@@ -50,7 +50,7 @@ class Tarefas extends MY_Controller
 
         $files = $_FILES['anexoTarefa'];
         if ($_FILES['anexoTarefa']['tmp_name'] !== '') {
-            $anexo = md5($files['name']. date('dmYHis')) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+            $anexo = md5($files['name'] . date('dmYHis')) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
             $configuracao = array(
                 "upload_path"   => "./assets/uploads/",
                 'allowed_types' => 'jpg|png|gif|pdf|jpeg',

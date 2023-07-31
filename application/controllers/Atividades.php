@@ -61,6 +61,8 @@ class Atividades extends MY_Controller
             }
         }
 
+        // $anexo = isset($anexo) ? $anexo : '';
+
         $this->load->library('form_validation');
         if ($this->input->post('txtIdAtividade') !== '') {
             $this->form_validation->set_rules('txtNomeAtividade', 'Nome da atividade', 'required');

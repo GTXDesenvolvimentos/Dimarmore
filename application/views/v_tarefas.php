@@ -42,6 +42,16 @@
     a, i{
         cursor:pointer;
     }
+
+    .fundo{
+        background: #33414e;
+        border: #33414e;
+    }
+
+    body, html {
+        background: #33414e;
+        overflow-x: hidden;
+    }
 </style>
 
 <div id="viewQuadroTarefas"></div>

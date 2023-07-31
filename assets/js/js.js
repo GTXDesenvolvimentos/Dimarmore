@@ -1460,15 +1460,15 @@ function retTarefas() {
             // $.each(JSON.parse(deptos), function (idx, departamento) {
             html += (` 
                 <div id="accordion">
-                    <div class="card my-1">
-                        <div class="card-header bg-dark">
+                    <div class="card my-1 fundo">
+                        <div class="card-header bg-dark border-0" style="border:none">
                             <div class="row">
                                 
                                 <div class="col-12">
                                 
                                     <div class="row">
                                         <div class="text-center">
-                                             <a><i tooltip="CRIAR TAREFA" onclick="$('#divAnexo').addClass('d-none'); cadTarefaDash()" class="fa-brands fa-creative-commons-nd fa-2x pt-1" style="color: #FFF; position:absolute;"></i></a>
+                                             <a><i tooltip="CRIAR TAREFA" onclick="$('#divAnexo').addClass('d-none'); cadTarefaDash()" class="fa-solid fa-circle-plus fa-2x pt-1" style="color: #FFF; position:absolute;"></i></a>
                                         </div>
                                         <div class="col text-center">
                                             <a class="card-link btn btn-outline-dark btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Aguardando</span></a>
@@ -1498,7 +1498,7 @@ function retTarefas() {
             html += (`                          <tr>
                                                                 <div class="album bg-light">
                                                                     <div class="container-fluid px-1">
-                                                                        <div class="row">
+                                                                        <div class="row fundo">
                                                                             <div class="col-md-3 pl-2 pr-0">
                                                                                
                                                                                        
