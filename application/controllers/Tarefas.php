@@ -113,8 +113,8 @@ class Tarefas extends MY_Controller
                     $dados = array(
                         "id_tarefa" => $this->input->post("txtIdTarefa"),
                         "id_cabec" => $this->input->post("txtIdCabec"),
-                        "nome_tarefa" => strtoupper($this->input->post("txtNomeTarefa")),
-                        "descricao" => strtoupper($this->input->post("txtDescTarefa")),
+                        "nome_tarefa" => mb_strtoupper($this->input->post("txtNomeTarefa")),
+                        "descricao" => mb_strtoupper($this->input->post("txtDescTarefa")),
                         "prioridade" => '',
                         "responsavel" => $this->input->post("slRespTarefa"),
                         "situacao" => $this->input->post("slTarefaStatus"),
@@ -126,8 +126,8 @@ class Tarefas extends MY_Controller
                     $dados = array(
                         "id_tarefa" => $this->input->post("txtIdTarefa"),
                         "id_cabec" => $this->input->post("txtIdCabec"),
-                        "nome_tarefa" => strtoupper($this->input->post("txtNomeTarefa")),
-                        "descricao" => strtoupper($this->input->post("txtDescTarefa")),
+                        "nome_tarefa" => mb_strtoupper($this->input->post("txtNomeTarefa")),
+                        "descricao" => mb_strtoupper($this->input->post("txtDescTarefa")),
                         "prioridade" => '',
                         "responsavel" => $this->input->post("slRespTarefa"),
                         "situacao" => $this->input->post("slTarefaStatus"),
@@ -139,8 +139,8 @@ class Tarefas extends MY_Controller
                 $dados = array(
                     // "id_tarefa" => $this->input->post("txtIdTarefa"),
                     "id_cabec" => $this->input->post("txtIdCabec"),
-                    "nome_tarefa" => strtoupper($this->input->post("txtNomeTarefa")),
-                    "descricao" => strtoupper($this->input->post("txtDescTarefa")),
+                    "nome_tarefa" => mb_strtoupper($this->input->post("txtNomeTarefa")),
+                    "descricao" => mb_strtoupper($this->input->post("txtDescTarefa")),
                     "prioridade" => '',
                     "responsavel" => $this->input->post("slRespTarefa"),
                     "situacao" => $this->input->post("slTarefaStatus"),
