@@ -1933,10 +1933,6 @@ function altEtapasDash(value) {
     $('#ModalEtapas').modal('show');
 }
 
-
-
-
-
 function situation(value, row) {
     if (value == 'A') {
         return ` <button class="btn btn-warning btn-sm px-2 py-0 m-0" style="font-size: 10px; cursor: default;">Aguar.</button>`;
@@ -1970,7 +1966,7 @@ function altProjeto(value) {
     $('#txtNomeProjeto ').val(value.nomeProjeto);
     $('#txtDescProjeto').val(value.descrPropjeto);
     $('#txtDataFimProjeto').val(value.dtEntregaProjetoE);
-    $('#slRespProjeto').selectpicker('val', value.idResponsavel);
+    $('#slRespProjeto').selectpicker('val', value.idResponsavel); 
     $('#slDepProjeto').selectpicker('val', value.id_departamento);
     $('#ModalProjeto').modal('show');
 }
