@@ -29,7 +29,7 @@
 </div>
 
 <!-- MODAL PROJETOS -->
-<div class="modal" id="ModalProjeto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="ModalProjeto" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" id="formProjetos" enctype="multipart/form-data">
@@ -452,7 +452,7 @@
 
                     <div class="form-group col-12" id="divAnexo">
                         <label class="form-label">Anexo</label>
-                        <input class="form-control form-control-lg btn" id="anexoTarefa" name="anexoTarefa" type="file" />
+                        <input class="form-control form-control-lg btn" id="anexoTarefa" name="anexoTarefa" type="file" accept=".jpg, .png, .gif, .pdf, .jpeg" />
 
                     </div>
                 </div>

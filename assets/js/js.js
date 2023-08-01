@@ -1166,7 +1166,7 @@ function retDashboard() {
                                                                         <strong>Projeto: </strong><br><span>${Projetos.nomeProjeto}</span>
                                                                     </div>
                                                                     <div class="col-3">
-                                                                        <div onclick='altProjeto(` + JSON.stringify(Projetos) + `);'<i class="fa-solid fa-list fa-2x" style="color: #337566;"></i></div>
+                                                                        <div onclick='altProjeto(` + JSON.stringify(Projetos) + `);'<i class="fa-solid fa-list fa-2x" style="color: #337566; cursor:pointer" data-tooltip="EDITAR PROJETO"></i></div>
                                                                     </div>
                                                                 </div>
                                                                 <hr class="py-0 my-0 shadow">    
@@ -1198,7 +1198,7 @@ function retDashboard() {
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
                                                                                                     <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'><i class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'><i data-tooltip="EDITAR ETAPA" class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                 </div>
                                                                                             </div>
                                                                                                 `);
@@ -1214,8 +1214,8 @@ function retDashboard() {
                                                                                                     </div>
                                                                                                     <div class="col-6 text-right">
                                                                                                         ${situation(atividades.sitAtividade, result)}
-                                                                                                        <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></buttom>
-                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                        <buttom  `+ (atividades.anexoAtividade != '' ? `onclick="modalAnexo('${atividades.anexoAtividade}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000; cursor: pointer;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `><i class="fa-regular fa-images" class="bg-success"></i></buttom>
+                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i data-tooltip="EDITAR ATIVIDADE" class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -1251,7 +1251,7 @@ function retDashboard() {
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
                                                                                                     <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i data-tooltip="EDITAR ETAPA" class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     
                                                                                                 </div>
                                                                                             </div>
@@ -1269,8 +1269,8 @@ function retDashboard() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(atividades.sitAtividade, result)}
-                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></buttom>
-                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                            <buttom  `+ (atividades.anexoAtividade != '' ? `onclick="modalAnexo('${atividades.anexoAtividade}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000; cursor: pointer;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `><i class="fa-regular fa-images" class="bg-success"></i></buttom>
+                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i data-tooltip="EDITAR ATIVIDADE" class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                
                                                                                                     </div>
@@ -1306,7 +1306,7 @@ function retDashboard() {
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
                                                                                                         <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i data-tooltip="EDITAR ETAPA"class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                            
@@ -1324,8 +1324,8 @@ function retDashboard() {
                                                                                                             </div>
                                                                                                             <div class="col-6 text-right">
                                                                                                                 ${situation(atividades.sitAtividade, result)}
-                                                                                                                <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></buttom>
-                                                                                                                <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                                <buttom  `+ (atividades.anexoAtividade != '' ? `onclick="modalAnexo('${atividades.anexoAtividade}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000; cursor: pointer;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `><i class="fa-regular fa-images" class="bg-success"></i></buttom>
+                                                                                                                <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i data-tooltip="EDITAR ATIVIDADE" class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
@@ -1359,7 +1359,7 @@ function retDashboard() {
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
                                                                                                         <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i data-tooltip="EDITAR ETAPA" class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             `);
@@ -1375,8 +1375,8 @@ function retDashboard() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(atividades.sitAtividade, result)}
-                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></buttom>
-                                                                                                            <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                            <buttom `+ (atividades.anexoAtividade != '' ? `onclick="modalAnexo('${atividades.anexoAtividade}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000; cursor: pointer;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `><i class="fa-regular fa-images" class="bg-success"></i></buttom>
+                                                                                                            <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i data-tooltip="EDITAR ATIVIDADE" class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -1532,7 +1532,7 @@ function retTarefas() {
                                                                                                     </div>
                                                                                                     <div class="col-6 text-right">
                                                                                                         ${situation(tarefas.situacao)}
-                                                                                                        <buttom><i class="fa-regular fa-images"  `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"`) + `  class="bg-success"></i></buttom>
+                                                                                                        <buttom><i class="fa-regular fa-images"  `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `  class="bg-success"></i></buttom>
                                                                                                         <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
@@ -1587,7 +1587,7 @@ function retTarefas() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(tarefas.situacao)}
-                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
+                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
                                                                                                         <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                
@@ -1642,7 +1642,7 @@ function retTarefas() {
                                                                                                             </div>
                                                                                                             <div class="col-6 text-right">
                                                                                                                 ${situation(tarefas.situacao)}
-                                                                                                                <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
+                                                                                                                <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" style="color: #000;" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
                                                                                                                 <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA"  style="color: #ea3434;"></i></a>
                                                                                                             </div>
                                                                                                         </div>
@@ -1693,7 +1693,7 @@ function retTarefas() {
                                                                                                         </div>
                                                                                                         <div class="col-6 text-right">
                                                                                                             ${situation(tarefas.situacao)}
-                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
+                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
                                                                                                             <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'<i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                         </div>
                                                                                                     </div>

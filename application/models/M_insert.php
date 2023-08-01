@@ -343,7 +343,7 @@ class m_insert extends CI_Model
                         unset($dados['anexo']);
                     } else {
                         if (file_exists('assets/uploads/' . trim($anexoexiste[0]->anexo))) {
-                            if (!unlink('assets/uploads/' . trim($anexoexiste[0]->anexo))) { // APAGA ANEXO ANTIGO E SUBSTUI PELO NOVO
+                            if (!unlink('assets/uploads/' . trim($anexoexiste[0]->anexo))) { // APAGA ANEXO ANTIGO SE UM NOVO ESTIVER SENDO CADASTRADO
                                 $this->db->trans_rollback();
                                 $return = array(
                                     'code' => 0,

@@ -7,6 +7,7 @@
     }
 
     [data-tooltip]:after {
+        font-family: 'Font Awesome 6 Free';
         display: none;
         position: absolute;
         top: -20px;
