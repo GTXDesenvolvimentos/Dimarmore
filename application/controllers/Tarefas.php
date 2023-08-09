@@ -31,6 +31,12 @@ class Tarefas extends MY_Controller
     {
         $this->load->model('M_retorno');
         $retorno = $this->M_retorno->retTarefas();
+
+        // echo '<pre>';
+        // print_r($retorno);
+        // echo '</pre>';
+        // exit;
+
         echo json_encode($retorno);
     }
 
@@ -87,7 +93,7 @@ class Tarefas extends MY_Controller
             if (json_decode($this->input->post('flagEditCabec'))) { // EDIÇÃO DE CABEÇALHO
                 $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required');
             } else { // CADASTRO TAREFA OU CABEÇALHO
-                if($this->input->post('txtIdCabec') != ''){ // CADASTRO TAREFA
+                if ($this->input->post('txtIdCabec') != '') { // CADASTRO TAREFA
                     $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required|is_unique[tbl_user_tarefas.nome_tarefa]');
                 } else { // CADASTRO CABEÇALHO
                     $this->form_validation->set_rules('txtNomeTarefa', 'Nome da tarefa', 'required|is_unique[tbl_cabec_tarefas.cabec_titulo]');

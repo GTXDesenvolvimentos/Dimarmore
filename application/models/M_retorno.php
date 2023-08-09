@@ -292,20 +292,50 @@ class M_retorno extends CI_Model
     ////////////////////////////////////////
     public function retTarefas()
     {
-        // $this->db->select('id_cabec, cabec_titulo, situacao');
-        $this->db->where('status !=', 'D');
-        $this->db->where("situacao !=", 'R');
-        $cabec_tarefas = $this->db->get('tbl_cabec_tarefas');
-        $cabec_tarefas = $cabec_tarefas->result();
+        // USUÁRIO(2) OU ADM(1)
+        if ($this->session->userdata('nivel') == 2) { // USUÁRIO
 
-        foreach ($cabec_tarefas as $cabec) {
-
-            $this->db->where('id_cabec =', $cabec->id_cabec);
             $this->db->where('status !=', 'D');
             $this->db->where("situacao !=", 'R');
-            $this->db->order_by('id_tarefa');
-            $tarefas = $this->db->get('tbl_user_tarefas');
-            $cabec->tarefas = $tarefas->result();
+            $this->db->select('id_cabec');
+            $this->db->where('responsavel', $this->session->userdata('id_users'));
+            $cabec_tarefas = $this->db->get('tbl_user_tarefas');
+            $cabec_tarefas = $cabec_tarefas->result_array();
+
+            // echo '<pre>';
+            // print_r($cabec_tarefas);
+            // echo '</pre>';
+            // exit;
+
+            // USAR CABECS PARA BUSCAR TODOS OS CABEÇALHOS RELACIONADOS OU QUE ELE POSSUA DIREITO
+            $cabecs = implode(',', $cabec_tarefas);
+
+            foreach ($cabec_tarefas as $valor) {
+                $this->db->where('id_cabec =', $valor->id_cabec);
+                $this->db->where('status !=', 'D');
+                $this->db->where("situacao !=", 'R');
+                $this->db->order_by('id_tarefa');
+                $tarefas = $this->db->get('tbl_user_tarefas');
+                $valor->tarefas = $tarefas->result();
+            }
+        } else if ($this->session->userdata('nivel') == 1) { // ADM
+
+            $this->db->where('status !=', 'D');
+            $this->db->where("situacao !=", 'R');
+            $cabec_tarefas = $this->db->get('tbl_cabec_tarefas');
+            $cabec_tarefas = $cabec_tarefas->result();
+
+            foreach ($cabec_tarefas as $cabec) {
+
+                $this->db->where('id_cabec =', $cabec->id_cabec);
+                $this->db->where('status !=', 'D');
+                $this->db->where("situacao !=", 'R');
+                $this->db->order_by('id_tarefa');
+                $tarefas = $this->db->get('tbl_user_tarefas');
+                $cabec->tarefas = $tarefas->result();
+            }
+        } else {
+            // NÍVEL DE ACESSO AINDA NÃO CADASTRADO
         }
 
         return $cabec_tarefas;
