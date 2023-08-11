@@ -302,13 +302,24 @@ class M_retorno extends CI_Model
             $cabec_tarefas = $this->db->get('tbl_user_tarefas');
             $cabec_tarefas = $cabec_tarefas->result_array();
 
+            // USAR CABECS PARA BUSCAR TODOS OS CABEÇALHOS RELACIONADOS OU QUE ELE POSSUA DIREITO
+            $cabecs = array_column($cabec_tarefas, 'id_cabec');
+
+            // echo '<pre>';
+            // print_r($cabecs);
+            // echo '</pre>';
+            // exit;
+
+            $this->db->where('status !=', 'D');
+            $this->db->where("situacao !=", 'R');
+            $this->db->where_in("id_cabec",  $cabecs);
+            $cabec_tarefas = $this->db->get('tbl_cabec_tarefas');
+            $cabec_tarefas = $cabec_tarefas->result();
+
             // echo '<pre>';
             // print_r($cabec_tarefas);
             // echo '</pre>';
             // exit;
-
-            // USAR CABECS PARA BUSCAR TODOS OS CABEÇALHOS RELACIONADOS OU QUE ELE POSSUA DIREITO
-            $cabecs = implode(',', $cabec_tarefas);
 
             foreach ($cabec_tarefas as $valor) {
                 $this->db->where('id_cabec =', $valor->id_cabec);
@@ -340,12 +351,6 @@ class M_retorno extends CI_Model
 
         return $cabec_tarefas;
     }
-
-
-
-
-
-
 
     ////////////////////////////////////////
     // RETORNO DE CODIGO DE IMAGEM        //

@@ -1505,7 +1505,7 @@ function retTarefas() {
                                                                                         `);
 
             // DADOS = INFO DO CABEÇALHO 
-            // DADOS.TAREFAS = INFO TAREFAS  
+            // DADOS.TAREFAS = INFO TAREFAS   
             $.each((result), function (idx, dados) {
                 if (dados.situacao == 'A') {
                     html += (`                                                      
@@ -1532,8 +1532,8 @@ function retTarefas() {
                                                                                                     </div>
                                                                                                     <div class="col-6 text-right">
                                                                                                         ${situation(tarefas.situacao)}
-                                                                                                        <buttom><i class="fa-regular fa-images"  `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `  class="bg-success"></i></buttom>
-                                                                                                        <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
+                                                                                                        <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
+                                                                                                        <a onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -1841,7 +1841,20 @@ function altCabec(value, tipo) {
         <option value="C">Concluída</option>
         <option value="R">Revisada</option>`).selectpicker('refresh');
 
+        if (value.responsavel != user.id) {
+            $('#btnCadTarefa').attr('disabled', true)
+        } else {
+            $('#btnCadTarefa').attr('disabled', false)
+        }
+
     } else {
+
+        if (value.responsavel != user.id) {
+            $('#btnCadTarefa').attr('disabled', true)
+        } else {
+            $('#btnCadTarefa').attr('disabled', false)
+        }
+
 
         $('#slTarefaStatus').html('').append(`<option value="A">Aguardando</option>
         <option value="P">Pendente</option>
@@ -1895,6 +1908,13 @@ function cadTarefaDash(value, tipo) {
     }
 
     if (tipo == 'tarefa') {
+
+        if (user.nivel == 1) {
+            $('#btnCadTarefa').attr('disabled', false);
+        } else {
+            $('#btnCadTarefa').attr('disabled', true);
+        }
+
         $('#slTarefaStatus').html('').append(`<option value="A">Aguardando</option>
         <option value="P">Pendente</option>
         <option value="I">Iniciada</option> 
@@ -1966,7 +1986,7 @@ function altProjeto(value) {
     $('#txtNomeProjeto ').val(value.nomeProjeto);
     $('#txtDescProjeto').val(value.descrPropjeto);
     $('#txtDataFimProjeto').val(value.dtEntregaProjetoE);
-    $('#slRespProjeto').selectpicker('val', value.idResponsavel); 
+    $('#slRespProjeto').selectpicker('val', value.idResponsavel);
     $('#slDepProjeto').selectpicker('val', value.id_departamento);
     $('#ModalProjeto').modal('show');
 }

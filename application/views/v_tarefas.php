@@ -1,7 +1,8 @@
 <style>
-    [data-tooltip] , [tooltip] {
+    [data-tooltip],
+    [tooltip] {
         position: relative;
-       
+
         z-index: 5;
 
     }
@@ -35,26 +36,35 @@
         z-index: 5;
     }
 
-    [data-tooltip]:hover:after, [tooltip]:hover:after {
+    [data-tooltip]:hover:after,
+    [tooltip]:hover:after {
         display: block;
         z-index: 5;
     }
 
-    a, i{
-        cursor:pointer;
+    a,
+    i {
+        cursor: pointer;
     }
 
-    .fundo{
+    .fundo {
         background: #33414e;
         border: #33414e;
     }
 
-    body, html {
+    body,
+    html {
         background: #33414e;
         overflow-x: hidden;
+    }
+
+    [disabled] {
+        cursor: not-allowed;
     }
 </style>
 
 <div id="viewQuadroTarefas"></div>
 
-
+<script>
+    user = JSON.parse(`<?= json_encode(['nome' => $this->session->userdata('nome'), 'nivel' => $this->session->userdata('nivel'), 'id' => $this->session->userdata('id_users')]) ?>`)
+</script>
