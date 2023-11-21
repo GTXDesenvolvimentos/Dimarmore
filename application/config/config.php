@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 // URL oficial
 //https://gtxsoftware.com.br/projetos/dimarmore/ 
-$config['base_url'] = 'https://gtxsoftware.com.br/projetos/dimarmore';
+$config['base_url'] = 'http://localhost/dimarmore/';
 /*
 |--------------------------------------------------------------------------
 | Index File
