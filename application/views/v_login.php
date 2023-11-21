@@ -7,7 +7,7 @@
                         <div class="col-lg-12">
                             <div class="px-3 py-5">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4"> <img src="<?= base_url('assets/img/LogoPqn.jpg') ?>" alt="" width="205"></h1>
+                                    <h1 class="h4 text-gray-900 mb-4"> <img src="<?= base_url('assets/img/logo1.png') ?>" alt="" width="205"></h1>
                                 </div>
                                 <hr>
                                 <form method="POST" action="" id="formLogin">

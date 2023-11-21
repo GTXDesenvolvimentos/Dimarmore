@@ -40,7 +40,7 @@ class Etapas extends MY_Controller
         $anexo = null;
         $files = $_FILES['anexoEtapa'];
         if ($_FILES['anexoEtapa']['tmp_name'] !== '') {
-            $anexo = md5($files['name']) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
+            $anexo = md5($files['name'] . date('dmYHis')) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);
             $configuracao = array(
                 "upload_path"   => "./assets/uploads/",
                 'allowed_types' => 'jpg|png|gif|pdf|jpeg',

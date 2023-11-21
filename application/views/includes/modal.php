@@ -29,7 +29,7 @@
 </div>
 
 <!-- MODAL PROJETOS -->
-<div class="modal" id="ModalProjeto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal" id="ModalProjeto" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" id="formProjetos" enctype="multipart/form-data">
@@ -164,21 +164,21 @@
                 <div class="modal-body p-2 row">
                     <input type="number" name="txtIdAtividade" id="txtIdAtividade" class="form-control d-none">
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-12" id="ativDepto">
                         <label class="m-0">Departamento:</label>
                         <select id="slAtivDepto" name="slAtivDepto" class="selectpicker form-control" data-style="btn-success" onchange="selectProjetos(this.value)">
                             <option value="">Departamento</option>
                         </select>
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-12" id="ativProjeto">
                         <label class="m-0">Projetos:</label>
                         <select id="slAtivProjeto" name="slAtivProjeto" class="selectpicker form-control" data-style="btn-success" onchange="selectEtapas (this.value)">
                             <option value="">Projeto</option>
                         </select>
                     </div>
 
-                    <div class="form-group col-12">
+                    <div class="form-group col-12" id="ativEtapa">
                         <label class="m-0">Etapas:</label>
                         <select id="slAtivEtapas" name="slAtivEtapas" class="selectpicker form-control" data-style="btn-success">
                             <option value="">Etapa</option>
@@ -230,7 +230,6 @@
             </form>
         </div>
     </div>
-
 </div>
 
 
@@ -294,7 +293,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Atividade</h4>
+                <h4 id="anexo_titulo" class="modal-title">Atividade</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body p-2">
@@ -385,9 +384,164 @@
 </div>
 
 
-<!-- status
-: 
-""
-status_mov
-: 
-"A" -->
+<!-- MODAL CADASTRO DE TAREFAS -->
+<div class="modal fade" id="ModalTarefas" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formTarefa" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tarefa</h4>
+                    <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
+                </div>
+                <div class="modal-body p-2 row">
+                    <input type="number" name="txtIdTarefa" id="txtIdTarefa" class="form-control d-none">
+                    <input type="number" name="txtIdCabec" id="txtIdCabec" class="form-control d-none">
+
+                    <!-- <div class="form-group col-12" id="ativDepto">
+                        <label class="m-0">Departamento:</label>
+                        <select id="slAtivDepto" name="slAtivDepto" class="selectpicker form-control" data-style="btn-success" onchange="selectProjetos(this.value)">
+                            <option value="">Departamento</option>
+                        </select>
+                    </div> -->
+
+                    <!-- <div class="form-group col-12" id="ativProjeto">
+                        <label class="m-0">Projetos:</label>
+                        <select id="slAtivProjeto" name="slAtivProjeto" class="selectpicker form-control" data-style="btn-success" onchange="selectEtapas (this.value)">
+                            <option value="">Projeto</option>
+                        </select>
+                    </div> -->
+
+                    <!-- <div class="form-group col-12" id="ativEtapa">
+                        <label class="m-0">Etapas:</label>
+                        <select id="slAtivEtapas" name="slAtivEtapas" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Etapa</option>
+                        </select>
+                    </div> -->
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Tarefa:</label>
+                        <input type="text" class="form-control" name="txtNomeTarefa" id="txtNomeTarefa" placeholder="Nome da tarefa">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Descrição:</label>
+                        <textarea type="text" class="form-control" name="txtDescTarefa" id="txtDescTarefa" placeholder="Descrição da tarefa"></textarea>
+                    </div>
+                    <div class="form-group col-12">
+                        <select id="slRespTarefa" name="slRespTarefa" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Responsável</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label class="m-0">Situação:</label>
+                        <select id="slTarefaStatus" name="slTarefaStatus" class="selectpicker form-control" data-style="btn-success">
+                            <option value="A">Aguardando</option>
+                            <option value="P">Pendente</option>
+                            <!-- <option value="I">Iniciada</option> -->
+                            <option value="E">Executando</option>
+                            <option value="C">Concluída</option>
+                            <option value="R">Revisada</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label class="m-0">Data limite da tarefa:</label>
+                        <input type="date" class="form-control" name="txtDataFimTarefa" id="txtDataFimTarefa" placeholder="Data limite para a tarefa">
+                    </div>
+
+                    <div class="form-group col-12" id="divAnexo">
+                        <label class="form-label">Anexo</label>
+                        <input class="form-control form-control-lg btn" id="anexoTarefa" name="anexoTarefa" type="file" accept=".jpg, .png, .gif, .pdf, .jpeg" />
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
+                    <button type="submit" class="btn btn-success" id="btnCadTarefa">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CADASTRO DE CABEÇALHO TAREFAS -->
+<div class="modal fade" id="ModalTarefas" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="formTarefa" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h4 class="modal-title">Tarefa</h4>
+                    <button type="button" class="close" data-dismiss="modal" onclick="clearForm();">&times;</button>
+                </div>
+                <div class="modal-body p-2 row">
+                    <input type="number" name="txtIdTarefa" id="txtIdTarefa" class="form-control d-none">
+                    <input type="number" name="txtIdCabec" id="txtIdCabec" class="form-control d-none">
+
+                    <!-- <div class="form-group col-12" id="ativDepto">
+                        <label class="m-0">Departamento:</label>
+                        <select id="slAtivDepto" name="slAtivDepto" class="selectpicker form-control" data-style="btn-success" onchange="selectProjetos(this.value)">
+                            <option value="">Departamento</option>
+                        </select>
+                    </div> -->
+
+                    <!-- <div class="form-group col-12" id="ativProjeto">
+                        <label class="m-0">Projetos:</label>
+                        <select id="slAtivProjeto" name="slAtivProjeto" class="selectpicker form-control" data-style="btn-success" onchange="selectEtapas (this.value)">
+                            <option value="">Projeto</option>
+                        </select>
+                    </div> -->
+
+                    <!-- <div class="form-group col-12" id="ativEtapa">
+                        <label class="m-0">Etapas:</label>
+                        <select id="slAtivEtapas" name="slAtivEtapas" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Etapa</option>
+                        </select>
+                    </div> -->
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Tarefa:</label>
+                        <input type="text" class="form-control" name="txtNomeTarefa" id="txtNomeTarefa" placeholder="Nome da tarefa">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="m-0">Descrição:</label>
+                        <textarea type="text" class="form-control" name="txtDescTarefa" id="txtDescTarefa" placeholder="Descrição da tarefa"></textarea>
+                    </div>
+                    <div class="form-group col-12">
+                        <select id="slRespTarefa" name="slRespTarefa" class="selectpicker form-control" data-style="btn-success">
+                            <option value="">Responsável</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label class="m-0">Situação:</label>
+                        <select id="slTarefaStatus" name="slTarefaStatus" class="selectpicker form-control" data-style="btn-success">
+                            <option value="A">Aguardando</option>
+                            <option value="P">Pendente</option>
+                            <option value="I">Iniciada</option>
+                            <option value="E">Executando</option>
+                            <option value="C">Concluída</option>
+                            <option value="R">Revisada</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-6">
+                        <label class="m-0">Data limite da tarefa:</label>
+                        <input type="date" class="form-control" name="txtDataFimTarefa" id="txtDataFimTarefa" placeholder="Data limite para a tarefa">
+                    </div>
+
+                    <div class="form-group col-12">
+                        <label class="form-label">Anexo</label>
+                        <input class="form-control form-control-lg btn" id="anexoTarefa" name="anexoTarefa" type="file" />
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearForm();">Sair</button>
+                    <button type="submit" class="btn btn-success" id="btnCadTarefa">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -6,13 +6,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<?=base_url()?>">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item"><a class="nav-link btn btn-outline-success" href="<?=base_url()?>">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link btn btn-outline-success" href="<?=base_url('dash')?>">Dashboard</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('deptos')?>">Departamentos</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('projetos')?>">Projetos</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('etapas')?>">Etapas</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('atividades')?>">Atividades</a></li>
+            <li class="nav-item active"><a class="nav-link" href="<?=base_url('tarefas')?>">Tarefas</a></li>
             <li class="nav-item active"><a class="nav-link" href="<?=base_url('usuarios')?>">Usuários</a></li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -22,7 +23,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="<?=base_url('configuracoes')?>">Configurações</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="<?=base_url('usuarios')?>">Pefil de usuário</a>
+                        <a class="dropdown-item" href="<?=base_url('usuarios')?>">Perfil de usuário</a>
                     </div>
                 </li>
             </ul>

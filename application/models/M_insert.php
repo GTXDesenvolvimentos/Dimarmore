@@ -249,7 +249,6 @@ class M_insert extends CI_Model
         $dados['seq'] = $seq->row()->sequencia + 1;
 
         $this->db->trans_begin();
-        
         $this->db->insert('tbl_status_atividades', $dados);
 
         if ($this->db->trans_status() === FALSE) {
@@ -259,7 +258,7 @@ class M_insert extends CI_Model
                 'message' => "Erro ao gravar os dados!"
             );
             return $return;
-        } 
+        }
 
         $this->db->where('id_atividade', $dados['id_atividade']);
         $this->db->update('tbl_atividades', ['situacao' => $dados['status_mov']]);

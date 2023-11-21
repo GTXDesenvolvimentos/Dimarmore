@@ -1,6 +1,3 @@
-// SINALIZA SE É UMA EDIÇÃO DE CABEÇALHO DE TAREFA (PAINEL)
-flagEditCabec = false;
-
 // FUNÇÃO arrayColumn DO PHP PARA JAVASCRIPT
 const arrayColumn = (array, column) => {
     return array.map(item => parseInt(item[column]));
@@ -29,23 +26,13 @@ function clearForm() {
     $('#formUser').trigger('reset');
     $('#formEtapas').trigger('reset');
     $('#formAtividade').trigger('reset');
-    $('#formTarefa').trigger('reset');
     $(".selectpicker").selectpicker("refresh");
     $('#ModalDepto').modal('hide');
     $('#ModalProjeto').modal('hide');
     $('#ModalEtapas').modal('hide');
     $('#ModalAtividades ').modal('hide');
     $('#ModalUser').modal('hide');
-    $('#ModalTarefas').modal('hide');
-
-    if (typeof (flagEditCabec) != 'undefined') {
-        flagEditCabec = false;
-    }
-
-    // SE ESTIVER NA DASH DE ATIVIDADES ATUALIZA O PAINEL
-    if (myarr[myarr.length - 1] == 'dash') {
-        retDashboard();
-    }
+    retDashboard();
 }
 
 //==================================================================
@@ -55,8 +42,8 @@ function clearForm() {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#btnLogin').click(function (e) {
+$(document).ready(function() {
+    $('#btnLogin').click(function(e) {
         e.preventDefault();
         var serializeDados = $('#formLogin').serialize();
         $.ajax({
@@ -65,7 +52,7 @@ $(document).ready(function () {
             type: 'POST',
             dataType: "json",
             cache: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Logando no sistema...",
@@ -74,7 +61,7 @@ $(document).ready(function () {
                 });
             },
 
-            success: function (data) {
+            success: function(data) {
                 if (data.code == 2) {
                     swal.fire({
                         title: "Atenção!",
@@ -88,7 +75,7 @@ $(document).ready(function () {
                     window.location.href = base_url;
                 }
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
                 swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
             }
         });
@@ -101,8 +88,8 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#btnUser').click(function (e) {
+$(document).ready(function() {
+    $('#btnUser').click(function(e) {
         e.preventDefault();
         var serializeDados = $('#formUser').serialize();
         $.ajax({
@@ -111,7 +98,7 @@ $(document).ready(function () {
             type: 'POST',
             dataType: "json",
             cache: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -119,7 +106,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
 
                 console.log(data);
                 if (data.code == 2) {
@@ -144,7 +131,7 @@ $(document).ready(function () {
                     });
                 }
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
                 swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
             }
         });
@@ -159,8 +146,8 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#btnDepartamentos').click(function (e) {
+$(document).ready(function() {
+    $('#btnDepartamentos').click(function(e) {
         e.preventDefault();
         var serializeDados = $('#formDepartamentos').serialize();
         $.ajax({
@@ -169,7 +156,7 @@ $(document).ready(function () {
             type: 'POST',
             dataType: "json",
             cache: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -177,7 +164,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
 
                 console.log(data);
                 if (data.code == 2) {
@@ -202,7 +189,7 @@ $(document).ready(function () {
                     });
                 }
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
                 swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
             }
         });
@@ -217,8 +204,8 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#formProjetos').submit(function (e) {
+$(document).ready(function() {
+    $('#formProjetos').submit(function(e) {
         e.preventDefault()
         var serializeDados = $('#formProjetos').serialize()
         $.ajax({
@@ -228,7 +215,7 @@ $(document).ready(function () {
             data: new FormData(this),
             processData: false,
             contentType: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -236,7 +223,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 if (data.code == 2) {
                     swal.fire({
@@ -262,7 +249,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
 
             }
         })
@@ -276,8 +263,8 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#formEtapas').submit(function (e) {
+$(document).ready(function() {
+    $('#formEtapas').submit(function(e) {
         e.preventDefault()
         var serializeDados = $('#formEtapas').serialize()
         $.ajax({
@@ -287,7 +274,7 @@ $(document).ready(function () {
             data: new FormData(this),
             processData: false,
             contentType: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -295,7 +282,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 if (data.code == 2) {
                     swal.fire({
@@ -320,7 +307,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
 
             }
         });
@@ -333,8 +320,8 @@ $(document).ready(function () {
 // CRIADO POR MARCIO SILVA            
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
-$(document).ready(function () {
-    $('#formAtividade').submit(function (e) {
+$(document).ready(function() {
+    $('#formAtividade').submit(function(e) {
         e.preventDefault()
         var serializeDados = $('#formAtividade').serialize()
         $.ajax({
@@ -344,7 +331,7 @@ $(document).ready(function () {
             data: new FormData(this),
             processData: false,
             contentType: false,
-            beforeSend: function () {
+            beforeSend: function() {
                 swal.fire({
                     title: "Aguarde!",
                     text: "Validando os dados...",
@@ -352,7 +339,7 @@ $(document).ready(function () {
                     showConfirmButton: false
                 });
             },
-            success: function (data) {
+            success: function(data) {
                 console.log(data);
                 if (data.code == 2) {
                     swal.fire({
@@ -377,73 +364,7 @@ $(document).ready(function () {
                 }
 
             },
-            error: function (xhr, er) {
-
-            }
-        });
-    });
-});
-
-////////////////////////////////////////
-// FUNÇÃO CAD E ALTERAR TAREFA       
-// CRIADO POR ELIEL FELIX          
-// DATA: 29/07/2023                   
-////////////////////////////////////////
-$(document).ready(function () {
-    $('#formTarefa').submit(function (e) {
-        e.preventDefault()
-
-        form = new FormData(this);
-        form.append('flagEditCabec', flagEditCabec);
-
-        $.ajax({
-            url: base_url + 'tarefas/cadTarefas',
-            dataType: 'json',
-            type: 'POST',
-            data: form,
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                swal.fire({
-                    title: "Aguarde!",
-                    text: "Validando os dados...",
-                    imageUrl: base_url + "/assets/img/gifs/loader.gif",
-                    showConfirmButton: false
-                });
-            },
-            success: function (data) {
-                // console.log(data);
-                if (data.code == 2) {
-                    swal.fire({
-                        title: "Atenção!",
-                        html: data.message,
-                        icon: 'info',
-                        confirmButtonColor: '#0b475a',
-                        confirmButtonText: 'Voltar'
-                    });
-                } else if (data.code == 0) {
-                    swal.fire("Atenção!", data.message, "warning");
-                } else if (data.code == 1) {
-                    clearForm();
-
-                    Swal.fire({
-                        title: 'Sucesso!',
-                        text: data.message,
-                        icon: 'success',
-                        confirmButtonColor: '#268917',
-                        confirmButtonText: 'Sair',
-                        preConfirm: false,
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            retTarefas();
-                        }
-                    });
-                }
-
-            },
-            error: function (xhr, er) {
+            error: function(xhr, er) {
 
             }
         });
@@ -476,7 +397,7 @@ function delDepto(value) {
                 type: 'POST',
                 dataType: "json",
                 cache: false,
-                beforeSend: function () {
+                beforeSend: function() {
                     swal.fire({
                         title: "Aguarde!",
                         text: "Validando os dados...",
@@ -484,7 +405,7 @@ function delDepto(value) {
                         showConfirmButton: false
                     });
                 },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     if (data.code == 2) {
                         swal.fire({
@@ -509,7 +430,7 @@ function delDepto(value) {
                         });
                     }
                 },
-                error: function (xhr, er) {
+                error: function(xhr, er) {
                     swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
                 }
             });
@@ -543,7 +464,7 @@ function delUser(value) {
                 type: 'POST',
                 dataType: "json",
                 cache: false,
-                beforeSend: function () {
+                beforeSend: function() {
                     swal.fire({
                         title: "Aguarde!",
                         text: "Validando os dados...",
@@ -551,7 +472,7 @@ function delUser(value) {
                         showConfirmButton: false
                     });
                 },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     if (data.code == 2) {
                         swal.fire({
@@ -576,7 +497,7 @@ function delUser(value) {
                         });
                     }
                 },
-                error: function (xhr, er) {
+                error: function(xhr, er) {
                     swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
                 }
             });
@@ -610,7 +531,7 @@ function delProjeto(value) {
                 type: 'POST',
                 dataType: "json",
                 cache: false,
-                beforeSend: function () {
+                beforeSend: function() {
                     swal.fire({
                         title: "Aguarde!",
                         text: "Validando os dados...",
@@ -618,7 +539,7 @@ function delProjeto(value) {
                         showConfirmButton: false
                     });
                 },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     if (data.code == 2) {
                         swal.fire({
@@ -643,7 +564,7 @@ function delProjeto(value) {
                         });
                     }
                 },
-                error: function (xhr, er) {
+                error: function(xhr, er) {
                     swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
                 }
             });
@@ -676,7 +597,7 @@ function delEtapas(value) {
                 type: 'POST',
                 dataType: "json",
                 cache: false,
-                beforeSend: function () {
+                beforeSend: function() {
                     swal.fire({
                         title: "Aguarde!",
                         text: "Validando os dados...",
@@ -684,7 +605,7 @@ function delEtapas(value) {
                         showConfirmButton: false
                     });
                 },
-                success: function (data) {
+                success: function(data) {
                     console.log(data);
                     if (data.code == 2) {
                         swal.fire({
@@ -709,7 +630,7 @@ function delEtapas(value) {
                         });
                     }
                 },
-                error: function (xhr, er) {
+                error: function(xhr, er) {
                     swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
                 }
             });
@@ -728,10 +649,10 @@ function selectUsers() {
         type: 'POST',
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -739,15 +660,15 @@ function selectUsers() {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
-            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade, #slRespTarefa').prop('disabled', false);
-            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade, #slRespTarefa').selectpicker('refresh');
-            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade, #slRespTarefa').html('');
-            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade, #slRespTarefa').append('<option value=""> Responsável </option>');
+        success: function(result) {
+            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').prop('disabled', false);
+            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').selectpicker('refresh');
+            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').html('');
+            $('#slEtapResponsavel, #slEtapResponsavel, #slRespAtividade').append('<option value=""> Responsável </option>');
 
             var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function (idx, obj) {
-                $('#slResponsavel, #slRespProjeto, #slEtapResponsavel, #slRespAtividade, #slRespTarefa').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
+                $('#slResponsavel, #slRespProjeto, #slEtapResponsavel, #slRespAtividade').append('<option value="' + obj.id_users + '">' + obj.nome + '</option>').selectpicker('refresh');
             });
             swal.fire({
                 timer: 1,
@@ -774,10 +695,10 @@ function selectDepto() {
         type: 'POST',
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -785,13 +706,13 @@ function selectDepto() {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
+        success: function(result) {
             $('#slDepProjeto,#slAtivDepto').prop('disabled', false);
             $('#slDepProjeto,#slAtivDepto').selectpicker('refresh');
             $('#slDepProjeto,#slAtivDepto').html('');
             $('#slDepProjeto,#slAtivDepto').append('<option value="">Departamentos</option>');
             var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function (idx, obj) {
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
                 $('#slDepProjeto,#slAtivDepto').append('<option value="' + obj.id_departamento + '">' + obj.descricao + '</option>').selectpicker('refresh');
             });
             swal.fire({
@@ -818,10 +739,10 @@ function selectProjetos(value, opt) {
         data: { id_departamento: value },
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -829,13 +750,13 @@ function selectProjetos(value, opt) {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
+        success: function(result) {
             $('#slEtapProjeto, #slAtivProjeto').prop('disabled', false);
             $('#slEtapProjeto, #slAtivProjeto').selectpicker('refresh');
             $('#slEtapProjeto, #slAtivProjeto').html('');
             $('#slEtapProjeto, #slAtivProjeto').append('<option value="">Projetos</option>');
             var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function (idx, obj) {
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
                 $('#slEtapProjeto, #slAtivProjeto').append('<option value="' + obj.id_projeto + '">' + obj.nomeProjeto + '</option>').selectpicker('refresh');
             });
             swal.fire({
@@ -846,7 +767,7 @@ function selectProjetos(value, opt) {
                 showConfirmButton: false
             });
 
-            if (typeof ($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
+            if (typeof($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
                 $('#slAtivProjeto').selectpicker('val', opt.projeto)
                 selectEtapas(opt.projeto, opt.etapa);
             }
@@ -867,10 +788,10 @@ function selectEtapas(value, etapa) {
         data: { id_projeto: value },
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -878,13 +799,13 @@ function selectEtapas(value, etapa) {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
+        success: function(result) {
             $('#slAtivEtapas,#slAtivEtapas').prop('disabled', false);
             $('#slAtivEtapas,#slAtivEtapas').selectpicker('refresh');
             $('#slAtivEtapas,#slAtivEtapas').html('');
             $('#slAtivEtapas,#slAtivEtapas').append('<option value="">Etapas</option>');
             var jsonData1 = JSON.stringify(result);
-            $.each(JSON.parse(jsonData1), function (idx, obj) {
+            $.each(JSON.parse(jsonData1), function(idx, obj) {
                 $('#slAtivEtapas,#slAtivEtapas').append('<option value="' + obj.id_etapa + '">' + obj.nomeEtapa + '</option>').selectpicker('refresh');
             });
             swal.fire({
@@ -895,7 +816,7 @@ function selectEtapas(value, etapa) {
                 showConfirmButton: false
             });
 
-            if (typeof ($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
+            if (typeof($('#txtIdAtividade').val()) != 'undefined' && $('#txtIdAtividade').val() != '') {
                 $('#slAtivEtapas').selectpicker('val', etapa)
             }
         }
@@ -910,9 +831,6 @@ function viewAnexo(value) {
 }
 
 function modalAnexo(value) {
-    if (myarr[4] == 'tarefas') {
-        $('#anexo_titulo').text('Tarefa');
-    }
     $('#docAnexoView').html('<embed id="docAnexoView" src="' + base_url + '/assets/uploads/' + value + '" frameborder="0" width="100%" height="400px">');
     $('#modalAnexo').modal('show');
 }
@@ -949,32 +867,20 @@ function situacao(value) {
 //Loading the variable
 var subURL = window.location.href;
 var myarr = subURL.split("/");
-
-if (myarr[5] == 'projetos') {
+if (myarr[4] == 'projetos') {
     selectDepto();
     selectUsers();
-} else if (myarr[5] == 'etapas') {
+} else if (myarr[4] == 'etapas') {
     selectUsers();
     selectProjetos();
-} else if (myarr[5] == 'atividades') {
+} else if (myarr[4] == 'atividades') {
     selectDepto();
     selectUsers();
-} else if (myarr[5] == '') {
+} else if (myarr[4] == '') {
     retDashboard();
     selectDepto();
     selectUsers();
     selectProjetos();
-} else if (myarr[4] == 'dash') {
-    retDashboard();
-    selectDepto();
-    selectUsers();
-    selectProjetos();
-} else if (myarr[4] == 'tarefas') {
-    // retDashboard();
-    // selectDepto();
-    retTarefas();
-    selectUsers();
-    // selectProjetos();
 }
 
 function altsituacao(id_atividade) {
@@ -990,10 +896,10 @@ function altsituacao(id_atividade) {
         processData: false,
         contentType: false,
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao tentar registrar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -1001,7 +907,7 @@ function altsituacao(id_atividade) {
                 showConfirmButton: false
             });
         },
-        success: function (data) {
+        success: function(data) {
 
             $('#txtIdAtividade').val('');
 
@@ -1054,14 +960,14 @@ function buscaHistorico(id_atv) {
         type: 'post',
         dataType: 'json',
         cache: false,
-        success: function (data) {
+        success: function(data) {
             $('#tableHistorico').bootstrapTable('removeAll');
             $('#tableHistorico').bootstrapTable('append', data);
             $('#tableHistorico button').attr('disabled', true);
             swal.close();
             $('#modalHistorico').modal('show');
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Buscando histórico de Atividade...",
@@ -1069,13 +975,13 @@ function buscaHistorico(id_atv) {
                 showConfirmButton: false
             });
         },
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "info");
         }
     })
 }
 
-$('#modalAnexo').on('hidden.bs.modal', function (e) {
+$('#modalAnexo').on('hidden.bs.modal', function(e) {
     if (typeof reabre_modal != 'undefined') {
         if (reabre_modal) {
             reabre_modal--;
@@ -1084,7 +990,7 @@ $('#modalAnexo').on('hidden.bs.modal', function (e) {
     }
 })
 
-$("#tableHistorico").on("click-cell.bs.table", function (field, value, row, $el) {
+$("#tableHistorico").on("click-cell.bs.table", function(field, value, row, $el) {
     if (value == 'anexo') {
         $('#modalHistorico').modal('hide');
         reabre_modal = 1;
@@ -1095,14 +1001,14 @@ $("#tableHistorico").on("click-cell.bs.table", function (field, value, row, $el)
 function retDashboard() {
     var html = ``;
     $.ajax({
-        url: base_url + "dash/retDash",
+        url: base_url + "home/retDash",
         type: 'POST',
         dataType: "json",
         cache: false,
-        error: function () {
+        error: function() {
             swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
         },
-        beforeSend: function () {
+        beforeSend: function() {
             swal.fire({
                 title: "Aguarde!",
                 text: "Validando os dados...",
@@ -1110,7 +1016,7 @@ function retDashboard() {
                 showConfirmButton: false
             });
         },
-        success: function (result) {
+        success: function(result) {
             swal.fire({
                 timer: 100,
                 title: "Aguarde!",
@@ -1122,33 +1028,11 @@ function retDashboard() {
 
             var deptos = JSON.stringify(arrayDeptos);
             $('#viewDashboard').html('');
-            $.each(JSON.parse(deptos), function (idx, departamento) {
+            $.each(JSON.parse(deptos), function(idx, departamento) {
                 html += (`
                 <div id="accordion">
                     <div class="card my-1">
-                        <div class="card-header bg-dark">
-                            <div class="row">
-                                <div class="col-2">
-                                    <a class="card-link btn btn-dark btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">${departamento.descrDepartamento}</span></a>
-                                </div>
-                                <div class="col-10">
-                                    <div class="row">
-                                        <div class="col-3 text-center">
-                                            <a class="card-link btn btn-outline-dark btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Aguardando</span></a>
-                                        </div>
-                                        <div class="col-3 text-center">
-                                            <a class="card-link btn btn-warning btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Pendente</span></a>
-                                        </div>
-                                        <div class="col-3 text-center">
-                                            <a class="card-link btn btn-info btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Executando</span></a>
-                                        </div>
-                                        <div class="col-3 text-center">
-                                            <a class="card-link btn btn-success btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Concluído</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="card-header bg-dark"><a class="card-link" data-toggle="collapse" href="#collapseOne"><span class="text-white">${departamento.descrDepartamento}</span></a></div>
                             <div id="collapseOne" class="collapse show" data-parent="#accordion">
                                 <div class="card-body p-1">
                                     <div class="row mt-1">
@@ -1158,7 +1042,7 @@ function retDashboard() {
                                                     <tbody>`);
                 var arrayProjetos = dashboardProjetos(departamento.descrDepartamento, result);
                 var projeto = JSON.stringify(arrayProjetos);
-                $.each(JSON.parse(projeto), function (idx, Projetos) {
+                $.each(JSON.parse(projeto), function(idx, Projetos) {
                     html += (`                          <tr>
                                                             <td class = "col-2" >
                                                                 <div class="row">
@@ -1166,56 +1050,63 @@ function retDashboard() {
                                                                         <strong>Projeto: </strong><br><span>${Projetos.nomeProjeto}</span>
                                                                     </div>
                                                                     <div class="col-3">
-                                                                        <div onclick='altProjeto(` + JSON.stringify(Projetos) + `);'<i class="fa-solid fa-list fa-2x" style="color: #337566; cursor:pointer" data-tooltip="EDITAR PROJETO"></i></div>
+                                                                        <div onclick='altProjeto(` + JSON.stringify(Projetos) + `);'<i class="fa-solid fa-list fa-2x" style="color: #337566;"></i></div>
                                                                     </div>
-                                                                </div>
-                                                                <hr class="py-0 my-0 shadow">    
-                                                                
-                                                                <div class="row">
-                                                                    <div class="col-12 text-center pt-2">
-                                                                        <button class="btn btn-outline-primary btn-sm" onclick="modalAnexo('${Projetos.anexoProjeto}');"><i class="fa-regular fa-images"></i></button>
-                                                                        <button class="btn btn-outline-danger btn-sm" onclick='altEtapasDash(` + JSON.stringify(Projetos) + `);'>Cadastrar Etapas</button>
-                                                                    </div>
-                                                                </div>
-                                                                </td> 
+                                                                </div><hr class="py-0 my-0 shadow">    
+                                                                <strong>Descrição: </strong><br><span>${Projetos.descrPropjeto}</span><hr class="py-0 my-0 shadow">
+                                                                <strong>Responsável: </strong><br><span>${Projetos.descrPropjeto}</span><hr class="py-0 my-0 shadow">
+                                                                <strong>Data estamada de entrega: </strong><br><span>${Projetos.dtEntregaProjeto}</span><hr class="py-0 my-0 shadow">
+                                                                <center><strong class="">Anexo do projeto: </strong><br><buttom class="btn btn-outline-primary btn-sm" onclick="modalAnexo('${Projetos.anexoProjeto}');"><i class="fa-regular fa-images"></i></button></center>
+                                                            </td> 
                                                             <td class = "col-10">
+                                                                <div class="row px-2">
+                                                                    <div class="col-9">
+                                                                        <strong> Etapas:<br></strong> 
+                                                                    </div>
+                                                                    <div class="col-3 text-right">
+                                                                        <button class="btn btn-outline-danger btn-sm py-0 px-2 m-0" onclick='altEtapasDash(` + JSON.stringify(Projetos) + `);'>Cadastrar Etapas</button>
+                                                                    </div>
+                                                                </div>
                                                                 <div class="album bg-light">
                                                                     <div class="container-fluid p-1">
                                                                         <div class="row">
-                                                                            <div class="col-md-3 pl-2 pr-0">
-                                                                               
-                                                                                       
+                                                                            <div class="col-md-3 p-2">
+                                                                                <div class="card mb-4 shadow-sm">
+                                                                                        <div class="card-header bg-dark text-white  text-center" scope="col">Aguardando</div>
+                                                                                        <div class="card-body p-1">
                                                                                         `);
                     var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
                     var Etapas = JSON.stringify(arrayEtapas);
-                    $.each(JSON.parse(Etapas), function (idx, etapas) {
+                    $.each(JSON.parse(Etapas), function(idx, etapas) {
                         if (etapas.sitEtapa == 'A') {
                             html += (`                                                      
-                                                                                        <div class="alert bg-dark p-1 mb-1">
+                                                                                        <div class="alert bg-dark p-1  my-1" role="alert">
                                                                                             <div class="row px-2">
                                                                                                 <div class="col-8 pt-1">
                                                                                                     <h6 class="alert-heading p-0  m-0 text-white" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
-                                                                                                </div>
+                                                                                                                                                                                                    </div>
                                                                                                 <div class="col-4 text-right">
                                                                                                     <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'><i data-tooltip="EDITAR ETAPA" class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                 </div>
                                                                                             </div>
                                                                                                 `);
                             var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
                             var Atividades = JSON.stringify(arrayAtividade);
-                            $.each(JSON.parse(Atividades), function (idx, atividades) {
+                            $.each(JSON.parse(Atividades), function(idx, atividades) {
                                 if (atividades.nomeAtividade != null) {
                                     html += (`                                                 
                                                                                             <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                 <div class="row">
-                                                                                                    <div class="col-6">
+                                                                                                    <div class="col-10">
                                                                                                         <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${atividades.nomeAtividade}</h6>
-                                                                                                    </div>
-                                                                                                    <div class="col-6 text-right">
+                                                                                                        <p style="font-size: 10px;" class="p-0 m-0">${atividades.descrAtividade}</p>
                                                                                                         ${situation(atividades.sitAtividade, result)}
-                                                                                                        <buttom  `+ (atividades.anexoAtividade != '' ? `onclick="modalAnexo('${atividades.anexoAtividade}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000; cursor: pointer;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `><i class="fa-regular fa-images" class="bg-success"></i></buttom>
-                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i data-tooltip="EDITAR ATIVIDADE" class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                        
+                                                                                                    </div>
+                                                                                                    <div class="col-2 text-right">
+                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                        <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
@@ -1229,50 +1120,50 @@ function retDashboard() {
                         }
                     });
                     html += (` 
-                                                                                       
+                                                                                        </div>
                                                                                     </div>
-                                                                               
+                                                                                </div>
 
-                                                                                <div class="col-md-3 py-0 px-1">
-                                                                                    
-                                                                                       
+                                                                                <div class="col-md-3 p-2">
+                                                                                    <div class="card mb-4 shadow-sm">
+                                                                                        <div class="card-header bg-warning text-dark  text-center" scope="col">Pendente</div>
+                                                                                        <div class="card-body p-1">
                     `);
                     var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
                     var Etapas = JSON.stringify(arrayEtapas);
-                    $.each(JSON.parse(Etapas), function (idx, etapas) {
+                    $.each(JSON.parse(Etapas), function(idx, etapas) {
 
                         if (etapas.sitEtapa == 'P') {
 
                             html += (` 
-                                                                                            <div class="alert bg-warning p-1 mb-1">
+                                                                                            <div class="alert bg-warning p-1  my-1 shadow" role="alert">
                                                                                             <div class="row px-2">
                                                                                                 <div class="col-8 pt-1">
                                                                                                     <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
                                                                                                 </div>
                                                                                                 <div class="col-4 text-right">
                                                                                                     <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i data-tooltip="EDITAR ETAPA" class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                    <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     
                                                                                                 </div>
                                                                                             </div>
                                                                                                 `);
                             var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
                             var Atividades = JSON.stringify(arrayAtividade);
-                            $.each(JSON.parse(Atividades), function (idx, atividades) {
+                            $.each(JSON.parse(Atividades), function(idx, atividades) {
                                 if (atividades.nomeAtividade != null) {
                                     html += (`                                                 
                                                                                                 <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                     <div class="row">
-                                                                                                   
-                                                                                                        <div class="col-6">
+                                                                                                        <div class="col-10">
                                                                                                             <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${atividades.nomeAtividade}</h6>
-                                                                                                        </div>
-                                                                                                        <div class="col-6 text-right">
+                                                                                                            <p style="font-size: 10px;" class="p-0 m-0">${atividades.descrAtividade}</p>
                                                                                                             ${situation(atividades.sitAtividade, result)}
-                                                                                                            <buttom  `+ (atividades.anexoAtividade != '' ? `onclick="modalAnexo('${atividades.anexoAtividade}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000; cursor: pointer;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `><i class="fa-regular fa-images" class="bg-success"></i></buttom>
-                                                                                                        <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i data-tooltip="EDITAR ATIVIDADE" class="fa-solid fa-list" style="color: #ea3434;"></i></a>
                                                                                                         </div>
-                                                                                               
+                                                                                                        <div class="col-2 text-right">
+                                                                                                            <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
+                                                                                                        </div>
                                                                                                     </div>
                                                                                                 </div>
                             `);
@@ -1285,28 +1176,30 @@ function retDashboard() {
                         }
                     });
                     html += (` 
-                                                                                     
+                                                                                        </div>
                                                                                     </div>
-                                                                               
+                                                                                </div>
 
-                                                                                <div class="col-md-3 py-0 px-0">
-                                                                                  
+                                                                                <div class="col-md-3 p-2">
+                                                                                    <div class="card mb-4 shadow-sm">
+                                                                                        <div class="card-header bg-info  text-dark  text-center" scope="col">Executando</div>
+                                                                                        <div class="card-body p-1">
                                                                                         `);
                     var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
                     var Etapas = JSON.stringify(arrayEtapas);
-                    $.each(JSON.parse(Etapas), function (idx, etapas) {
+                    $.each(JSON.parse(Etapas), function(idx, etapas) {
                         if (etapas.sitEtapa == 'E') {
 
 
                             html += (` 
-                                                                                            <div class="alert bg-info p-1 mb-1">
+                                                                                            <div class="alert bg-info p-1  my-1" role="alert">
                                                                                                 <div class="row px-2">
                                                                                                     <div class="col-8 pt-1">
                                                                                                         <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
                                                                                                         <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i data-tooltip="EDITAR ETAPA"class="fa-solid fa-list" style="color: #000;"></i></a>
+                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #000;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                            
@@ -1314,18 +1207,19 @@ function retDashboard() {
                                                                                             `);
                             var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
                             var Atividades = JSON.stringify(arrayAtividade);
-                            $.each(JSON.parse(Atividades), function (idx, atividades) {
+                            $.each(JSON.parse(Atividades), function(idx, atividades) {
                                 if (atividades.nomeAtividade != null) {
                                     html += (`                                                 
                                                                                                     <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                         <div class="row">
-                                                                                                            <div class="col-6">
+                                                                                                            <div class="col-10">
                                                                                                                 <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${atividades.nomeAtividade}</h6>
-                                                                                                            </div>
-                                                                                                            <div class="col-6 text-right">
+                                                                                                                <p style="font-size: 10px;" class="p-0 m-0">${atividades.descrAtividade}</p>
                                                                                                                 ${situation(atividades.sitAtividade, result)}
-                                                                                                                <buttom  `+ (atividades.anexoAtividade != '' ? `onclick="modalAnexo('${atividades.anexoAtividade}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000; cursor: pointer;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `><i class="fa-regular fa-images" class="bg-success"></i></buttom>
-                                                                                                                <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i data-tooltip="EDITAR ATIVIDADE" class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                            </div>
+                                                                                                            <div class="col-2 text-right">
+                                                                                                                <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                                <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
                                                                                                             </div>
                                                                                                         </div>
                                                                                                     </div>
@@ -1340,43 +1234,45 @@ function retDashboard() {
                     });
                     html += (` 
                                                                                         </div>
-                                                                                   
-                                                                              
+                                                                                    </div>
+                                                                                </div>
 
-                                                                                <div class="col-md-3 py-0 px-1">
-                                                                                   
-                                                                                      
+                                                                                <div class="col-md-3 p-2">
+                                                                                    <div class="card mb-4 shadow-sm">
+                                                                                        <div class="card-header bg-success  text-dark  text-center" scope="col">Concluido</div>
+                                                                                        <div class="card-body p-1">
                                                                                         `);
                     var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
                     var Etapas = JSON.stringify(arrayEtapas);
-                    $.each(JSON.parse(Etapas), function (idx, etapas) {
+                    $.each(JSON.parse(Etapas), function(idx, etapas) {
                         if (etapas.sitEtapa == 'C') {
                             html += (` 
-                                                                                            <div class="alert bg-success p-1 mb-1 mr-1">
+                                                                                            <div class="alert bg-success p-1  my-1" role="alert">
                                                                                                 <div class="row px-2">
                                                                                                     <div class="col-8 pt-1">
                                                                                                         <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${etapas.nomeEtapa}</h6>
                                                                                                     </div>
                                                                                                     <div class="col-4 text-right">
                                                                                                         <a href="#"  onclick='cadAtividadeDash(` + JSON.stringify(etapas) + `);'><i data-tooltip="Adicionar atividade" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i data-tooltip="EDITAR ETAPA" class="fa-solid fa-list" style="color: #FFF;"></i></a>
+                                                                                                        <a href="#" onclick='altEtapas(` + JSON.stringify(etapas) + `);'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             `);
                             var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
                             var Atividades = JSON.stringify(arrayAtividade);
-                            $.each(JSON.parse(Atividades), function (idx, atividades) {
+                            $.each(JSON.parse(Atividades), function(idx, atividades) {
                                 if (atividades.nomeAtividade != null) {
                                     html += (`                                                 
                                                                                                 <div class="alert p-1 bg-light  my-1" role="alert">
                                                                                                     <div class="row">
-                                                                                                        <div class="col-6">
+                                                                                                        <div class="col-10">
                                                                                                             <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${atividades.nomeAtividade}</h6>
-                                                                                                        </div>
-                                                                                                        <div class="col-6 text-right">
+                                                                                                            <p style="font-size: 10px;" class="p-0 m-0">${atividades.descrAtividade}</p>
                                                                                                             ${situation(atividades.sitAtividade, result)}
-                                                                                                            <buttom `+ (atividades.anexoAtividade != '' ? `onclick="modalAnexo('${atividades.anexoAtividade}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000; cursor: pointer;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `><i class="fa-regular fa-images" class="bg-success"></i></buttom>
-                                                                                                            <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i data-tooltip="EDITAR ATIVIDADE" class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                        </div>
+                                                                                                        <div class="col-2 text-right">
+                                                                                                            <a href="#" onclick='altAtividade(` + JSON.stringify(atividades) + `);'<i class="fa-solid fa-list" style="color: #ea3434;"></i></a>
+                                                                                                            <buttom  onclick="modalAnexo('${atividades.anexoAtividade}');"><i class="fa-regular fa-images" class="bg-success"></i></button>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -1390,9 +1286,9 @@ function retDashboard() {
                     html += (` 
                                                                                         </div>
                                                                                     </div>
-                                                                               
+                                                                                </div>
                        
-                                                                            
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -1418,330 +1314,14 @@ function retDashboard() {
 }
 
 
-////////////////////////////////////////////////////////
-// CARREGAMENTO INICIAL DE DADOS PARA DASHBOARD TAREFAS
-// CRIADO POR ELIEL FELIX
-// DATA: 27/07/2023                   
-////////////////////////////////////////////////////////
-
-function retTarefas() {
-    var html = ``;
-    $.ajax({
-        url: base_url + "tarefas/retTarefas",
-        type: 'POST',
-        dataType: "json",
-        cache: false,
-        error: function () {
-            swal.fire("Atenção!", "Ocorreu um erro ao retornar os dados!", "error");
-        },
-        beforeSend: function () {
-            swal.fire({
-                title: "Aguarde!",
-                text: "Consultando os dados...",
-                imageUrl: base_url + "/assets/img/gifs/loader.gif",
-                showConfirmButton: false
-            });
-        },
-        success: function (result) {
-            swal.fire({
-                timer: 100,
-                title: "Aguarde!",
-                text: "Consultando os dados...",
-                imageUrl: base_url + "/assets/img/gifs/loader.gif",
-                showConfirmButton: false
-            });
-            // var arrayDeptos = dashboardDeptos(result);
-
-            // var deptos = JSON.stringify(arrayDeptos);
-
-
-
-            $('#viewQuadroTarefas').html('');
-            // $.each(JSON.parse(deptos), function (idx, departamento) {
-            html += (` 
-                <div id="accordion">
-                    <div class="card my-1 fundo">
-                        <div class="card-header bg-dark border-0" style="border:none">
-                            <div class="row">
-                                
-                                <div class="col-12">
-                                
-                                    <div class="row">
-                                        <div class="text-center">
-                                             <a><i tooltip="CRIAR TAREFA" onclick="$('#divAnexo').addClass('d-none'); cadTarefaDash('', 'cabec')" class="fa-solid fa-circle-plus fa-2x pt-1" style="color: #FFF; position:absolute;"></i></a>
-                                        </div>
-                                        <div class="col text-center">
-                                            <a class="card-link btn btn-outline-dark btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Aguardando</span></a>
-                                        </div>
-                                        <div class="col text-center">
-                                            <a class="card-link btn btn-warning btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Pendente</span></a>
-                                        </div>
-                                        <div class="col text-center">
-                                            <a class="card-link btn btn-info btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Executando</span></a>
-                                        </div>
-                                        <div class="col text-center">
-                                            <a class="card-link btn btn-success btn-block" data-toggle="collapse" href="#collapseOne"><span class="text-white">Concluído</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                            <div id="collapseOne" class="collapse show" data-parent="#accordion">
-                                    <div class="row">
-                                        <div class="col-12 p-0">
-                                            <div class="col-12">
-                                                <table class = "table table-bordered">
-                                                    <tbody>`);
-            // var arrayProjetos = dashboardProjetos(departamento.descrDepartamento, result);
-            // var projeto = JSON.stringify(arrayProjetos);
-            // $.each(JSON.parse(projeto), function (idx, departamento) {
-            html += (`                          <tr>
-                                                                <div class="album bg-light">
-                                                                    <div class="container-fluid px-1">
-                                                                        <div class="row fundo">
-                                                                            <div class="col-md-3 pl-2 pr-0">
-                                                                               
-                                                                                       
-                                                                                        `);
-
-            // DADOS = INFO DO CABEÇALHO 
-            // DADOS.TAREFAS = INFO TAREFAS  
-            $.each((result), function (idx, dados) {
-                if (dados.situacao == 'A') {
-                    html += (`                                                      
-                                                                                        <div class="alert p-1 mb-1 bg-dark">
-                                                                                            <div class="row px-2">
-                                                                                                <div class="col-8 pt-1">
-                                                                                                    <h6 class="alert-heading p-0  m-0 text-white" style="font-size: 12px;">${dados.cabec_titulo}</h6>
-                                                                                                </div>
-                                                                                                <div class="col-4 text-right">
-                                                                                                    <a onclick='$("#divAnexo").removeClass("d-none"); cadTarefaDash(` + JSON.stringify(dados) + `, "tarefa");'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                    <a onclick='$("#divAnexo").addClass("d-none"); altCabec(` + JSON.stringify(dados) + `, "cabec" ); flagEditCabec = true;'><i data-tooltip="EDITAR CABEÇALHO" class="fa-solid fa-list" style="color: #FFF;"></i></a>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                                `);
-                    // var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
-                    // var Atividades = JSON.stringify(arrayAtividade);
-                    $.each(dados.tarefas, function (idx, tarefas) {
-                        if (tarefas.nome_tarefa != null) {
-                            html += (`                                                 
-                                                                                            <div class="alert p-1 bg-light  my-1" role="alert">
-                                                                                                <div class="row">
-                                                                                                    <div class="col-6">
-                                                                                                        <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${tarefas.nome_tarefa}</h6>
-                                                                                                    </div>
-                                                                                                    <div class="col-6 text-right">
-                                                                                                        ${situation(tarefas.situacao)}
-                                                                                                        <buttom><i class="fa-regular fa-images"  `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + `  class="bg-success"></i></buttom>
-                                                                                                        <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                            `);
-                        }
-
-                    });
-                    html += (` 
-                                                                                            </div>
-                            `);
-                }
-            });
-            html += (` 
-                                                                                       
-                                                                                    </div>
-                                                                               
-
-                                                                                <div class="col-md-3 py-0 px-1">
-                                                                                    
-                                                                                       
-                    `);
-
-            // REPETE FOREACH NO ARRAY DADOS PARA GERAR AS TAREFAS EM "SITUAÇÃO PENDENTE"
-            $.each(result, function (idx, dados) {
-
-                if (dados.situacao == 'P') {
-
-                    html += (` 
-                                                                                            <div class="alert bg-warning p-1 mb-1">
-                                                                                            <div class="row px-2">
-                                                                                                <div class="col-8 pt-1">
-                                                                                                    <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.cabec_titulo}</h6>
-                                                                                                </div>
-                                                                                                <div class="col-4 text-right">
-                                                                                                    <a   onclick='$("#divAnexo").removeClass("d-none"); cadTarefaDash(` + JSON.stringify(dados) + `, "tarefa");'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                    <a  data-tooltip="EDITAR CABEÇALHO" onclick='$("#divAnexo").addClass("d-none");altCabec(` + JSON.stringify(dados) + `, "cabec");  flagEditCabec = true;'<i class="fa-solid fa-list" style="color: #000;"></i></a>
-                                                                                                    
-                                                                                                </div>
-                                                                                            </div>
-                                                                                                `);
-                    // var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
-                    // var Atividades = JSON.stringify(arrayAtividade);
-                    $.each(dados.tarefas, function (idx, tarefas) {
-                        if (tarefas.nome_tarefa != null) {
-                            html += (`                                                 
-                                                                                                <div class="alert p-1 bg-light  my-1" role="alert">
-                                                                                                    <div class="row">
-                                                                                                   
-                                                                                                        <div class="col-6">
-                                                                                                            <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${tarefas.nome_tarefa}</h6>
-                                                                                                        </div>
-                                                                                                        <div class="col-6 text-right">
-                                                                                                            ${situation(tarefas.situacao)}
-                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
-                                                                                                        <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
-                                                                                                        </div>
-                                                                                               
-                                                                                                    </div>
-                                                                                                </div>
-                            `);
-                        }
-
-                    });
-                    html += (`
-                                                                                            </div>
-                                `);
-                }
-            });
-            html += (` 
-                                                                                     
-                                                                                    </div>
-                                                                               
-
-                                                                                <div class="col-md-3 py-0 px-0">
-                                                                                  
-                                                                                        `);
-            // var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
-            // var Etapas = JSON.stringify(arrayEtapas);
-            $.each(result, function (idx, dados) {
-                if (dados.situacao == 'E') {
-
-
-                    html += (` 
-                                                                                            <div class="alert bg-info p-1 mb-1">
-                                                                                                <div class="row px-2">
-                                                                                                    <div class="col-8 pt-1">
-                                                                                                        <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.cabec_titulo}</h6>
-                                                                                                    </div>
-                                                                                                    <div class="col-4 text-right">
-                                                                                                        <a   onclick='$("#divAnexo").removeClass("d-none"); cadTarefaDash(` + JSON.stringify(dados) + `, "tarefa");'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #000;"></i></a>
-                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='$("#divAnexo").addClass("d-none"); altCabec(` + JSON.stringify(dados) + `, "cabec");  flagEditCabec = true'<i class="fa-solid fa-list" style="color: #000;"></i></a>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                           
-
-                                                                                            `);
-                    // var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
-                    // var Atividades = JSON.stringify(arrayAtividade);
-                    $.each(dados.tarefas, function (idx, tarefas) {
-                        if (tarefas.nome_tarefa != null) {
-                            html += (`                                                 
-                                                                                                    <div class="alert p-1 bg-light  my-1" role="alert">
-                                                                                                        <div class="row">
-                                                                                                            <div class="col-6">
-                                                                                                                <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${tarefas.nome_tarefa}</h6>
-                                                                                                            </div>
-                                                                                                            <div class="col-6 text-right">
-                                                                                                                ${situation(tarefas.situacao)}
-                                                                                                                <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" style="color: #000;" data-tooltip="VISUALIZAR ANEXO"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
-                                                                                                                <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'><i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA"  style="color: #ea3434;"></i></a>
-                                                                                                            </div>
-                                                                                                        </div>
-                                                                                                    </div>
-                            `);
-                        }
-
-                    });
-                    html += (`
-                            </div>
-                                `);
-                }
-            });
-            html += (` 
-                                                                                        </div>
-                                                                                   
-                                                                              
-
-                                                                                <div class="col-md-3 py-0 px-1">
-                                                                                   
-                                                                                      
-                                                                                        `);
-            // var arrayEtapas = dashboardEtapas(departamento.descrDepartamento, Projetos.descrPropjeto, result);
-            // var Etapas = JSON.stringify(arrayEtapas);
-            $.each(result, function (idx, dados) {
-                if (dados.situacao == 'C') {
-                    html += (` 
-                                                                                            <div class="alert bg-success p-1 mb-1 mr-1">
-                                                                                                <div class="row px-2">
-                                                                                                    <div class="col-8 pt-1">
-                                                                                                        <h6 class="alert-heading p-0  m-0 text-dark" style="font-size: 12px;">${dados.cabec_titulo}</h6>
-                                                                                                    </div>
-                                                                                                    <div class="col-4 text-right">
-                                                                                                        <a   onclick='$("#divAnexo").removeClass("d-none"); cadTarefaDash(` + JSON.stringify(dados) + `, "tarefa");'><i data-tooltip="ADICIONAR TAREFA" class="fa-brands fa-creative-commons-nd" style="color: #FFF;"></i></a>
-                                                                                                        <a  data-tooltip="EDITAR CABEÇALHO" onclick='$("#divAnexo").addClass("d-none"); altCabec(` + JSON.stringify(dados) + `, "cabec"); flagEditCabec = true;'<i class="fa-solid fa-list" style="color: #FFF;"></i></a>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            `);
-                    // var arrayAtividade = dashboardAtividades(departamento.descrDepartamento, Projetos.descrPropjeto, etapas.id_etapa, result);
-                    // var Atividades = JSON.stringify(arrayAtividade);
-                    $.each(dados.tarefas, function (idx, tarefas) {
-                        if (tarefas.nome_tarefa != null) {
-                            html += (`                                                 
-                                                                                                <div class="alert p-1 bg-light  my-1" role="alert">
-                                                                                                    <div class="row">
-                                                                                                        <div class="col-6">
-                                                                                                            <h6 class="alert-heading p-0  m-0" style="font-size: 12px;">${tarefas.nome_tarefa}</h6>
-                                                                                                        </div>
-                                                                                                        <div class="col-6 text-right">
-                                                                                                            ${situation(tarefas.situacao)}
-                                                                                                            <buttom><i class="fa-regular fa-images" `+ (tarefas.anexo != '' ? `onclick="modalAnexo('${tarefas.anexo}');" data-tooltip="VISUALIZAR ANEXO" style="color: #000;"` : `style="cursor: not-allowed; color: #b0b0b0;" data-tooltip="SEM ANEXO"`) + ` class="bg-success"></i></buttom>
-                                                                                                            <a  onclick='$("#divAnexo").removeClass("d-none"); altCabec(` + JSON.stringify(tarefas) + `, "tarefa");'<i class="fa-solid fa-list" data-tooltip="EDITAR TAREFA" style="color: #ea3434;"></i></a>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
-                            `);
-                        }
-
-                    });
-                    html += (`    </div>                             `);
-                }
-            });
-            html += (` 
-                                                                                        </div>
-                                                                                    </div>
-                                                                               
-                       
-                                                                            
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                        </tr>
-                            `);
-            // });
-            html += (` 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                `);
-            // });
-            $('#viewQuadroTarefas').append(html);
-        }
-    });
-}
-
 
 
 function dashboardDeptos(value) {
     var deptos = [];
     var countDepto = [];
     var jsonDepto = JSON.stringify(value);
-    $.each(JSON.parse(jsonDepto), function (idx, obj) {
-        if (countDepto.indexOf(obj.descrDepartamento) > -1) { } else {
+    $.each(JSON.parse(jsonDepto), function(idx, obj) {
+        if (countDepto.indexOf(obj.descrDepartamento) > -1) {} else {
             deptos.push(obj);
             countDepto.push(obj.descrDepartamento);
         }
@@ -1756,8 +1336,8 @@ function dashboardProjetos(depto, result) {
     var projetos = [];
     var countProjeto = [];
     var jsonProjetos = JSON.stringify(result);
-    $.each(JSON.parse(jsonProjetos), function (idx, obj) {
-        if (countProjeto.indexOf(obj.descrPropjeto) > -1) { } else {
+    $.each(JSON.parse(jsonProjetos), function(idx, obj) {
+        if (countProjeto.indexOf(obj.descrPropjeto) > -1) {} else {
             if (obj.descrDepartamento == depto) {
                 countProjeto.push(obj.descrPropjeto);
                 projetos.push(obj);
@@ -1774,8 +1354,8 @@ function dashboardEtapas(depto, projetos, result) {
     var etapas = [];
     var etapa = [];
     var jsonEtapas = JSON.stringify(result);
-    $.each(JSON.parse(jsonEtapas), function (idx, obj) {
-        if (etapas.indexOf(obj.descrEtapa) > -1) { } else {
+    $.each(JSON.parse(jsonEtapas), function(idx, obj) {
+        if (etapas.indexOf(obj.descrEtapa) > -1) {} else {
             if (obj.descrDepartamento == depto) {
                 if (obj.descrPropjeto == projetos) {
                     if (obj.statusEtapa != 'D') {
@@ -1794,7 +1374,7 @@ function dashboardAtividades(depto, projetos, etapa, value) {
     var Atividades = [];
     var Ativ = [];
     var jsonAtividades = JSON.stringify(value);
-    $.each(JSON.parse(jsonAtividades), function (idx, obj) {
+    $.each(JSON.parse(jsonAtividades), function(idx, obj) {
 
         if (obj.descrDepartamento == depto) {
             if (obj.descrPropjeto == projetos) {
@@ -1814,62 +1394,12 @@ function dashboardAtividades(depto, projetos, etapa, value) {
 };
 
 
-/////////////////////////////////////////////////////////////////
-// COLOCA DADOS NO FORMULÁRIO PARA EDIÇÃO DE CABEÇALHO OU TAREFA
-// CRIADO POR ELIEL FELIX
-// DATA: 30/07/2023                   
-/////////////////////////////////////////////////////////////////
-function altCabec(value, tipo) {
-
-    // console.log(value);
-
-    $('#txtIdCabec').val(value.id_cabec);
-
-    if (typeof (value.id_tarefa) != 'undefined') {
-        $('#txtIdTarefa').val(value.id_tarefa);
-        $('#txtNomeTarefa').val(value.nome_tarefa);
-    } else {
-        $('#txtNomeTarefa').val(value.cabec_titulo);
-    }
-
-    if (tipo == 'tarefa') {
-
-        $('#slTarefaStatus').html('').append(`<option value="A">Aguardando</option>
-        <option value="P">Pendente</option>
-        <option value="I">Iniciada</option> 
-        <option value="E">Executando</option>
-        <option value="C">Concluída</option>
-        <option value="R">Revisada</option>`).selectpicker('refresh');
-
-    } else {
-
-        $('#slTarefaStatus').html('').append(`<option value="A">Aguardando</option>
-        <option value="P">Pendente</option>
-        <option value="E">Executando</option>
-        <option value="C">Concluída</option>
-        <option value="R">Revisada</option>`).selectpicker('refresh');
-
-    }
-
-    // $('#slAtivDepto').selectpicker('val', value.id_departamento); 
-
-    // selectProjetos(value.id_departamento, {
-    //     projeto: value.id_projeto,
-    //     etapa: value.id_etapa
-    // })
 
 
-    $('#txtDescTarefa').val(value.descricao);
-    $('#slRespTarefa').selectpicker('val', value.responsavel);
-    $('#slTarefaStatus').selectpicker('val', value.situacao);
-    // if (typeof (value.data_fim) == 'string') {
-    //     $('#txtDataFimTarefa').val((value.data_fim).split('/').reverse().join('-'));
-    // }
-    $('#txtDataFimTarefa').val(value.data_fim);
-    $('#ModalTarefas').modal('show');
-}
+
 
 function altAtividade(value) {
+    console.log(value);
     $('#txtIdAtividade').val(value.id_atividade);
     $('#slAtivDepto').selectpicker('val', value.id_departamento);
 
@@ -1882,35 +1412,12 @@ function altAtividade(value) {
     $('#txtDescAtividade').val(value.descrAtividade);
     $('#slRespAtividade').selectpicker('val', value.id_responsavel);
     $('#slAtivStatus').selectpicker('val', value.sitAtividade);
-    if (typeof (value.dtEntregaAtividade) == 'string') {
+    if (typeof(value.dtEntregaAtividade) == 'string') {
         $('#txtDataFimAtividade').val((value.dtEntregaAtividade).split('/').reverse().join('-'));
     }
     $('#ModalAtividades').modal('show');
 }
 
-function cadTarefaDash(value, tipo) {
-    // SE FOR O CADASTRO DE UM CARD, VALUE SERÁ NULO
-    if (!$.isEmptyObject(value)) {
-        $('#txtIdCabec').val(value.id_cabec);
-    }
-
-    if (tipo == 'tarefa') {
-        $('#slTarefaStatus').html('').append(`<option value="A">Aguardando</option>
-        <option value="P">Pendente</option>
-        <option value="I">Iniciada</option> 
-        <option value="E">Executando</option>
-        <option value="C">Concluída</option>
-        <option value="R">Revisada</option>`).selectpicker('refresh');
-    } else {
-        $('#slTarefaStatus').html('').append(`<option value="A">Aguardando</option>
-        <option value="P">Pendente</option>
-        <option value="E">Executando</option>
-        <option value="C">Concluída</option>
-        <option value="R">Revisada</option>`).selectpicker('refresh');
-    }
-
-    $('#ModalTarefas').modal('show');
-}
 
 function cadAtividadeDash(value) {
     $('#ativDepto').addClass('d-none');
@@ -1933,17 +1440,21 @@ function altEtapasDash(value) {
     $('#ModalEtapas').modal('show');
 }
 
+
+
+
+
 function situation(value, row) {
     if (value == 'A') {
-        return ` <button class="btn btn-warning btn-sm px-2 py-0 m-0" style="font-size: 10px; cursor: default;">Aguar.</button>`;
+        return ` <button class="btn btn-warning btn-sm px-2 py-0 m-0" style="font-size: 10px;">Aguardendo</button>`;
     } else if (value == `P`) {
-        return ` <button class=" btn btn-danger btn-sm px-2 py-0 m-0" style="font-size: 10px; cursor: default; margin: 40px: !important">Pend.</button>`;
+        return ` <button class=" btn btn-danger btn-sm px-2 py-0 m-0" style="font-size: 10px; margin: 40px: !important">Pendente</button>`;
     } else if (value == `E`) {
-        return ` <button class=" btn btn-dark btn-sm px-2 py-0 m-0" style="font-size: 10px; cursor: default;">Exec.</button>`;
+        return ` <button class=" btn btn-dark btn-sm px-2 py-0 m-0" style="font-size: 10px;">Executando</button>`;
     } else if (value == `C`) {
-        return ` <button class=" btn btn-success btn-sm px-2 py-0 m-0" style="font-size: 10px; cursor: default;">Conc.</button>`;
+        return ` <button class=" btn btn-success btn-sm px-2 py-0 m-0" style="font-size: 10px;">Concluida</button>`;
     } else if (value == `I`) {
-        return ` <button class=" btn btn-info btn-sm px-2 py-0 m-0" style="font-size: 10px; cursor: default;">Inic.</button>`;
+        return ` <button class=" btn btn-info btn-sm px-2 py-0 m-0" style="font-size: 10px;">Iniciada</button>`;
     }
 }
 
@@ -1966,7 +1477,7 @@ function altProjeto(value) {
     $('#txtNomeProjeto ').val(value.nomeProjeto);
     $('#txtDescProjeto').val(value.descrPropjeto);
     $('#txtDataFimProjeto').val(value.dtEntregaProjetoE);
-    $('#slRespProjeto').selectpicker('val', value.idResponsavel); 
+    $('#slRespProjeto').selectpicker('val', value.idResponsavel);
     $('#slDepProjeto').selectpicker('val', value.id_departamento);
     $('#ModalProjeto').modal('show');
 }
