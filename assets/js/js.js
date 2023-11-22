@@ -861,6 +861,11 @@ function selectProjetos(value, opt) {
 // DATA: 09/02/2023                   
 ////////////////////////////////////////
 function selectEtapas(value, etapa) {
+
+    if($('#slAtivProjeto').val() == ''){
+        return;
+    }
+
     $.ajax({
         url: base_url + "etapas/retEtapas",
         type: 'POST',
@@ -950,26 +955,32 @@ function situacao(value) {
 var subURL = window.location.href;
 var myarr = subURL.split("/");
 
-if (myarr[5] == 'projetos') {
+idc = myarr.length -1;
+console.log(myarr[4]);
+
+if (myarr[idc] == 'projetos') {
     selectDepto();
     selectUsers();
-} else if (myarr[5] == 'etapas') {
+} else if (myarr[idc] == 'etapas') {
     selectUsers();
     selectProjetos();
-} else if (myarr[5] == 'atividades') {
+} else if (myarr[idc] == 'atividades') {
     selectDepto();
     selectUsers();
-} else if (myarr[5] == '') {
+    selectProjetos();
+    // selectEtapas();
+    
+} else if (myarr[idc] == '') {
     retDashboard();
     selectDepto();
     selectUsers();
     selectProjetos();
-} else if (myarr[4] == 'dash') {
+} else if (myarr[idc] == 'dash') {
     retDashboard();
     selectDepto();
     selectUsers();
     selectProjetos();
-} else if (myarr[4] == 'tarefas') {
+} else if (myarr[idc] == 'tarefas') {
     // retDashboard();
     // selectDepto();
     retTarefas();

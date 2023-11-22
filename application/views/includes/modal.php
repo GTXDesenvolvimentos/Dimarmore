@@ -181,7 +181,7 @@
                     <div class="form-group col-12" id="ativEtapa">
                         <label class="m-0">Etapas:</label>
                         <select id="slAtivEtapas" name="slAtivEtapas" class="selectpicker form-control" data-style="btn-success">
-                            <option value="">Etapa</option>
+                            <option value="">SELECIONE O PROJETO PRIMEIRO</option>
                         </select>
                     </div>
 
