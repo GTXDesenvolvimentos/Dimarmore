@@ -49,6 +49,7 @@ class Projetos extends MY_Controller
     ////////////////////////////////////////
     public function cadProjeto()
     {
+        $anexo = null;
         $files = $_FILES['anexoProjeto'];
         if ($_FILES['anexoProjeto']['tmp_name'] !== '') {
             $anexo = md5($files['name'] . date('dmYHis')) . '.' . pathinfo($files['name'], PATHINFO_EXTENSION);

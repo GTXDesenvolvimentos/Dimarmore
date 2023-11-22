@@ -107,8 +107,8 @@
                         <div class="row">
 
                             <div class="form-group col-6">
-                                <label class="m-0">Sequencia:</label>
-                                <input type="text" class="form-control" name="SlEtaPrioridade" id="SlEtaPrioridade" placeholder="Sequencia">
+                                <label class="m-0">Sequência:</label>
+                                <input type="text" class="form-control" name="SlEtaPrioridade" id="SlEtaPrioridade" placeholder="Sequência">
                             </div>
 
                             <div class="form-group col-6">
@@ -116,7 +116,7 @@
                                 <select id="SlEtapaStatus" name="SlEtapaStatus" class="selectpicker form-control" data-style="btn-success">
                                     <option value="A">Aguardando</option>
                                     <option value="P">Pendente</option>
-                                    <option value="E">Exacutando</option>
+                                    <option value="E">Executando</option>
                                     <option value="C">Concluída</option>
                                 </select>
                             </div>
@@ -181,7 +181,7 @@
                     <div class="form-group col-12" id="ativEtapa">
                         <label class="m-0">Etapas:</label>
                         <select id="slAtivEtapas" name="slAtivEtapas" class="selectpicker form-control" data-style="btn-success">
-                            <option value="">SELECIONE O PROJETO PRIMEIRO</option>
+                            <option value="">Selecione o Projeto Primeiro</option>
                         </select>
                     </div>
 

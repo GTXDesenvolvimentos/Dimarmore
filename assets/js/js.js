@@ -909,7 +909,7 @@ function selectEtapas(value, etapa) {
 }
 
 function viewAnexo(value) {
-    if (value != '') {
+    if (value != '' && value != null) {
         return '<buttom class="btn btn-outline-primary btn-sm" onclick="modalAnexo(\'' + value + '\');"><i class="fa-regular fa-images"></i></button';
     }
 }
@@ -956,7 +956,7 @@ var subURL = window.location.href;
 var myarr = subURL.split("/");
 
 idc = myarr.length -1;
-console.log(myarr[4]);
+// console.log(myarr[4]);
 
 if (myarr[idc] == 'projetos') {
     selectDepto();

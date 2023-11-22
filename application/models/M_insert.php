@@ -15,7 +15,6 @@ class m_insert extends CI_Model
     public function cadUser($dados)
     {
 
-
         $this->db->trans_begin();
         if ($this->input->post("txtIdUser") == '') {
             $this->db->insert('tbl_users', $dados);

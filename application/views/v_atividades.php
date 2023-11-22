@@ -77,6 +77,4 @@
                 return `<button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Revisada</button>`;
             }
         }
-
-       
     </script>

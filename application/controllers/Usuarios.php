@@ -67,7 +67,7 @@ class usuarios extends MY_Controller
                     "id_users" => $this->input->post("txtIdUser"),
                     "nome" => $this->input->post("txtNomeUser"),
                     "usuario" => $this->input->post("txtEmailUser"),
-                    "senha" => $this->input->post("slNivelUser"),
+                    "senha" => md5($this->input->post("txtSenhaUser")),
                     "nivel" => $this->input->post("slNivelUser"),
                     "usucria" => $this->session->userdata('id_users')
                 );
@@ -76,7 +76,7 @@ class usuarios extends MY_Controller
                     "id_users" => $this->input->post("txtIdUser"),
                     "nome" => $this->input->post("txtNomeUser"),
                     "usuario" => $this->input->post("txtEmailUser"),
-                    "senha" => $this->input->post("slNivelUser"),
+                    "senha" => md5($this->input->post("txtSenhaUser")),
                     "nivel" => $this->input->post("slNivelUser"),
                     "usucria" => $this->session->userdata('id_users')
                 );

@@ -156,6 +156,11 @@ class M_retorno extends CI_Model
     ////////////////////////////////////////
     public function retAtividades($id_atividade = null, $id_etapa = null, $id_departamento = null, $id_projeto = null, $responsavel = null)
     {
+        // echo '<pre>';
+        // print_r($_SESSION);
+        // echo '</pre>';
+        // exit;
+
         //RETORNO DE TABELA ATIVIDADE
         $this->db->select('A.id_atividade id_atividade');
         $this->db->select('A.atividade as nomeAtividade, CONCAT(CONCAT(A.atividade, " - "), A.descricao) as atividade');
@@ -208,6 +213,9 @@ class M_retorno extends CI_Model
         isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
         isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $this->session->userdata('id_users')) : '';
         isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('A.id_etapa', $id_etapa) : '';
+
+        // $this->session->userdata('id_users') == 1 ? '' : $this->db->where('A.responsavel', $this->session->userdata('id_users'));
+
         $this->db->join("tbl_etapas E", "A.id_etapa = E.id_etapa", "inner");
         $this->db->join("tbl_users D", "A.responsavel = D.id_users", "inner");
         $this->db->join("tbl_projetos B", "B.id_projeto = E.id_projeto", "inner");
@@ -215,6 +223,10 @@ class M_retorno extends CI_Model
         $this->db->where('A.status !=', 'D');
         $this->db->order_by("A.data_fim", "asc");
         $retorno = $this->db->get('tbl_atividades A');
+
+        // echo $this->db->last_query();
+        // exit;
+
         return $retorno->result();
     }
 
