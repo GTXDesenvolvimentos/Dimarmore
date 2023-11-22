@@ -967,7 +967,7 @@ if (myarr[idc] == 'projetos') {
 } else if (myarr[idc] == 'atividades') {
     selectDepto();
     selectUsers();
-    selectProjetos();
+    // selectProjetos();
     // selectEtapas();
     
 } else if (myarr[idc] == '') {
@@ -1881,6 +1881,9 @@ function altCabec(value, tipo) {
 }
 
 function altAtividade(value) {
+
+    // console.log(value);
+
     $('#txtIdAtividade').val(value.id_atividade);
     $('#slAtivDepto').selectpicker('val', value.id_departamento);
 
@@ -1891,7 +1894,7 @@ function altAtividade(value) {
 
     $('#txtNomeAtividade').val(value.nomeAtividade);
     $('#txtDescAtividade').val(value.descrAtividade);
-    $('#slRespAtividade').selectpicker('val', value.id_responsavel);
+    $('#slRespAtividade').selectpicker('val', value.idResponsavel);
     $('#slAtivStatus').selectpicker('val', value.sitAtividade);
     if (typeof (value.dtEntregaAtividade) == 'string') {
         $('#txtDataFimAtividade').val((value.dtEntregaAtividade).split('/').reverse().join('-'));

@@ -214,7 +214,7 @@ class M_retorno extends CI_Model
         isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $this->session->userdata('id_users')) : '';
         isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('A.id_etapa', $id_etapa) : '';
 
-        // $this->session->userdata('id_users') == 1 ? '' : $this->db->where('A.responsavel', $this->session->userdata('id_users'));
+        $this->session->userdata('nivel') == 1 ? '' : $this->db->where('A.responsavel', $this->session->userdata('id_users'));
 
         $this->db->join("tbl_etapas E", "A.id_etapa = E.id_etapa", "inner");
         $this->db->join("tbl_users D", "A.responsavel = D.id_users", "inner");
@@ -310,14 +310,24 @@ class M_retorno extends CI_Model
         $cabec_tarefas = $this->db->get('tbl_cabec_tarefas');
         $cabec_tarefas = $cabec_tarefas->result();
 
-        foreach ($cabec_tarefas as $cabec) {
+        foreach ($cabec_tarefas as $key => $cabec) {
 
             $this->db->where('id_cabec =', $cabec->id_cabec);
             $this->db->where('status !=', 'D');
             $this->db->where("situacao !=", 'R');
             $this->db->order_by('id_tarefa');
+
+            $this->session->userdata('nivel') == 1 ? '' : $this->db->where('responsavel', $this->session->userdata('id_users'));
+
             $tarefas = $this->db->get('tbl_user_tarefas');
-            $cabec->tarefas = $tarefas->result();
+
+            if ($tarefas->num_rows() > 0) {
+                $cabec->tarefas = $tarefas->result();
+            } else {
+                if ($cabec->responsavel != $this->session->userdata('id_users') && $this->session->userdata('nivel') != 1) {
+                    unset($cabec_tarefas[$key]);
+                }
+            }
         }
 
         return $cabec_tarefas;

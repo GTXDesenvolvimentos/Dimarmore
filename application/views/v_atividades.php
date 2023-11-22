@@ -41,26 +41,28 @@
             return `<button type="button" class="btn btn-outline-success btn-sm" onclick='buscaHistorico(` + row.id_atividade + `)'><i class="fas fa-search"></i></button>`;
         }
 
-        function altAtividade(value) {
+        // function altAtividade(value) {
 
-            $('#txtIdAtividade').val(value.id_atividade);
-            $('#slAtivDepto').selectpicker('val', value.id_departamento);
+        //     console.log(value);
 
-            selectProjetos(value.id_departamento, {
-                projeto: value.id_projeto,
-                etapa: value.id_etapa
-            })
+        //     $('#txtIdAtividade').val(value.id_atividade);
+        //     $('#slAtivDepto').selectpicker('val', value.id_departamento);
 
-            $('#txtNomeAtividade').val(value.nomeAtividade);
-            $('#txtDescAtividade').val(value.descrAtividade);
-            $('#slRespAtividade').selectpicker('val', value.id_responsavel);
-            $('#slAtivStatus').selectpicker('val', value.sitAtividade);
+        //     selectProjetos(value.id_departamento, {
+        //         projeto: value.id_projeto,
+        //         etapa: value.id_etapa
+        //     })
 
-            if (typeof(value.dtEntregaAtividade) == 'string') {
-                $('#txtDataFimAtividade').val((value.dtEntregaAtividade).split('/').reverse().join('-'));
-            }
-            $('#ModalAtividades').modal('show');
-        }
+        //     $('#txtNomeAtividade').val(value.nomeAtividade);
+        //     $('#txtDescAtividade').val(value.descrAtividade);
+        //     $('#slRespAtividade').selectpicker('val', value.id_responsavel);
+        //     $('#slAtivStatus').selectpicker('val', value.sitAtividade);
+
+        //     if (typeof(value.dtEntregaAtividade) == 'string') {
+        //         $('#txtDataFimAtividade').val((value.dtEntregaAtividade).split('/').reverse().join('-'));
+        //     }
+        //     $('#ModalAtividades').modal('show');
+        // }
 
         function situation1(value, row) {
             if (value == 'A') {

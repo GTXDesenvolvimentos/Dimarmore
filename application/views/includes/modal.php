@@ -174,7 +174,7 @@
                     <div class="form-group col-12" id="ativProjeto">
                         <label class="m-0">Projetos:</label>
                         <select id="slAtivProjeto" name="slAtivProjeto" class="selectpicker form-control" data-style="btn-success" onchange="selectEtapas (this.value)">
-                            <option value="">Projeto</option>
+                            <option value="">Selecione o Departamento Primeiro</option>
                         </select>
                     </div>
 
@@ -195,6 +195,7 @@
                         <textarea type="text" class="form-control" name="txtDescAtividade" id="txtDescAtividade" placeholder="Descrição da atividade"></textarea>
                     </div>
                     <div class="form-group col-12">
+                    <label class="m-0">Responsável:</label>
                         <select id="slRespAtividade" name="slRespAtividade" class="selectpicker form-control" data-style="btn-success">
                             <option value="">Responsável</option>
                         </select>
