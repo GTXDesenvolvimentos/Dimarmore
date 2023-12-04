@@ -122,4 +122,29 @@ class M_delete extends CI_Model
         }
         return $return;
     }
+
+    public function delAtividade($id_atividade)
+    {
+
+        $this->db->trans_begin();
+        $this->db->where('id_atividade', $id_atividade);
+        $dados = array('status' => 'D');
+        $this->db->update('tbl_atividades', $dados);
+
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+            $return = array(
+                'code' => 0,
+                'message' => "Erro ao deletar o atividade!"
+            );
+        } else {
+            $this->db->trans_commit();
+            $return = array(
+                'code' => 1,
+                'message' => "Atividade deletada com sucesso!"
+            );
+        }
+        
+        return $return;
+    }
 }

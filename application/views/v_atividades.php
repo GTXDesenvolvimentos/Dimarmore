@@ -1,3 +1,10 @@
+<style>
+    .disabled {
+        pointer-events: none;
+        touch-action: none;
+    }
+</style>
+
 <div class="container-fluid mt-2 p-2">
     <div class="row mt-1">
         <div class="col-12 p-0">
@@ -34,7 +41,14 @@
         reabre_modal = 0;
 
         function optAtividade(index, row) {
-            return `<button type="button" class="btn btn-outline-success btn-sm" onclick='altAtividade(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delAtividade(' + row.id_atividade + ');"><i class="fas fa-trash-alt"></i></button>`;
+
+            if (row.sitAtividade == 'R') {
+                ret = `<button type="button" class="btn btn-secondary btn-sm disabled" ><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-secondary btn-sm disabled"><i class="fas fa-trash-alt"></i></button>`;
+            } else {
+                ret = `<button type="button" class="btn btn-outline-success btn-sm" onclick='altAtividade(` + JSON.stringify(row) + `);'><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-outline-danger btn-sm" onclick="delAtividade(' + row.id_atividade + ');"><i class="fas fa-trash-alt"></i></button>`;
+            }
+
+            return ret;
         }
 
         function viewHistoric(index, row) {
@@ -69,14 +83,14 @@
                 return `<button class="btn btn-sm btn-outline-dark btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Aguardando</button>`;
             } else if (value == `P`) {
                 return `<button class="btn btn-sm btn-outline-danger btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Pendente</button>`;
-            } else if (value == `E`) {
+            } else if (value == `I`) {
                 return `<button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Iniciada</button>`;
             } else if (value == `C`) {
                 return `<button class="btn btn-sm btn-outline-success btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Concluída</button>`;
-            } else if (value == `I`) {
+            } else if (value == `E`) {
                 return `<button class="btn btn-sm btn-outline-warning btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Executando</button>`;
             } else if (value == `R`) {
-                return `<button class="btn btn-sm btn-outline-primary btn-block" data-toggle="modal" data-target="#modalAltSituacao" onclick='posicionaValor(` + JSON.stringify(row) + `)'>Revisada</button>`;
+                return `<button class="btn btn-sm btn-secondary btn-block disabled" style="cursor: auto;">Revisada</button>`;
             }
         }
     </script>

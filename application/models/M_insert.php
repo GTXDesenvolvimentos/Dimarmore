@@ -200,6 +200,159 @@ class m_insert extends CI_Model
     public function cadAtividades($dados)
     {
         $this->db->trans_begin();
+
+        // VERIFICAR DEMAIS ATIVIDADES PARA A ETAPA ESCOLHIDA
+        $this->db->select('id_atividade,
+                            CASE situacao 
+                                WHEN "I" THEN "E"
+                                WHEN "E" THEN "E"
+                                WHEN "P" THEN "P"
+                                WHEN "A" THEN "P"
+                                WHEN "C" THEN "C"
+                                WHEN "R" THEN "R"
+                            END as situacao', FALSE);
+
+        $this->db->from('tbl_atividades');
+        $this->db->where('id_etapa', $dados['id_etapa']);
+        $cons = $this->db->get();
+
+        // DEFINE SITUAÇÃO QUE ETAPA RECEBE NO UPDATE
+        $situacao = in_array($dados['situacao'], ['P', 'A']) ? 'P' : '';
+        $situacao = in_array($dados['situacao'], ['I', 'E']) ? 'E' : '';
+        $situacao = $situacao == '' ? $dados['situacao'] : $situacao;
+
+        $update = array(
+            'situacao' => $situacao
+        );
+
+        // VERIFICAR SE A ATIVIDADE PRESENTE É A PRIMEIRA DA ETAPA
+        if ($cons->num_rows() > 0) {
+            // NÃO É A PRIMEIRA, PORTANTO, VERIFICAR SE TODAS AS EXISTENTES POSSUEM A MESMA SITUAÇÃO
+
+            $cons = $cons->result();
+
+            // ARRAY DE TODAS AS SITUAÇÕES JÁ EXISTENTES
+            foreach ($cons as $linha) {
+                $status[] = $linha->situacao;
+            }
+
+            $this->db->select('situacao');
+            $this->db->where('id_etapa', $dados['id_etapa']);
+            $status_etapa = $this->db->get('tbl_etapas');
+
+            // ATUAL SITUAÇÃO DA ETAPA
+            $status_etapa = $status_etapa->row()->situacao;
+
+            if (count(array_unique($status)) == 1) { // SE TODOS AS SITUAÇÕES DE ATIVIDADE IGUAIS...
+                if ($status[0] == $situacao) {
+                    /* 
+                     *  NÃO HAVERÁ ALTERAÇÃO NA TABELA DE ETAPA
+                     *  POIS NOVA SITUAÇÃO DE ATIVIDADE É IGUAL A TODAS AS OUTRAS
+                     */
+                } else {
+
+                    // CONTAGEM DE QUANTAS ATIVIDADES TEM A ETAPA
+                    // CONTAR QUANTAS SITUAÇÕES DE ATIVIDADES QUE EXISTEM NA ETAPA, SE FOR 1 ...
+                    if (count($status) == 1) {
+
+                        if ($this->input->post("txtIdAtividade") == '') { // VERIFICAR SE É UMA CRIAÇÃO DE ATIVIDADE
+                            if ($status[0] == $situacao) {
+                                /* NADA */
+                            } else {
+                                /* ATUALIZAR ETAPA PARA EXECUTANDO */
+                                $this->db->where('id_etapa', $dados['id_etapa']);
+                                $this->db->update('tbl_etapas', ['situacao' => 'E']);
+
+                                if ($this->db->trans_status() === FALSE) {
+                                    $this->db->trans_rollback();
+                                    $return = array(
+                                        'code' => 0,
+                                        'message' => "Não Foi Possível Atualizar a Situação da Etapa da Atividade."
+                                    );
+
+                                    return $return;
+                                }
+                            }
+                        } else { // SE ATIVIDADE ESTIVER SENDO EDITADA, A SITUAÇÃO DA ETAPA VAI SEGUIR A DESSA ATIVIDADE POIS SÓ EXISTE ELA
+
+                            $this->db->where('id_etapa', $dados['id_etapa']);
+                            $this->db->update('tbl_etapas', $update);
+
+                            if ($this->db->trans_status() === FALSE) {
+                                $this->db->trans_rollback();
+                                $return = array(
+                                    'code' => 0,
+                                    'message' => "Não Foi Possível Atualizar a Situação da Etapa da Atividade."
+                                );
+
+                                return $return;
+                            }
+                        }
+                    } else {
+
+                        // SE A SITUAÇÃO DA ETAPA FOR PENDENTE E SITUAÇÃO DA ATIVIDADE TRABALHADA FOR CONCLUÍDA, REVISADA, INICIADA OU EXECUTANDO
+                        if ($status_etapa == 'P' && in_array($dados['situacao'], ['C', 'R', 'I', 'E'])) {
+                            // ATUALIZAR ETAPA PARA SIT. E
+
+                            $this->db->where('id_etapa', $dados['id_etapa']);
+                            $this->db->update('tbl_etapas', ['situacao' => 'E']);
+
+                            if ($this->db->trans_status() === FALSE) {
+                                $this->db->trans_rollback();
+                                $return = array(
+                                    'code' => 0,
+                                    'message' => "Não Foi Possível Atualizar a Situação da Etapa da Atividade."
+                                );
+
+                                return $return;
+                            }
+                        } else if ($status_etapa == 'C' && in_array($dados['situacao'], ['R', 'C']) === false) {
+                            // ATUALIZAR ETAPA PARA SIT. E
+
+                            $this->db->where('id_etapa', $dados['id_etapa']);
+                            $this->db->update('tbl_etapas', ['situacao' => 'E']);
+
+                            if ($this->db->trans_status() === FALSE) {
+                                $this->db->trans_rollback();
+                                $return = array(
+                                    'code' => 0,
+                                    'message' => "Não Foi Possível Atualizar a Situação da Etapa da Atividade."
+                                );
+
+                                return $return;
+                            }
+                        }
+
+                        // SE ELE ESTIVER PENDENTE, ATUALIZA SE ESTATUS SE AGORA FOR CONCLUIDO, EXECUTANDO INICIADO, REVISADO PARA EXECUTANDO
+
+
+                    }
+
+                    // SE ESTIVER CONCLUIDO, E STATUS ATUAL É DIFERENTE DE CONCLUÍDO
+                    // SE FOR REVISADA, NÃO ATUALIZA
+                    // SE FOR OUTRO ATUALIZA ETAPA PARA EXECUTANDO
+                }
+            } else {
+                // HABILITA VERIFICAÇÃO DA SITUAÇÃO DA ETAPA APÓS UPDATE DA ATIVIDADE
+                $executar = true;
+            }
+        } else { // É A PRIMEIRA ATIVIDADE DA ETAPA, PORTANTO, SUA SITUAÇÃO DEVE SE REFLETIR NA SITUAÇÃO DA ETAPA
+
+            $this->db->where('id_etapa', $dados['id_etapa']);
+            $this->db->update('tbl_etapas', $update);
+
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+                $return = array(
+                    'code' => 0,
+                    'message' => "Não Foi Possível Atualizar a Situação da Etapa da Atividade."
+                );
+
+                return $return;
+            }
+        }
+
+        /* INSERT OU UPDATE DE ATIVIDADE */
         if ($this->input->post("txtIdAtividade") == '') {
             $this->db->insert('tbl_atividades', $dados);
             if ($this->db->trans_status() === FALSE) {
@@ -208,8 +361,9 @@ class m_insert extends CI_Model
                     'code' => 0,
                     'message' => "Erro ao gravar os dados!"
                 );
+
+                return $return;
             } else {
-                $this->db->trans_commit();
                 $return = array(
                     'code' => 1,
                     'message' => "Atividade cadastrada com sucesso!"
@@ -224,14 +378,89 @@ class m_insert extends CI_Model
                     'code' => 0,
                     'message' => "Erro ao atualizar os dados!"
                 );
+
+                return $return;
             } else {
-                $this->db->trans_commit();
                 $return = array(
                     'code' => 1,
                     'message' => "Atividade atualizada com sucesso!"
                 );
             }
         }
+
+        if (isset($executar)) {
+            $this->db->select('id_atividade,
+            CASE situacao 
+                WHEN "I" THEN "E"
+                WHEN "E" THEN "E"
+                WHEN "P" THEN "P"
+                WHEN "A" THEN "P"
+                WHEN "C" THEN "C"
+                WHEN "R" THEN "R"
+            END as situacao', FALSE);
+            $this->db->from('tbl_atividades');
+            $this->db->where('id_etapa', $dados['id_etapa']);
+            $cons = $this->db->get();
+
+            // RESETAR VARIÁVEL
+            unset($status);
+
+            foreach ($cons->result() as $linha) {
+                $status[] = $linha->situacao;
+            }
+
+            // SE APÓS CRIAÇÃO / EDIÇÃO DE ATIVIDADE, TODAS POSSUÍREM A MESMA SITUAÇÃO
+            if (count(array_unique($status)) == 1) {
+                /* ATUALIZAR ETAPA PARA SITUAÇÃO DA NOVA ATIVIDADE, SE ATUAL SITUAÇÃO DE ETAPA DIFERIR */
+                if ($status_etapa != $situacao) {
+                    $this->db->where('id_etapa', $dados['id_etapa']);
+                    $this->db->update('tbl_etapas', $update);
+
+                    if ($this->db->trans_status() === FALSE) {
+                        $this->db->trans_rollback();
+                        $return = array(
+                            'code' => 0,
+                            'message' => "Não Foi Possível Atualizar a Situação da Etapa da Atividade."
+                        );
+
+                        return $return;
+                    }
+                }
+            } else {
+                /* ATUALIZAR ETAPA PARA SITUAÇÃO DE EXECUTANDO, SE ALGUMA ATIVIDADE FOR PENDENTE OU EXECUTANDO */
+                if (in_array('P', $status) || in_array('E', $status)) {
+                    if ($status_etapa != 'E') {
+                        $this->db->where('id_etapa', $dados['id_etapa']);
+                        $this->db->update('tbl_etapas', ['situacao' => 'E']);
+
+                        if ($this->db->trans_status() === FALSE) {
+                            $this->db->trans_rollback();
+                            $return = array(
+                                'code' => 0,
+                                'message' => "Não Foi Possível Atualizar a Situação da Etapa da Atividade."
+                            );
+
+                            return $return;
+                        }
+                    }
+                } else {
+                    $this->db->where('id_etapa', $dados['id_etapa']);
+                    $this->db->update('tbl_etapas', ['situacao' => 'C']);
+
+                    if ($this->db->trans_status() === FALSE) {
+                        $this->db->trans_rollback();
+                        $return = array(
+                            'code' => 0,
+                            'message' => "Não Foi Possível Atualizar a Situação da Etapa da Atividade."
+                        );
+
+                        return $return;
+                    }
+                }
+            }
+        }
+        // SE CHEGAR AQUI, TUDO OCORREU SEM ERROS
+        $this->db->trans_commit();
         return $return;
     }
 
@@ -380,6 +609,7 @@ class m_insert extends CI_Model
     ////////////////////////////////////////   
     public function altsituacao($dados)
     {
+
         $this->db->where('id_atividade', $dados['id_atividade']);
         $this->db->select('max(seq) as sequencia');
         $seq = $this->db->get('tbl_status_atividades');
@@ -411,7 +641,7 @@ class m_insert extends CI_Model
             $this->db->trans_commit();
             $return = array(
                 'code' => 1,
-                'message' => "Atividade cadastrada com sucesso!"
+                'message' => "Situação atualizada com sucesso!"
             );
         }
 

@@ -143,7 +143,8 @@ class M_retorno extends CI_Model
         isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('A.id_etapa', $id_etapa) : '';
         $this->db->join("tbl_projetos B", "A.id_projeto = B.id_projeto", "inner");
         $this->db->join("tbl_departamentos C", "B.id_departamento = C.id_departamento", "inner");
-        $this->db->where('A.status !=', 'D');
+        // $this->db->where('A.status !=', 'D');
+        $this->db->where_not_in('A.status', array('D', 'R'));
         $retorno = $this->db->get('tbl_etapas A');
         return $retorno;
     }
@@ -366,6 +367,254 @@ class M_retorno extends CI_Model
         $this->db->select('*, DATE_FORMAT(data, "%d/%m/%Y") as reg_data');
         $retorno = $this->db->get('tbl_status_atividades');
         $retorno = $retorno->result();
+
+        return $retorno;
+    }
+
+    public function filtro($filtro)
+    {
+        // $this->db->order_by('seq desc');
+        // $this->db->where('id_atividade', $dados['id_atividade']);
+        // $this->db->select('*, DATE_FORMAT(data, "%d/%m/%Y") as reg_data');
+        // $retorno = $this->db->get('tbl_status_atividades');
+        // $retorno = $retorno->result();
+
+
+        // $this->db->select('*');
+        // $this->db->from('tbl_atividades');
+        // $this->db->where('situacao', 'C');
+        // $this->db->where('status !=', 'D');
+        // $this->db->where('responsavel', $this->session->userdata('id_users'));
+        // $this->db->order_by('data_update', 'ASC');
+        // $cons = $this->db->get();
+
+        // $cons = $cons->result();
+
+        if ($filtro == 'aberto') {
+
+            // BUSCA DATAS DE ENTREGA DE ATIVIDADES ATIVAS E NÃO CONCLUÍDAS
+            // $this->db->select("DATE_FORMAT(data_fim, '%d/%m/%Y') as dtEntregaAtividade, data_fim");
+            // $this->db->from('tbl_atividades');
+            // $this->db->where_not_in('situacao', array('R', 'C'));
+            // $this->db->where('status !=', 'D');
+            // $this->db->group_by('data_fim');
+            // $this->db->order_by('data_fim', 'ASC');
+            // $cons = $this->db->get();
+
+            // $cons = ;
+
+            // foreach ($cons->result() as &$linha) {
+            // $linha->data_fim;
+
+            //     $this->db->select('*');
+            //     $this->db->from('tbl_atividades');
+            //     $this->db->where_not_in('situacao', array('R', 'C'));
+            //     $this->db->where('status !=', 'D');
+            //     $this->db->where('data_fim', $linha->data_fim);
+            //     $atividades = $this->db->get();
+
+            //     $linha->atividades = $atividades->result();
+            // }
+
+
+            /* POSTERIORMENTE TAREFAS E ATIVIDADES DEVERÃO SER EXIBIDAS NA HOME, QUERY DE UNIÃO: (VAI PRECISAR DESSA UNIÃO PARA TODOS OS FILTROS)
+            SELECT id_tarefa, nome_tarefa, descricao, prioridade, responsavel, situacao, data_fim, data_inicio, data_update, anexo, 'tarefa' as tipo from gtxso802_dimarmore.tbl_user_tarefas union
+            SELECT id_atividade, atividade, descricao, prioridade, responsavel, situacao, data_fim, data_inicio, data_update, anexo, 'atividade' as tipo FROM gtxso802_dimarmore.tbl_atividades;
+            */
+
+
+            // ATIVIDADES DO DIA
+            // $this->db->select('DATE_FORMAT(data_fim, "%d/%m/%Y") as dtEntregaAtividade, data_fim');
+            // $this->db->select('situacao as sitAtividade');
+            // $this->db->from('tbl_atividades');
+            // $this->db->where_not_in('situacao', array('R', 'C'));
+            // $this->db->where('status !=', 'D');
+            // $this->db->where('data_fim', date('Y-m-d'));
+            // $ativ_dia = $this->db->get();
+            // $ativ_dia = $ativ_dia->result();
+
+            $this->db->select("P.nome nomeProjeto, E.etapa nomeEtapa, DATE_FORMAT(A.data_fim, '%d/%m/%Y') as dtEntregaAtividade, A.situacao as sitAtividade, CONCAT(A.atividade, ' - ', A.descricao) atividade, A.atividade nomeAtividade, A.descricao descrAtividade, CONCAT(E.etapa, ' - ', E.descricao) as etapa, CONCAT(P.nome, ' - ', P.descricao) as projeto, A.anexo as anexoAtividade, A.responsavel as idResponsavel, P.id_projeto, A.id_etapa, A.id_atividade, P.id_departamento");
+            $this->db->from('tbl_atividades A, tbl_etapas E, tbl_projetos P');
+            $this->db->where('A.id_etapa = E.id_etapa and E.id_projeto = P.id_projeto');
+            $this->db->where_not_in('A.situacao', array('R', 'C'));
+            $this->db->where('A.status !=', 'D');
+            $this->db->where('A.data_fim', date('Y-m-d'));
+            $ativ_dia = $this->db->get();
+            $ativ_dia = $ativ_dia->result();
+
+            // AGRUPAMENTO DE DATA DE ATRASOS
+            $this->db->select("CONCAT('<span>', DATE_FORMAT(data_fim, '%d/%m/%Y'), '</span>') as dtEntregaAtividade, data_fim");
+            $this->db->from('tbl_atividades');
+            $this->db->where_not_in('situacao', array('R', 'C'));
+            $this->db->where('status !=', 'D');
+            $this->db->where('data_fim <', date('Y-m-d'));
+            $this->db->group_by('data_fim');
+            $this->db->order_by('data_fim', 'ASC');
+            $dt_atraso = $this->db->get();
+            $dt_atraso = $dt_atraso->result();
+
+            // AGRUPAMENTO DE DATA FUTURA 
+            $this->db->select("DATE_FORMAT(data_fim, '%d/%m/%Y') as dtEntregaAtividade, data_fim");
+            $this->db->from('tbl_atividades');
+            $this->db->where_not_in('situacao', array('R', 'C'));
+            $this->db->where('status !=', 'D');
+            $this->db->where('data_fim >', date('Y-m-d'));
+            $this->db->group_by('data_fim');
+            $this->db->order_by('data_fim', 'ASC');
+            $dt_futura = $this->db->get();
+            $dt_futura = $dt_futura->result();
+
+            foreach ($dt_atraso as &$linha) {
+
+                $this->db->select("P.nome nomeProjeto, E.etapa nomeEtapa, A.data_fim, DATE_FORMAT(A.data_fim, '%d/%m/%Y') as dtEntregaAtividade, A.situacao as sitAtividade, CONCAT(A.atividade, ' - ', A.descricao) atividade, A.atividade nomeAtividade, A.descricao descrAtividade, CONCAT(E.etapa, ' - ', E.descricao) as etapa, CONCAT(P.nome, ' - ', P.descricao) as projeto, A.anexo as anexoAtividade, A.responsavel as idResponsavel, P.id_projeto, A.id_etapa, A.id_atividade, P.id_departamento");
+                $this->db->from('tbl_atividades A, tbl_etapas E, tbl_projetos P');
+                $this->db->where('A.id_etapa = E.id_etapa and E.id_projeto = P.id_projeto');
+                $this->db->where_not_in('A.situacao', array('R', 'C'));
+                $this->db->where('A.status !=', 'D');
+                $this->db->where('A.data_fim', $linha->data_fim);
+                $atividades = $this->db->get();
+
+                $linha->atividades = $atividades->result();
+            }
+
+            foreach ($dt_futura as &$linha) {
+
+                $this->db->select("P.nome nomeProjeto, E.etapa nomeEtapa, A.data_fim, DATE_FORMAT(A.data_fim, '%d/%m/%Y') as dtEntregaAtividade, A.situacao as sitAtividade, CONCAT(A.atividade, ' - ', A.descricao) atividade, A.atividade nomeAtividade, A.descricao descrAtividade, CONCAT(E.etapa, ' - ', E.descricao) as etapa, CONCAT(P.nome, ' - ', P.descricao) as projeto, A.anexo as anexoAtividade, A.responsavel as idResponsavel, P.id_projeto, A.id_etapa, A.id_atividade, P.id_departamento");
+                $this->db->from('tbl_atividades A, tbl_etapas E, tbl_projetos P');
+                $this->db->where('A.id_etapa = E.id_etapa and E.id_projeto = P.id_projeto');
+                $this->db->where_not_in('A.situacao', array('R', 'C'));
+                $this->db->where('A.status !=', 'D');
+                $this->db->where('A.data_fim', $linha->data_fim);
+                $atividades = $this->db->get();
+
+                $linha->atividades = $atividades->result();
+            }
+
+
+            // ATIVIDADES ATRASADAS
+            // $this->db->select('*');
+            // $this->db->from('tbl_atividades');
+            // $this->db->where_not_in('situacao', array('R', 'C'));
+            // $this->db->where('status !=', 'D');
+            // $this->db->where('data_fim <', date('Y-m-d'));
+            // $ativ_atraso = $this->db->get();
+
+            // ATIVIDADES FUTURAS
+            // $this->db->select('*');
+            // $this->db->from('tbl_atividades');
+            // $this->db->where_not_in('situacao', array('R', 'C'));
+            // $this->db->where('status !=', 'D');
+            // $this->db->where('data_fim >', date('Y-m-d'));
+            // $ativ_futura = $this->db->get();
+
+
+            // echo '<pre>';
+            // print_r($ativ_dia->result());
+            // echo '</pre>';
+            // exit;
+
+            $retorno = array(
+                'atraso' => $dt_atraso,
+                'diario' => $ativ_dia,
+                'futuro' => $dt_futura
+            );
+
+
+
+            // $retorno = $cons;
+        } else {
+
+            // echo '<pre>';
+            // print_r($cons);
+            // echo '</pre>';
+            // exit;
+
+            $this->db->select('A.id_atividade id_atividade');
+            $this->db->select('A.atividade as nomeAtividade, CONCAT(CONCAT(A.atividade, " - "), A.descricao) as atividade');
+            $this->db->select('A.descricao as descrAtividade');
+            $this->db->select('A.prioridade as priorAtividade');
+            $this->db->select('A.responsavel as respAtividade');
+            $this->db->select('A.situacao as sitAtividade');
+            $this->db->select('A.anexo as anexoAtividade');
+            $this->db->select('A.dtcria as dtcriaAtividade');
+            $this->db->select('A.status as statusAtividade');
+            $this->db->select('A.usucria as usucriaAtividade');
+            $this->db->select('A.data_fim as dtEntregaAtividadeE');
+            $this->db->select("DATE_FORMAT(A.data_fim, '%d/%m/%Y') AS dtEntregaAtividade", FALSE);
+            //RETORNO DE TABELA ETAPAS
+            $this->db->select('E.id_etapa as id_etapa');
+            $this->db->select('E.etapa as nomeEtapa, CONCAT(CONCAT(E.etapa, " - "), E.descricao) as etapa');
+            $this->db->select('E.descricao as descrEtapa');
+            $this->db->select('E.prioridade as priorEtapa');
+            $this->db->select('E.responsavel as respEtapa');
+            $this->db->select('E.situacao as sitEtapa');
+            $this->db->select('E.anexo as anexoEtapa');
+            $this->db->select('E.dtcria as dtcriaEtapa');
+            $this->db->select('E.status as statusEtapa');
+            $this->db->select('E.usucria as usucriaEtapa');
+            $this->db->select('E.data_fim as dtEntregaEtapaE');
+            $this->db->select("DATE_FORMAT(E.data_fim, '%d/%m/%Y') AS dtEntregaEtapa", FALSE);
+            //RETORNO DE TABELA PROJETOS
+            $this->db->select('B.id_projeto as id_projeto');
+            $this->db->select('B.id_departamento as id_departamento');
+            $this->db->select('B.responsavel as id_responsavel');
+            $this->db->select('B.nome as nomeProjeto, CONCAT(CONCAT(B.nome , " - "), B.descricao) as projeto');
+            $this->db->select("DATE_FORMAT(B.dtentrega, '%d/%m/%Y') AS dtEntregaProjeto", FALSE);
+            $this->db->select("B.dtentrega AS dtEntregaProjetoE", FALSE);
+            $this->db->select('B.descricao as descrPropjeto');
+            $this->db->select('B.data_fim as dtfimProjeto');
+            $this->db->select('B.anexo as anexoProjeto');
+            $this->db->select('B.usucria as usucriaPropjeto');
+            $this->db->select('B.situacao as situacaoPropjeto');
+            $this->db->select('B.status as statusPropjeto');
+            $this->db->select("DATE_FORMAT(A.dtcria, '%d/%m/%Y') AS dtcria", FALSE);
+            //RETORNO DE TABELA DEPARTAMENTOS
+            $this->db->select('C.id_departamento as id_departamento');
+            $this->db->select('C.cod_departamento as codDepartamento');
+            $this->db->select('C.descricao as descrDepartamento');
+            //RETORNO DE TABELA USERS - RESPONSÁVEL
+            $this->db->select('D.id_users as idResponsavel');
+            $this->db->select('D.nome as nomeResponsavel');
+            //PARAMETROS DE CONSULTAS
+            // isset($id_departamento) == true && $id_departamento != '' ? $this->db->where('C.id_departamento', $id_departamento) : '';
+            // isset($id_projeto) == true && $id_projeto != '' ? $this->db->where('A.id_projeto', $id_projeto) : '';
+            // isset($responsavel) == true && $responsavel != '' ? $this->db->where('A.responsavel', $this->session->userdata('id_users')) : '';
+            // isset($id_etapa) == true && $id_etapa != '' ? $this->db->where('A.id_etapa', $id_etapa) : '';
+
+            // $this->session->userdata('nivel') == 1 ? '' : $this->db->where('A.responsavel', $this->session->userdata('id_users'));
+
+            $this->db->join("tbl_etapas E", "A.id_etapa = E.id_etapa", "inner");
+            $this->db->join("tbl_users D", "A.responsavel = D.id_users", "inner");
+            $this->db->join("tbl_projetos B", "B.id_projeto = E.id_projeto", "inner");
+            $this->db->join("tbl_departamentos C", "B.id_departamento = C.id_departamento", "inner");
+            $this->db->where('A.status !=', 'D');
+
+
+            if ($filtro == 'revisar') {
+                $this->db->where('A.situacao', 'C');
+                $this->db->order_by("A.data_update", "asc");
+            } else if ($filtro == 'concluida') {
+                $this->db->where_in('A.situacao', ['R', 'C']);
+                $this->db->order_by("A.situacao", "asc");
+            }
+
+            // SE NÃO FOR ADM AS TAREFAS BUSCAM CONFORME USER LOGADO
+            if ($this->session->userdata('nivel') != 1) {
+                $this->db->where('A.responsavel', $this->session->userdata('id_users'));
+            }
+
+            $retorno = $this->db->get('tbl_atividades A');
+
+            $retorno = $retorno->result();
+
+
+            // echo $this->db->last_query();
+            // exit;
+
+        }
+
+
+
 
         return $retorno;
     }

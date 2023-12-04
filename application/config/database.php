@@ -97,5 +97,27 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE
+
+	// 'dsn'	=> '',
+	// 'hostname' => 'dimarmore.com.br',
+    //  'port' => 3306,
+	// 'username' => 'wwdima_tarefas',
+	// 'password' => 'tarefas@123',
+	// 'database' => 'wwdima_tarefas',
+	// 'dbdriver' => 'mysqli',
+	// 'dbprefix' => '',
+	// 'pconnect' => FALSE,
+    //     //'db_debug' => FALSE,
+	// 'db_debug' => (ENVIRONMENT !== 'Development'),
+	// 'cache_on' => FALSE,
+	// 'cachedir' => '',
+	// 'char_set' => 'utf8',
+	// 'dbcollat' => 'utf8_general_ci',
+	// 'swap_pre' => '',
+	// 'encrypt' => FALSE,
+	// 'compress' => FALSE,
+	// 'stricton' => FALSE,
+	// 'failover' => array(),
+	// 'save_queries' => TRUE
 );
 

@@ -12,10 +12,18 @@ class Home extends MY_Controller
     ////////////////////////////////////////  
     public function index()
     {
+
+        // echo '<pre>';
+        // print_r($_SESSION);
+        // echo '</pre>';
+        // exit;
+
+        $variables['nivel'] = $this->session->userdata('nivel');
+
         $this->load->model('M_retorno');
         $this->load->view('includes/header');
         $this->load->view('includes/menu_sup');
-        $this->load->view('v_home');
+        $this->load->view('v_home', $variables);
         $this->load->view('includes/modal');
         $this->load->view('includes/footer');
     }
@@ -28,7 +36,7 @@ class Home extends MY_Controller
     public function retAtividades()
     {
         $this->load->model('M_retorno');
-        $retorno = $this->M_retorno->retAtividades('','','','',$this->session->userdata('id_users'));
+        $retorno = $this->M_retorno->retAtividades('', '', '', '', $this->session->userdata('id_users'));
         echo json_encode($retorno);
     }
 
@@ -177,11 +185,33 @@ class Home extends MY_Controller
         echo json_encode($retorno);
     }
 
-    function buscaHistorico(){
+    function buscaHistorico()
+    {
         $form = $this->input->post();
 
         $this->load->model('M_retorno');
         $retorno = $this->M_retorno->buscaHistorico($form);
+        echo json_encode($retorno);
+    }
+
+    ////////////////////////////////////////
+    // RETORNO DE ATIVIDADES FILTRADAS              
+    // CRIADO POR ELIEL FELIX            
+    // DATA: 29/11/2023                 
+    ////////////////////////////////////////   
+    public function filtro()
+    {
+        $filtro = $this->input->post('tipo');
+        $this->load->model('M_retorno');
+        $retorno = $this->M_retorno->filtro($filtro);
+        echo json_encode($retorno);
+    }
+
+    public function excluir()
+    {
+        $id = $this->input->post('id_ativ');
+        $this->load->model('M_delete');
+        $retorno = $this->M_delete->delAtividade($id);
         echo json_encode($retorno);
     }
 }

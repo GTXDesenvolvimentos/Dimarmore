@@ -27,6 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //https://gtxsoftware.com.br/projetos/dimarmore/ 
 $config['base_url'] = 'http://localhost/dimarmore/';
 
+//'http://localhost/dimarmore/';
 // https://sys.dimarmore.com.br/sys/
 
 /*

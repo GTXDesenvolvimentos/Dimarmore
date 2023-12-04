@@ -20,7 +20,7 @@
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input type="checkbox" class="custom-control-input" id="customCheck">
-                                            <label class="custom-control-label">Relembrar senha</label>
+                                            <label for="customCheck" class="custom-control-label">Relembrar senha</label>
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-success btn-block p-4" id="btnLogin">Entrar</button>

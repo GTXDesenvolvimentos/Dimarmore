@@ -79,32 +79,32 @@ class Etapas extends MY_Controller
                 'message' => validation_errors()
             );
         } else {
-            if ($this->input->post("txtIdEtapa") !== '') {
-                if ($_FILES['anexoEtapa']['tmp_name'] !== '') {
+            if ($this->input->post("txtIdEtapa") !== '') { // QUANDO É UM ETAPA QUE JÁ EXISTE
+                if ($_FILES['anexoEtapa']['tmp_name'] !== '') { // QUANDO ANEXO EXISTE
                     $dados = array(
                         "id_projeto" => $this->input->post("slEtapProjeto"),
                         "etapa" => $this->input->post("txtNomeEtapa"),
                         "descricao" => $this->input->post("txtDescEtapa"),
                         "prioridade" => $this->input->post("SlEtaPrioridade"),
                         "responsavel" => '',
-                        "situacao" => $this->input->post("SlEtapaStatus"),
+                        // "situacao" => $this->input->post("SlEtapaStatus"),
                         "data_fim" => $this->input->post("txtEtaDtLimit"),
                         "anexo" => $anexo,
                         "usucria" => $this->session->userdata('id_users')
                     );
-                } else {
+                } else { // QUANDO ANEXO NÃO EXISTE
                     $dados = array(
                         "id_projeto" => $this->input->post("slEtapProjeto"),
                         "etapa" => $this->input->post("txtNomeEtapa"),
                         "descricao" => $this->input->post("txtDescEtapa"),
                         "prioridade" => $this->input->post("SlEtaPrioridade"),
                         "responsavel" => '',
-                        "situacao" => $this->input->post("SlEtapaStatus"),
+                        // "situacao" => $this->input->post("SlEtapaStatus"),
                         "data_fim" => $this->input->post("txtEtaDtLimit"),
                         "usucria" => $this->session->userdata('id_users')
                     );
                 }
-            } else {
+            } else { // QUANDO A ETAPA É NOVA
                 $dados = array(
                     "id_etapa" => $this->input->post("txtIdEtapa"),
                     "id_projeto" => $this->input->post("slEtapProjeto"),
@@ -112,7 +112,7 @@ class Etapas extends MY_Controller
                     "descricao" => $this->input->post("txtDescEtapa"),
                     "prioridade" => $this->input->post("SlEtaPrioridade"),
                     "responsavel" => '',
-                    "situacao" => $this->input->post("SlEtapaStatus"),
+                    "situacao" => 'P', //$this->input->post("SlEtapaStatus"),
                     "data_fim" => $this->input->post("txtEtaDtLimit"),
                     "anexo" => $anexo,
                     "usucria" => $this->session->userdata('id_users')

@@ -61,4 +61,5 @@
             $('#slEtapResponsavel').selectpicker("val", value.idResponsavel);
             $('#ModalEtapas').modal('show');
         }
+        
     </script>

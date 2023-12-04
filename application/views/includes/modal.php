@@ -99,19 +99,19 @@
                         <label class="m-0">Descrição:</label>
                         <textarea type="text" class="form-control" name="txtDescEtapa" id="txtDescEtapa" placeholder="Descrição da etapa"></textarea>
                     </div>
-                    <div class="form-group col-12">
-                        <label class="m-0">Data limite da etapa:</label>
-                        <input type="date" class="form-control" name="txtEtaDtLimit" id="txtEtaDtLimit" placeholder="Data limite para finalização">
-                    </div>
+
                     <div class="col-12">
                         <div class="row">
-
+                            <div class="form-group col-6">
+                                <label class="m-0">Data limite da etapa:</label>
+                                <input type="date" class="form-control" name="txtEtaDtLimit" id="txtEtaDtLimit" placeholder="Data limite para finalização">
+                            </div>
                             <div class="form-group col-6">
                                 <label class="m-0">Sequência:</label>
                                 <input type="text" class="form-control" name="SlEtaPrioridade" id="SlEtaPrioridade" placeholder="Sequência">
                             </div>
 
-                            <div class="form-group col-6">
+                            <!-- <div class="form-group col-6">
                                 <label class="m-0">Situação:</label>
                                 <select id="SlEtapaStatus" name="SlEtapaStatus" class="selectpicker form-control" data-style="btn-success">
                                     <option value="A">Aguardando</option>
@@ -119,7 +119,7 @@
                                     <option value="E">Executando</option>
                                     <option value="C">Concluída</option>
                                 </select>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="form-group col-12">
@@ -195,7 +195,7 @@
                         <textarea type="text" class="form-control" name="txtDescAtividade" id="txtDescAtividade" placeholder="Descrição da atividade"></textarea>
                     </div>
                     <div class="form-group col-12">
-                    <label class="m-0">Responsável:</label>
+                        <label class="m-0">Responsável:</label>
                         <select id="slRespAtividade" name="slRespAtividade" class="selectpicker form-control" data-style="btn-success">
                             <option value="">Responsável</option>
                         </select>
@@ -209,7 +209,7 @@
                             <option value="I">Iniciada</option>
                             <option value="E">Executando</option>
                             <option value="C">Concluída</option>
-                            <option value="R">Revisada</option>
+                            <?php if($this->session->userdata('nivel') != '2'){ echo '<option value="R">Revisada</option>';} ?>
                         </select>
                     </div>
 
@@ -320,24 +320,24 @@
                     <div class="row">
                         <div class="col-12 form-group">
                             <select name="slAltSituacao" id="slAltSituacao" class="selectpicker form-control" data-style="btn-success">
-                                <option value="A">Aguardando</option>
+                                <!-- <option value="A">Aguardando</option>
                                 <option value="P">Pendente</option>
-                                <option value="I">Iniciada</option>
+                                <option value="I">Iniciada</option>   RETIRADO POR SOLICITAÇÃO JOEL, USUARIO MUDA APENA PARA EXECUTANDO E CONCLUÍDO -->
+                                <option value="">SELECIONE</option>
                                 <option value="E">Executando</option>
                                 <option value="C">Concluída</option>
                             </select>
                         </div>
 
                         <div class="form-group col-12">
-                            <label class="m-0">Descrição:</label>
-                            <textarea type="text" class="form-control" id="txtLogDescAtividade" name="txtLogDescAtividade" placeholder="Descrição da atividade"></textarea>
+                            <label class="m-0">Observação:</label>
+                            <textarea type="text" class="form-control" id="txtLogDescAtividade" name="txtLogDescAtividade" placeholder="Opcional"></textarea>
                         </div>
 
                         <div class="form-group col-12">
                             <label class="form-label">Anexo</label>
                             <input class="form-control form-control-lg btn" id="anexoLogAtividade" name="anexoLogAtividade" type="file" />
                         </div>
-
                     </div>
                 </form>
             </div>
@@ -352,15 +352,15 @@
 
 <!-- MODAL HISTÓRICO ATIVIDADE -->
 <div class="modal fade" id="modalHistorico" class="modal fade" tabindex="-1" data-keyboard="false" data-backdrop="static">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-fullscreen modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Histórico de atividade</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body p-2">
-                <div class="table-responsive">
-                    <table class="table align-items-center table-flush" id="tableHistorico" data-toggle="table" data-flat="true" data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]">
+                <div class="table-responsive">  <!-- data-search="true" data-show-pagination-switch="true" data-pagination="true" data-show-export="true" -->
+                    <table class="table align-items-center table-flush" id="tableHistorico" data-toggle="table" data-flat="true" data-detail-formatter="detailFormatter" data-page-list="[2, 5, 25, 50, 100, ALL]">
                         <thead class="thead-light">
                             <tr>
                                 <!-- <th data-field="nomeAtividade" data-halign="center" data-align="left" data-sortable="true">Atividade</th>
@@ -450,6 +450,25 @@
                         <label class="m-0">Data limite da tarefa:</label>
                         <input type="date" class="form-control" name="txtDataFimTarefa" id="txtDataFimTarefa" placeholder="Data limite para a tarefa">
                     </div>
+
+                    <!-- <div class="form-group col-6">
+                        <label class="m-0">Recorrência:</label>
+                        <select id="sl_repetir" name="sl_repetir" class="selectpicker form-control" data-style="btn-success">
+                            <option value="NR">Não se repete</option>
+                            <option value="TD">Todos os dias</option>
+                            <option value="TS">Todas as semanas</option>
+                            <option value="TM">Todos os meses</option>
+                            <option value="TA">Todos os anos</option>
+                             <option value="PS">Personalizar</option> 
+                        </select>
+                    </div>
+                    
+                    <div class="form-group col-6">
+                        <label class="m-0">Hora limite</label>
+                        <input type="time" class="form-control" name="txt_hora" id="txt_hora" placeholder="Hora limite para a tarefa">
+                    </div> -->
+
+
 
                     <div class="form-group col-12" id="divAnexo">
                         <label class="form-label">Anexo</label>

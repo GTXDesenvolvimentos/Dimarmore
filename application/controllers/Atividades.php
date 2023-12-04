@@ -12,6 +12,12 @@ class Atividades extends MY_Controller
     ////////////////////////////////////////  
     public function index()
     {
+
+        // echo '<pre>';
+        // print_r($_SESSION);
+        // echo '</pre>';
+        // exit;
+
         $this->load->model('M_retorno');
         $this->load->view('includes/header');
         $this->load->view('includes/menu_sup');
@@ -64,13 +70,14 @@ class Atividades extends MY_Controller
         $anexo = isset($anexo) ? $anexo : '';
 
         $this->load->library('form_validation');
-        if ($this->input->post('txtIdAtividade') !== '') {
+        if ($this->input->post('txtIdAtividade') !== '') { // SE ATIVIDADE JÁ EXISTIR
             $this->form_validation->set_rules('txtNomeAtividade', 'Nome da atividade', 'required');
             $this->form_validation->set_rules('txtDescAtividade', 'Descrição', 'required');
             $this->form_validation->set_rules('slAtivDepto', 'Departamento', 'required');
             $this->form_validation->set_rules('slAtivProjeto', 'Projeto', 'required');
             $this->form_validation->set_rules('slAtivEtapas', 'Etapa', 'required');
-        } else {
+            $this->form_validation->set_rules('slAtivStatus', 'Situação', 'required');
+        } else { // SE ATIVIDADE NÃO EXISTIR
             $this->form_validation->set_rules('txtNomeAtividade', 'Nome da atividade', 'required|is_unique[tbl_etapas.etapa]');
             $this->form_validation->set_rules('txtDescAtividade', 'Descrição', 'required');
             $this->form_validation->set_rules('slRespAtividade', 'Responsável', 'required');
@@ -78,6 +85,7 @@ class Atividades extends MY_Controller
             $this->form_validation->set_rules('slAtivProjeto', 'Projeto', 'required');
             $this->form_validation->set_rules('slAtivEtapas', 'Etapa', 'required');
             $this->form_validation->set_rules('txtDataFimAtividade', 'Data', 'required');
+            $this->form_validation->set_rules('slAtivStatus', 'Situação', 'required');
         }
 
         if ($this->form_validation->run() == FALSE) {
@@ -86,8 +94,8 @@ class Atividades extends MY_Controller
                 'message' => validation_errors()
             );
         } else {
-            if ($this->input->post("txtIdAtividade") !== '') {
-                if ($_FILES['anexoAtividade']['tmp_name'] !== '') {
+            if ($this->input->post("txtIdAtividade") !== '') { // SE ATIVIDADE JÁ EXISTIR
+                if ($_FILES['anexoAtividade']['tmp_name'] !== '') { // COM ANEXO
                     $dados = array(
                         "id_atividade" => $this->input->post("txtIdAtividade"),
                         "id_etapa" => $this->input->post("slAtivEtapas"),
@@ -100,7 +108,7 @@ class Atividades extends MY_Controller
                         "anexo" => $anexo,
                         "usucria" => $this->session->userdata('id_users')
                     );
-                } else {
+                } else { // SEM ANEXO
                     $dados = array(
                         "id_atividade" => $this->input->post("txtIdAtividade"),
                         "id_etapa" => $this->input->post("slAtivEtapas"),
@@ -113,7 +121,7 @@ class Atividades extends MY_Controller
                         "usucria" => $this->session->userdata('id_users')
                     );
                 }
-            } else {
+            } else { // SE ATIVIDADE NÃO EXISTIR
                 $dados = array(
                     "id_atividade" => $this->input->post("txtIdAtividade"),
                     "id_etapa" => $this->input->post("slAtivEtapas"),
